@@ -1,0 +1,201 @@
+"ODS_Code","Partner_name","Partner_Sub_ICB_code","Partner_Sub_ICB_name","PCN_Code","PCN_Name","PCN Parent
+Sub ICB Loc Code","PCN Parent
+Sub ICB Loc Name","Practice to PCN
+Relationship
+Start Date","Practice to PCN
+Relationship
+End Date","Practice Sub ICB Loc and PCN Sub ICB Loc Match"
+"G81667","St Luke's Surgery","09D","NHS Sussex Icb - 09d","U22426","Dean's and Central Brighton PCN","09D","NHS SUSSEX ICB - 09D","20191001","20220531",TRUE
+"G81065","Woodingdean Medical Centre","09D","NHS Sussex Icb - 09d","U22426","Dean's and Central Brighton PCN","09D","NHS SUSSEX ICB - 09D","20191001","20220630",TRUE
+"G81076","Saltdean and Rottingdean Med Practice","09D","NHS Sussex Icb - 09d","U22426","Dean's and Central Brighton PCN","09D","NHS SUSSEX ICB - 09D","20191001",NA,TRUE
+"G81613","School House Surgery","09D","NHS Sussex Icb - 09d","U22426","Dean's and Central Brighton PCN","09D","NHS SUSSEX ICB - 09D","20191001",NA,TRUE
+"G81694","Ship Street Surgery","09D","NHS Sussex Icb - 09d","U22426","Dean's and Central Brighton PCN","09D","NHS SUSSEX ICB - 09D","20191001",NA,TRUE
+"G81075","The Avenue Surgery","09D","NHS Sussex Icb - 09d","U22426","Dean's and Central Brighton PCN","09D","NHS SUSSEX ICB - 09D","20191001",NA,TRUE
+"G81028","Park Crescent Health Centre","09D","NHS Sussex Icb - 09d","U07199","East & Central Brighton 1 PCN","09D","NHS SUSSEX ICB - 09D","20191001","20210331",TRUE
+"G81011","St. Peter's Medical Centre","09D","NHS Sussex Icb - 09d","U07199","East & Central Brighton 1 PCN","09D","NHS SUSSEX ICB - 09D","20191001","20210331",TRUE
+"Y06007","Wellsbourne Healthcare Cic","09D","NHS Sussex Icb - 09d","U07199","East & Central Brighton 1 PCN","09D","NHS SUSSEX ICB - 09D","20191001","20210331",TRUE
+"G81090","Albion Street Surgery","09D","NHS Sussex Icb - 09d","U54308","East & Central Brighton 2 PCN","09D","NHS SUSSEX ICB - 09D","20191001","20210331",TRUE
+"G81689","Arch Healthcare","09D","NHS Sussex Icb - 09d","U54308","East & Central Brighton 2 PCN","09D","NHS SUSSEX ICB - 09D","20191001","20210331",TRUE
+"G81006","Ardingly Court Surgery","09D","NHS Sussex Icb - 09d","U54308","East & Central Brighton 2 PCN","09D","NHS SUSSEX ICB - 09D","20191001","20210331",TRUE
+"G81669","Broadway Surgery","09D","NHS Sussex Icb - 09d","U54308","East & Central Brighton 2 PCN","09D","NHS SUSSEX ICB - 09D","20191001","20210331",TRUE
+"G81054","Pavilion Surgery","09D","NHS Sussex Icb - 09d","U54308","East & Central Brighton 2 PCN","09D","NHS SUSSEX ICB - 09D","20191001","20210331",TRUE
+"G81656","Regency Surgery","09D","NHS Sussex Icb - 09d","U54308","East & Central Brighton 2 PCN","09D","NHS SUSSEX ICB - 09D","20191001","20210331",TRUE
+"G81090","Albion Street Surgery","09D","NHS Sussex Icb - 09d","U29677","East & Central Brighton PCN","09D","NHS SUSSEX ICB - 09D","20210401","20211001",TRUE
+"G81689","Arch Healthcare","09D","NHS Sussex Icb - 09d","U29677","East & Central Brighton PCN","09D","NHS SUSSEX ICB - 09D","20210401",NA,TRUE
+"G81006","Ardingly Court Surgery","09D","NHS Sussex Icb - 09d","U29677","East & Central Brighton PCN","09D","NHS SUSSEX ICB - 09D","20210401",NA,TRUE
+"G81669","Broadway Surgery","09D","NHS Sussex Icb - 09d","U29677","East & Central Brighton PCN","09D","NHS SUSSEX ICB - 09D","20210401",NA,TRUE
+"G81028","Park Crescent Health Centre","09D","NHS Sussex Icb - 09d","U29677","East & Central Brighton PCN","09D","NHS SUSSEX ICB - 09D","20210401",NA,TRUE
+"G81054","Pavilion Surgery","09D","NHS Sussex Icb - 09d","U29677","East & Central Brighton PCN","09D","NHS SUSSEX ICB - 09D","20210401",NA,TRUE
+"G81656","Regency Surgery","09D","NHS Sussex Icb - 09d","U29677","East & Central Brighton PCN","09D","NHS SUSSEX ICB - 09D","20210401",NA,TRUE
+"G81011","St. Peter's Medical Centre","09D","NHS Sussex Icb - 09d","U29677","East & Central Brighton PCN","09D","NHS SUSSEX ICB - 09D","20210401",NA,TRUE
+"Y06007","Wellsbourne Healthcare Cic","09D","NHS Sussex Icb - 09d","U29677","East & Central Brighton PCN","09D","NHS SUSSEX ICB - 09D","20210401",NA,TRUE
+"G81065","Woodingdean Medical Centre","09D","NHS Sussex Icb - 09d","U29677","East & Central Brighton PCN","09D","NHS SUSSEX ICB - 09D","20220701",NA,TRUE
+"G81034","Charter Medical Centre","09D","NHS Sussex Icb - 09d","U46447","Goldstone PCN","09D","NHS SUSSEX ICB - 09D","20191001",NA,TRUE
+"G81070","Trinity Medical Centre","09D","NHS Sussex Icb - 09d","U46447","Goldstone PCN","09D","NHS SUSSEX ICB - 09D","20191001",NA,TRUE
+"G81638","Wellbn Healthcare","09D","NHS Sussex Icb - 09d","U46447","Goldstone PCN","09D","NHS SUSSEX ICB - 09D","20191001",NA,TRUE
+"Y02676","Brighton Station Health Centre","09D","NHS Sussex Icb - 09d","U55014","North & Central Brighton PCN","09D","NHS SUSSEX ICB - 09D","20191001","20220401",TRUE
+"G81014","Carden Surgery","09D","NHS Sussex Icb - 09d","U55014","North & Central Brighton PCN","09D","NHS SUSSEX ICB - 09D","20191001",NA,TRUE
+"G81044","Montpelier Surgery","09D","NHS Sussex Icb - 09d","U55014","North & Central Brighton PCN","09D","NHS SUSSEX ICB - 09D","20191001",NA,TRUE
+"G81047","Seven Dials Medical Centre","09D","NHS Sussex Icb - 09d","U55014","North & Central Brighton PCN","09D","NHS SUSSEX ICB - 09D","20191001",NA,TRUE
+"G81071","University of Sussex Health Centre","09D","NHS Sussex Icb - 09d","U55014","North & Central Brighton PCN","09D","NHS SUSSEX ICB - 09D","20191001",NA,TRUE
+"G81684","Matlock Road Surgery","09D","NHS Sussex Icb - 09d","U09072","Preston Park Community PCN","09D","NHS SUSSEX ICB - 09D","20191001","20200401",TRUE
+"G81042","Beaconsfield Medical Practice","09D","NHS Sussex Icb - 09d","U09072","Preston Park Community PCN","09D","NHS SUSSEX ICB - 09D","20191001",NA,TRUE
+"G81018","Preston Park Surgery","09D","NHS Sussex Icb - 09d","U09072","Preston Park Community PCN","09D","NHS SUSSEX ICB - 09D","20191001",NA,TRUE
+"G81038","Stanford Medical Centre","09D","NHS Sussex Icb - 09d","U09072","Preston Park Community PCN","09D","NHS SUSSEX ICB - 09D","20191001",NA,TRUE
+"G81646","The Haven Practice","09D","NHS Sussex Icb - 09d","U09072","Preston Park Community PCN","09D","NHS SUSSEX ICB - 09D","20191001",NA,TRUE
+"G81036","Warmdene Surgery","09D","NHS Sussex Icb - 09d","U09072","Preston Park Community PCN","09D","NHS SUSSEX ICB - 09D","20191001",NA,TRUE
+"G81680","Benfield Valley Healthcare Hub","09D","NHS Sussex Icb - 09d","U14062","West Hove PCN","09D","NHS SUSSEX ICB - 09D","20191001","20220701",TRUE
+"G81680","Benfield Valley Healthcare Hub","09D","NHS Sussex Icb - 09d","U14062","West Hove PCN","09D","NHS SUSSEX ICB - 09D","20220702",NA,TRUE
+"G81001","Hove Medical Centre","09D","NHS Sussex Icb - 09d","U14062","West Hove PCN","09D","NHS SUSSEX ICB - 09D","20191001",NA,TRUE
+"G81663","Links Road Surgery","09D","NHS Sussex Icb - 09d","U14062","West Hove PCN","09D","NHS SUSSEX ICB - 09D","20191001",NA,TRUE
+"G81073","Mile Oak Medical Centre","09D","NHS Sussex Icb - 09d","U14062","West Hove PCN","09D","NHS SUSSEX ICB - 09D","20191001",NA,TRUE
+"G81046","Portslade Health Centre","09D","NHS Sussex Icb - 09d","U14062","West Hove PCN","09D","NHS SUSSEX ICB - 09D","20191001",NA,TRUE
+"G81083","Wish Park Surgery","09D","NHS Sussex Icb - 09d","U14062","West Hove PCN","09D","NHS SUSSEX ICB - 09D","20191001",NA,TRUE
+"H82014","Coppice Surgery","70F","NHS Sussex Icb - 70f","U04748","Angmering Coppice Fitzalan (ACF) PCN","70F","NHS SUSSEX ICB - 70F","20201001",NA,TRUE
+"H82066","Fitzalan Medical Group","70F","NHS Sussex Icb - 70f","U04748","Angmering Coppice Fitzalan (ACF) PCN","70F","NHS SUSSEX ICB - 70F","20201001",NA,TRUE
+"H82014","Coppice Surgery","70F","NHS Sussex Icb - 70f","U21339","Arun Integrated Care (AIC) PCN","70F","NHS SUSSEX ICB - 70F","20191001","20200930",TRUE
+"H82066","Fitzalan Medical Group","70F","NHS Sussex Icb - 70f","U21339","Arun Integrated Care (AIC) PCN","70F","NHS SUSSEX ICB - 70F","20191001","20200930",TRUE
+"H82039","Park Surgery","70F","NHS Sussex Icb - 70f","U21339","Arun Integrated Care (AIC) PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82007","Westcourt Medical Centre","70F","NHS Sussex Icb - 70f","U21339","Arun Integrated Care (AIC) PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82059","Willow Green Surgery","70F","NHS Sussex Icb - 70f","U21339","Arun Integrated Care (AIC) PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82621","Park View Health Partnership","70F","NHS Sussex Icb - 70f","U06871","Burgess Hill & Villages PCN","70F","NHS SUSSEX ICB - 70F","20191001","20210831",TRUE
+"H82084","Brow Medical Centre","70F","NHS Sussex Icb - 70f","U06871","Burgess Hill & Villages PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82003","Meadows Surgery","70F","NHS Sussex Icb - 70f","U06871","Burgess Hill & Villages PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82057","Mid Sussex Health Care","70F","NHS Sussex Icb - 70f","U06871","Burgess Hill & Villages PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82072","Silverdale Practice","70F","NHS Sussex Icb - 70f","U06871","Burgess Hill & Villages PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82046","Broadwater Medical Centre","70F","NHS Sussex Icb - 70f","U13952","Central Worthing Practices PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82009","St. Lawrence Surgery","70F","NHS Sussex Icb - 70f","U13952","Central Worthing Practices PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82041","Victoria Road Surgery","70F","NHS Sussex Icb - 70f","U13952","Central Worthing Practices PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82055","Billingshurst Surgery","70F","NHS Sussex Icb - 70f","U57981","Chanctonbury PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82070","Glebe Surgery","70F","NHS Sussex Icb - 70f","U57981","Chanctonbury PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82060","Henfield Medical Centre","70F","NHS Sussex Icb - 70f","U57981","Chanctonbury PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82022","Steyning Health Centre","70F","NHS Sussex Icb - 70f","U57981","Chanctonbury PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82042","Cathedral Medical Group","70F","NHS Sussex Icb - 70f","U24558","Chichester Alliance of Medical Practices PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82013","Langley House Surgery","70F","NHS Sussex Icb - 70f","U24558","Chichester Alliance of Medical Practices PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82051","Lavant Road Surgery","70F","NHS Sussex Icb - 70f","U24558","Chichester Alliance of Medical Practices PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82049","Parklands Surgery","70F","NHS Sussex Icb - 70f","U24558","Chichester Alliance of Medical Practices PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82037","Selsey Medical Practice","70F","NHS Sussex Icb - 70f","U24558","Chichester Alliance of Medical Practices PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82078","Southbourne Surgery","70F","NHS Sussex Icb - 70f","U24558","Chichester Alliance of Medical Practices PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82067","Tangmere Medical Centre","70F","NHS Sussex Icb - 70f","U24558","Chichester Alliance of Medical Practices PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82095","Witterings Medical Centre","70F","NHS Sussex Icb - 70f","U24558","Chichester Alliance of Medical Practices PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82076","Cornerways Surgery","70F","NHS Sussex Icb - 70f","U01092","Cissbury Integrated Care PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82061","Selden Medical Centre","70F","NHS Sussex Icb - 70f","U01092","Cissbury Integrated Care PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82011","Strand Medical Group","70F","NHS Sussex Icb - 70f","U01092","Cissbury Integrated Care PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82045","Worthing Medical Group","70F","NHS Sussex Icb - 70f","U01092","Cissbury Integrated Care PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82015","Phoenix Medical Group","70F","NHS Sussex Icb - 70f","U49536","Coastal and South Downs PCN","70F","NHS SUSSEX ICB - 70F","20191001","20200901",TRUE
+"H82087","Barn Surgery","70F","NHS Sussex Icb - 70f","U49536","Coastal and South Downs PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82034","Lime Tree Surgery","70F","NHS Sussex Icb - 70f","U49536","Coastal and South Downs PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82047","Bridge Medical Centre","70F","NHS Sussex Icb - 70f","U52694","Crawley Care Collaborative PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"Y00351","Langley Corner Surgery","70F","NHS Sussex Icb - 70f","U52694","Crawley Care Collaborative PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82012","Leacroft Medical Practice","70F","NHS Sussex Icb - 70f","U52694","Crawley Care Collaborative PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82064","Southgate Medical Group","70F","NHS Sussex Icb - 70f","U52694","Crawley Care Collaborative PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82010","Judges Close Surgery","70F","NHS Sussex Icb - 70f","U80779","East Grinstead PCN","70F","NHS SUSSEX ICB - 70F","20191001","20210831",TRUE
+"H82008","Ship Street Surgery","70F","NHS Sussex Icb - 70f","U80779","East Grinstead PCN","70F","NHS SUSSEX ICB - 70F","20191001","20210831",TRUE
+"H82063","Moatfield Surgery","70F","NHS Sussex Icb - 70f","U80779","East Grinstead PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82040","Modality Mid Sussex","70F","NHS Sussex Icb - 70f","U80779","East Grinstead PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82100","Northlands Wood Surgery","70F","NHS Sussex Icb - 70f","U04725","Haywards Heath Central PCN","70F","NHS SUSSEX ICB - 70F","20191001","20220630",TRUE
+"H82044","Dolphins Practice","70F","NHS Sussex Icb - 70f","U04725","Haywards Heath Central PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82056","Newtons Practice","70F","NHS Sussex Icb - 70f","U04725","Haywards Heath Central PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82005","Cuckfield Medical Centre","70F","NHS Sussex Icb - 70f","U03364","Haywards Heath Villages PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82035","Lindfield Medical Centre","70F","NHS Sussex Icb - 70f","U03364","Haywards Heath Villages PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82100","Northlands Wood Surgery","70F","NHS Sussex Icb - 70f","U03364","Haywards Heath Villages PCN","70F","NHS SUSSEX ICB - 70F","20220701",NA,TRUE
+"H82615","Ouse Valley Practice","70F","NHS Sussex Icb - 70f","U03364","Haywards Heath Villages PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82053","Furnace Green Surgery","70F","NHS Sussex Icb - 70f","U14816","Healthy Crawley PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82050","Ifield Medical Practice","70F","NHS Sussex Icb - 70f","U14816","Healthy Crawley PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82052","Pound Hill Medical Group","70F","NHS Sussex Icb - 70f","U14816","Healthy Crawley PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82025","Woodlands&Clerklands Partnership","70F","NHS Sussex Icb - 70f","U14816","Healthy Crawley PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82640","Holbrook Surgery","70F","NHS Sussex Icb - 70f","U26939","Horsham Central PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82036","Orchard Surgery","70F","NHS Sussex Icb - 70f","U26939","Horsham Central PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82017","Park Surgery","70F","NHS Sussex Icb - 70f","U26939","Horsham Central PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82089","Riverside Surgery","70F","NHS Sussex Icb - 70f","U26939","Horsham Central PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82004","Cowfold Surgery","70F","NHS Sussex Icb - 70f","U96386","Horsham Collaborative PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82027","Rudgwick Medical Centre","70F","NHS Sussex Icb - 70f","U96386","Horsham Collaborative PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82028","The Courtyard Surgery","70F","NHS Sussex Icb - 70f","U96386","Horsham Collaborative PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82092","Village Surgery","70F","NHS Sussex Icb - 70f","U96386","Horsham Collaborative PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82065","Ball Tree Surgery","70F","NHS Sussex Icb - 70f","U87478","Lancing and Sompting PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82091","New Pond Row Surgery","70F","NHS Sussex Icb - 70f","U87478","Lancing and Sompting PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82096","The Orchard Surgery","70F","NHS Sussex Icb - 70f","U87478","Lancing and Sompting PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82021","Arundel Surgery","70F","NHS Sussex Icb - 70f","U08235","Regis Healthcare PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82048","Avisford Medical Group","70F","NHS Sussex Icb - 70f","U08235","Regis Healthcare PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82016","Bersted Green Surgery","70F","NHS Sussex Icb - 70f","U08235","Regis Healthcare PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82020","Bognor Medical Centre","70F","NHS Sussex Icb - 70f","U08235","Regis Healthcare PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82038","Flansham Park Health Centre","70F","NHS Sussex Icb - 70f","U08235","Regis Healthcare PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82043","Grove House Surgery","70F","NHS Sussex Icb - 70f","U08235","Regis Healthcare PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82058","Maywood Health Care Centre","70F","NHS Sussex Icb - 70f","U08235","Regis Healthcare PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82077","The Croft Surgery","70F","NHS Sussex Icb - 70f","U08235","Regis Healthcare PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82099","West Meads Surgery","70F","NHS Sussex Icb - 70f","U08235","Regis Healthcare PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82031","Loxwood Surgery","70F","NHS Sussex Icb - 70f","U33593","Rural North Chichester PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82030","Pulborough Medical Group","70F","NHS Sussex Icb - 70f","U33593","Rural North Chichester PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82032","Riverbank Medical Centre","70F","NHS Sussex Icb - 70f","U33593","Rural North Chichester PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82006","The Petworth Surgery","70F","NHS Sussex Icb - 70f","U33593","Rural North Chichester PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82083","Northbourne Medical Centre","70F","NHS Sussex Icb - 70f","U37037","Shoreham and Southwick PCN","70F","NHS SUSSEX ICB - 70F","20191001","20201231",TRUE
+"H82029","The Manor Practice","70F","NHS Sussex Icb - 70f","U37037","Shoreham and Southwick PCN","70F","NHS SUSSEX ICB - 70F","20191001","20201231",TRUE
+"H82023","Adur Health Partnership","70F","NHS Sussex Icb - 70f","U37037","Shoreham and Southwick PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82088","Bewbush Medical Centre","70F","NHS Sussex Icb - 70f","U33451","South Crawley PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82098","Coachmans Medical Practice","70F","NHS Sussex Icb - 70f","U33451","South Crawley PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82033","Gossops Green Medical Ctr","70F","NHS Sussex Icb - 70f","U33451","South Crawley PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"H82026","Saxonbrook Medical Centre","70F","NHS Sussex Icb - 70f","U33451","South Crawley PCN","70F","NHS SUSSEX ICB - 70F","20191001",NA,TRUE
+"G81050","Arlington Road Surgery","97R","NHS Sussex Icb - 97r","U52868","Alps Group PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81002","Grove Road Surgery","97R","NHS Sussex Icb - 97r","U52868","Alps Group PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81104","Park Practice","97R","NHS Sussex Icb - 97r","U52868","Alps Group PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81017","Seaside Medical Centre","97R","NHS Sussex Icb - 97r","U52868","Alps Group PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81003","The Lighthouse Medical Practice","97R","NHS Sussex Icb - 97r","U52868","Alps Group PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81025","Pebsham Surgery","97R","NHS Sussex Icb - 97r","U85348","Bexhill PCN","97R","NHS SUSSEX ICB - 97R","20191001","20210705",TRUE
+"G81041","Sidley Medical Practice","97R","NHS Sussex Icb - 97r","U85348","Bexhill PCN","97R","NHS SUSSEX ICB - 97R","20191001","20220501",TRUE
+"G81077","Collington Surgery","97R","NHS Sussex Icb - 97r","U85348","Bexhill PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81039","Little Common Surgery","97R","NHS Sussex Icb - 97r","U85348","Bexhill PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81004","Downlands Medical Centre","97R","NHS Sussex Icb - 97r","U48056","Eastbourne East PCN","97R","NHS SUSSEX ICB - 97R","20191001","20210331",TRUE
+"G81049","Manor Park Medical Centre","97R","NHS Sussex Icb - 97r","U48056","Eastbourne East PCN","97R","NHS SUSSEX ICB - 97R","20191001","20210331",TRUE
+"Y00080","Harbour Medical Practice","97R","NHS Sussex Icb - 97r","U48056","Eastbourne East PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81022","Sovereign Practice","97R","NHS Sussex Icb - 97r","U48056","Eastbourne East PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81008","Stone Cross Surgery","97R","NHS Sussex Icb - 97r","U48056","Eastbourne East PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81035","River Lodge Surgery","97R","NHS Sussex Icb - 97r","U37341","Foundry Healthcare Lewes PCN","97R","NHS SUSSEX ICB - 97R","20191001","20200701",TRUE
+"G81045","St andrews Surgery","97R","NHS Sussex Icb - 97r","U37341","Foundry Healthcare Lewes PCN","97R","NHS SUSSEX ICB - 97R","20191001","20200701",TRUE
+"G81021","Foundry Healthcare Lewes","97R","NHS Sussex Icb - 97r","U37341","Foundry Healthcare Lewes PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81086","Bird-In-Eye Surgery","97R","NHS Sussex Icb - 97r","U36842","Greater Wealden PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81102","Buxted Medical Centre","97R","NHS Sussex Icb - 97r","U36842","Greater Wealden PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81088","Heathfield Surgery","97R","NHS Sussex Icb - 97r","U36842","Greater Wealden PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81634","Herstmonceux Integrative Health Centre","97R","NHS Sussex Icb - 97r","U36842","Greater Wealden PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81007","Mid Downs Medical Practice","97R","NHS Sussex Icb - 97r","U36842","Greater Wealden PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81037","The Meads Surgery","97R","NHS Sussex Icb - 97r","U36842","Greater Wealden PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81012","Bridgeside Surgery","97R","NHS Sussex Icb - 97r","U94996","Hailsham PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81059","Hailsham Medical Group","97R","NHS Sussex Icb - 97r","U94996","Hailsham PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81098","Quintins Medical Centre","97R","NHS Sussex Icb - 97r","U94996","Hailsham PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"Y03051","Hastings Med P & Walkin","97R","NHS Sussex Icb - 97r","U99438","Hastings & St Leonards PCN","97R","NHS SUSSEX ICB - 97R","20191001","20200331",TRUE
+"G81105","Churchwood Medical Practice","97R","NHS Sussex Icb - 97r","U99438","Hastings & St Leonards PCN","97R","NHS SUSSEX ICB - 97R","20191001","20210125",TRUE
+"G81026","Warrior Square Surgery","97R","NHS Sussex Icb - 97r","U99438","Hastings & St Leonards PCN","97R","NHS SUSSEX ICB - 97R","20191001","20210208",TRUE
+"G81084","Beaconsfield Road Surgery","97R","NHS Sussex Icb - 97r","U99438","Hastings & St Leonards PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81048","Carisbrooke Surgery","97R","NHS Sussex Icb - 97r","U99438","Hastings & St Leonards PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81031","Harold Road Surgery","97R","NHS Sussex Icb - 97r","U99438","Hastings & St Leonards PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81095","Hastings Old Town Surgery","97R","NHS Sussex Icb - 97r","U99438","Hastings & St Leonards PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81074","High Glades Medical Centre","97R","NHS Sussex Icb - 97r","U99438","Hastings & St Leonards PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81641","Priory Road Surgery","97R","NHS Sussex Icb - 97r","U99438","Hastings & St Leonards PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81096","Sedlescombe House","97R","NHS Sussex Icb - 97r","U99438","Hastings & St Leonards PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81089","South Saxon House Surgery","97R","NHS Sussex Icb - 97r","U99438","Hastings & St Leonards PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81658","The Station Practice","97R","NHS Sussex Icb - 97r","U99438","Hastings & St Leonards PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81024","Ashdown Forest Health Centre","97R","NHS Sussex Icb - 97r","U54760","High Weald PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81019","Beacon Surgery","97R","NHS Sussex Icb - 97r","U54760","High Weald PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81030","Belmont Surgery","97R","NHS Sussex Icb - 97r","U54760","High Weald PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81614","Groombridge and Hartfield Medical Group","97R","NHS Sussex Icb - 97r","U54760","High Weald PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81043","Rotherfield Surgery","97R","NHS Sussex Icb - 97r","U54760","High Weald PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81055","Saxonbury House Surgery","97R","NHS Sussex Icb - 97r","U54760","High Weald PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81040","Woodhill Surgery","97R","NHS Sussex Icb - 97r","U54760","High Weald PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81052","Fairfield Surgery","97R","NHS Sussex Icb - 97r","U79764","Rural Rother PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81085","Ferry Road Health Centre","97R","NHS Sussex Icb - 97r","U79764","Rural Rother PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81023","Martins Oak Surgery","97R","NHS Sussex Icb - 97r","U79764","Rural Rother PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81087","Northiam Surgery","97R","NHS Sussex Icb - 97r","U79764","Rural Rother PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81082","Oldwood Surgery","97R","NHS Sussex Icb - 97r","U79764","Rural Rother PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81051","Rye Medical Centre","97R","NHS Sussex Icb - 97r","U79764","Rural Rother PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81057","Sedlescombe & Westfield Surgeries","97R","NHS Sussex Icb - 97r","U79764","Rural Rother PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81099","Old School Surgery","97R","NHS Sussex Icb - 97r","U05632","Seaford PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81029","Seaford Medical Practice","97R","NHS Sussex Icb - 97r","U05632","Seaford PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81053","Rowe Avenue Surgery","97R","NHS Sussex Icb - 97r","U21317","The Havens PCN","97R","NHS SUSSEX ICB - 97R","20191001","20201001",TRUE
+"G81061","Chapel Street Surgery","97R","NHS Sussex Icb - 97r","U21317","The Havens PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81100","Havenshealth","97R","NHS Sussex Icb - 97r","U21317","The Havens PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81016","Quayside Medical Practice","97R","NHS Sussex Icb - 97r","U21317","The Havens PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
+"G81056","Enys Road Surgery","97R","NHS Sussex Icb - 97r","U42972","Victoria Eastbourne PCN","97R","NHS SUSSEX ICB - 97R","20191001","20200925",TRUE
+"G81027","Bolton Road Surgery","97R","NHS Sussex Icb - 97r","U42972","Victoria Eastbourne PCN","97R","NHS SUSSEX ICB - 97R","20191001","20201009",TRUE
+"Y02816","Eastbourne Station Health Centre","97R","NHS Sussex Icb - 97r","U42972","Victoria Eastbourne PCN","97R","NHS SUSSEX ICB - 97R","20191001","20210828",TRUE
+"G81004","Downlands Medical Centre","97R","NHS Sussex Icb - 97r","U42972","Victoria Eastbourne PCN","97R","NHS SUSSEX ICB - 97R","20210401",NA,TRUE
+"G81049","Manor Park Medical Centre","97R","NHS Sussex Icb - 97r","U42972","Victoria Eastbourne PCN","97R","NHS SUSSEX ICB - 97R","20210401",NA,TRUE
+"G81032","Victoria Medical Centre","97R","NHS Sussex Icb - 97r","U42972","Victoria Eastbourne PCN","97R","NHS SUSSEX ICB - 97R","20191001",NA,TRUE
