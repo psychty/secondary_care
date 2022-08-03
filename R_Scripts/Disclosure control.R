@@ -28,12 +28,11 @@ disclosure_control(14)
 disclosure_control(4)
 
 alt_disclosure_control <- function(x){
-  y = dplyr::case_when(
+  return(dplyr::case_when(
     x == 0 ~ '0',
     x <= 7 ~ '1-7*',
     TRUE ~ as.character(5*round(x/5))
-  )
-  return(y)
+  ))
 }
 
 alt_disclosure_control(0)
