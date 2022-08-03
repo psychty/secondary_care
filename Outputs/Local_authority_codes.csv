@@ -1,0 +1,399 @@
+"Area_Code","Area_Name","Type","Population"
+"E06000005","Darlington","Unitary Authority",107402
+"E06000047","County Durham","Unitary Authority",533149
+"E06000001","Hartlepool","Unitary Authority",93836
+"E06000002","Middlesbrough","Unitary Authority",141285
+"E06000057","Northumberland","Unitary Authority",323820
+"E06000003","Redcar and Cleveland","Unitary Authority",137228
+"E06000004","Stockton-on-Tees","Unitary Authority",197419
+"E08000037","Gateshead","Unitary Authority",201950
+"E08000021","Newcastle upon Tyne","Unitary Authority",306824
+"E08000022","North Tyneside","Unitary Authority",208871
+"E08000023","South Tyneside","Unitary Authority",151133
+"E08000024","Sunderland","Unitary Authority",277846
+"E06000008","Blackburn with Darwen","Unitary Authority",150030
+"E06000009","Blackpool","Unitary Authority",138381
+"E06000049","Cheshire East","Unitary Authority",386667
+"E06000050","Cheshire West and Chester","Unitary Authority",343823
+"E06000006","Halton","Unitary Authority",129759
+"E06000007","Warrington","Unitary Authority",209397
+"E07000026","Allerdale","Lower Tier Local Authority",97831
+"E07000027","Barrow-in-Furness","Lower Tier Local Authority",66726
+"E07000028","Carlisle","Lower Tier Local Authority",108524
+"E07000029","Copeland","Lower Tier Local Authority",68041
+"E07000030","Eden","Lower Tier Local Authority",53754
+"E07000031","South Lakeland","Lower Tier Local Authority",104905
+"E08000001","Bolton","Unitary Authority",288248
+"E08000002","Bury","Unitary Authority",190708
+"E08000003","Manchester","Unitary Authority",555741
+"E08000004","Oldham","Unitary Authority",237628
+"E08000005","Rochdale","Unitary Authority",223659
+"E08000006","Salford","Unitary Authority",262697
+"E08000007","Stockport","Unitary Authority",294197
+"E08000008","Tameside","Unitary Authority",227117
+"E08000009","Trafford","Unitary Authority",237579
+"E08000010","Wigan","Unitary Authority",330712
+"E07000117","Burnley","Lower Tier Local Authority",89344
+"E07000118","Chorley","Lower Tier Local Authority",118870
+"E07000119","Fylde","Lower Tier Local Authority",81211
+"E07000120","Hyndburn","Lower Tier Local Authority",81133
+"E07000121","Lancaster","Lower Tier Local Authority",148119
+"E07000122","Pendle","Lower Tier Local Authority",92145
+"E07000123","Preston","Lower Tier Local Authority",144147
+"E07000124","Ribble Valley","Lower Tier Local Authority",62026
+"E07000125","Rossendale","Lower Tier Local Authority",71432
+"E07000126","South Ribble","Lower Tier Local Authority",111086
+"E07000127","West Lancashire","Lower Tier Local Authority",114496
+"E07000128","Wyre","Lower Tier Local Authority",113067
+"E08000011","Knowsley","Unitary Authority",152452
+"E08000012","Liverpool","Unitary Authority",500474
+"E08000014","Sefton","Unitary Authority",275899
+"E08000013","St. Helens","Unitary Authority",181095
+"E08000015","Wirral","Unitary Authority",324336
+"E06000011","East Riding of Yorkshire","Unitary Authority",343201
+"E06000010","Kingston upon Hull, City of","Unitary Authority",259126
+"E06000012","North East Lincolnshire","Unitary Authority",159364
+"E06000013","North Lincolnshire","Unitary Authority",172748
+"E06000014","York","Unitary Authority",211012
+"E07000163","Craven","Lower Tier Local Authority",57338
+"E07000164","Hambleton","Lower Tier Local Authority",91932
+"E07000165","Harrogate","Lower Tier Local Authority",161545
+"E07000166","Richmondshire","Lower Tier Local Authority",53732
+"E07000167","Ryedale","Lower Tier Local Authority",55629
+"E07000168","Scarborough","Lower Tier Local Authority",108737
+"E07000169","Selby","Lower Tier Local Authority",91697
+"E08000016","Barnsley","Unitary Authority",248071
+"E08000017","Doncaster","Unitary Authority",312785
+"E08000018","Rotherham","Unitary Authority",264984
+"E08000019","Sheffield","Unitary Authority",589214
+"E08000032","Bradford","Unitary Authority",542128
+"E08000033","Calderdale","Unitary Authority",211439
+"E08000034","Kirklees","Unitary Authority",441290
+"E08000035","Leeds","Unitary Authority",798786
+"E08000036","Wakefield","Unitary Authority",351592
+"E06000015","Derby","Unitary Authority",256814
+"E06000016","Leicester","Unitary Authority",354036
+"E06000018","Nottingham","Unitary Authority",337098
+"E06000017","Rutland","Unitary Authority",40476
+"E07000032","Amber Valley","Lower Tier Local Authority",128829
+"E07000033","Bolsover","Lower Tier Local Authority",81305
+"E07000034","Chesterfield","Lower Tier Local Authority",104930
+"E07000035","Derbyshire Dales","Lower Tier Local Authority",72422
+"E07000036","Erewash","Lower Tier Local Authority",115332
+"E07000037","High Peak","Lower Tier Local Authority",92633
+"E07000038","North East Derbyshire","Lower Tier Local Authority",102216
+"E07000039","South Derbyshire","Lower Tier Local Authority",109516
+"E07000129","Blaby","Lower Tier Local Authority",101950
+"E07000130","Charnwood","Lower Tier Local Authority",188416
+"E07000131","Harborough","Lower Tier Local Authority",95537
+"E07000132","Hinckley and Bosworth","Lower Tier Local Authority",113666
+"E07000133","Melton","Lower Tier Local Authority",51394
+"E07000134","North West Leicestershire","Lower Tier Local Authority",104809
+"E07000135","Oadby and Wigston","Lower Tier Local Authority",57313
+"E07000136","Boston","Lower Tier Local Authority",70837
+"E07000137","East Lindsey","Lower Tier Local Authority",142030
+"E07000138","Lincoln","Lower Tier Local Authority",100049
+"E07000139","North Kesteven","Lower Tier Local Authority",118149
+"E07000140","South Holland","Lower Tier Local Authority",95857
+"E07000141","South Kesteven","Lower Tier Local Authority",143225
+"E07000142","West Lindsey","Lower Tier Local Authority",96186
+"E07000170","Ashfield","Lower Tier Local Authority",128337
+"E07000171","Bassetlaw","Lower Tier Local Authority",118280
+"E07000172","Broxtowe","Lower Tier Local Authority",114627
+"E07000173","Gedling","Lower Tier Local Authority",118239
+"E07000174","Mansfield","Lower Tier Local Authority",109351
+"E07000175","Newark and Sherwood","Lower Tier Local Authority",123127
+"E07000176","Rushcliffe","Lower Tier Local Authority",121416
+"E06000061","North Northamptonshire","Unitary Authority",350448
+"E06000062","West Northamptonshire","Unitary Authority",406733
+"E06000019","Herefordshire, County of","Unitary Authority",193615
+"E06000051","Shropshire","Unitary Authority",325415
+"E06000021","Stoke-on-Trent","Unitary Authority",256622
+"E06000020","Telford and Wrekin","Unitary Authority",181322
+"E07000192","Cannock Chase","Lower Tier Local Authority",101484
+"E07000193","East Staffordshire","Lower Tier Local Authority",120923
+"E07000194","Lichfield","Lower Tier Local Authority",105637
+"E07000195","Newcastle-under-Lyme","Lower Tier Local Authority",129610
+"E07000196","South Staffordshire","Lower Tier Local Authority",112369
+"E07000197","Stafford","Lower Tier Local Authority",137858
+"E07000198","Staffordshire Moorlands","Lower Tier Local Authority",98427
+"E07000199","Tamworth","Lower Tier Local Authority",76864
+"E07000218","North Warwickshire","Lower Tier Local Authority",65452
+"E07000219","Nuneaton and Bedworth","Lower Tier Local Authority",130373
+"E07000220","Rugby","Lower Tier Local Authority",110650
+"E07000221","Stratford-on-Avon","Lower Tier Local Authority",132402
+"E07000222","Warwick","Lower Tier Local Authority",144909
+"E08000025","Birmingham","Unitary Authority",1140525
+"E08000026","Coventry","Unitary Authority",379387
+"E08000027","Dudley","Unitary Authority",322363
+"E08000028","Sandwell","Unitary Authority",329042
+"E08000029","Solihull","Unitary Authority",217487
+"E08000030","Walsall","Unitary Authority",286716
+"E08000031","Wolverhampton","Unitary Authority",264407
+"E07000234","Bromsgrove","Lower Tier Local Authority",100569
+"E07000235","Malvern Hills","Lower Tier Local Authority",79445
+"E07000236","Redditch","Lower Tier Local Authority",85568
+"E07000237","Worcester","Lower Tier Local Authority",100265
+"E07000238","Wychavon","Lower Tier Local Authority",131084
+"E07000239","Wyre Forest","Lower Tier Local Authority",101139
+"E06000055","Bedford","Unitary Authority",174687
+"E06000056","Central Bedfordshire","Unitary Authority",294096
+"E06000032","Luton","Unitary Authority",213528
+"E06000031","Peterborough","Unitary Authority",202626
+"E06000033","Southend-on-Sea","Unitary Authority",182773
+"E06000034","Thurrock","Unitary Authority",175531
+"E07000008","Cambridge","Lower Tier Local Authority",125063
+"E07000009","East Cambridgeshire","Lower Tier Local Authority",90172
+"E07000010","Fenland","Lower Tier Local Authority",102080
+"E07000011","Huntingdonshire","Lower Tier Local Authority",178985
+"E07000012","South Cambridgeshire","Lower Tier Local Authority",160904
+"E07000066","Basildon","Lower Tier Local Authority",187558
+"E07000067","Braintree","Lower Tier Local Authority",153091
+"E07000068","Brentwood","Lower Tier Local Authority",77242
+"E07000069","Castle Point","Lower Tier Local Authority",90524
+"E07000070","Chelmsford","Lower Tier Local Authority",179549
+"E07000071","Colchester","Lower Tier Local Authority",197200
+"E07000072","Epping Forest","Lower Tier Local Authority",132175
+"E07000073","Harlow","Lower Tier Local Authority",87280
+"E07000074","Maldon","Lower Tier Local Authority",65401
+"E07000075","Rochford","Lower Tier Local Authority",87627
+"E07000076","Tendring","Lower Tier Local Authority",147353
+"E07000077","Uttlesford","Lower Tier Local Authority",92759
+"E07000095","Broxbourne","Lower Tier Local Authority",97592
+"E07000096","Dacorum","Lower Tier Local Authority",155457
+"E07000242","East Hertfordshire","Lower Tier Local Authority",151786
+"E07000098","Hertsmere","Lower Tier Local Authority",105471
+"E07000099","North Hertfordshire","Lower Tier Local Authority",133463
+"E07000240","St Albans","Lower Tier Local Authority",149317
+"E07000243","Stevenage","Lower Tier Local Authority",88104
+"E07000102","Three Rivers","Lower Tier Local Authority",93966
+"E07000103","Watford","Lower Tier Local Authority",96623
+"E07000241","Welwyn Hatfield","Lower Tier Local Authority",123893
+"E07000143","Breckland","Lower Tier Local Authority",141255
+"E07000144","Broadland","Lower Tier Local Authority",131931
+"E07000145","Great Yarmouth","Lower Tier Local Authority",99198
+"E07000146","King's Lynn and West Norfolk","Lower Tier Local Authority",151245
+"E07000147","North Norfolk","Lower Tier Local Authority",105167
+"E07000148","Norwich","Lower Tier Local Authority",142177
+"E07000149","South Norfolk","Lower Tier Local Authority",143066
+"E07000200","Babergh","Lower Tier Local Authority",92735
+"E07000202","Ipswich","Lower Tier Local Authority",135979
+"E07000203","Mid Suffolk","Lower Tier Local Authority",104857
+"E07000244","East Suffolk","Lower Tier Local Authority",250373
+"E07000245","West Suffolk","Lower Tier Local Authority",177302
+"E09000007","Camden","Unitary Authority",279516
+"E09000001","City of London","Unitary Authority",10938
+"E09000012","Hackney","Unitary Authority",280941
+"E09000013","Hammersmith and Fulham","Unitary Authority",183544
+"E09000014","Haringey","Unitary Authority",266357
+"E09000019","Islington","Unitary Authority",248115
+"E09000020","Kensington and Chelsea","Unitary Authority",156864
+"E09000022","Lambeth","Unitary Authority",321813
+"E09000023","Lewisham","Unitary Authority",305309
+"E09000025","Newham","Unitary Authority",355266
+"E09000028","Southwark","Unitary Authority",320017
+"E09000030","Tower Hamlets","Unitary Authority",331969
+"E09000032","Wandsworth","Unitary Authority",329735
+"E09000033","Westminster","Unitary Authority",269848
+"E09000002","Barking and Dagenham","Unitary Authority",214107
+"E09000003","Barnet","Unitary Authority",399007
+"E09000004","Bexley","Unitary Authority",249301
+"E09000005","Brent","Unitary Authority",327753
+"E09000006","Bromley","Unitary Authority",332752
+"E09000008","Croydon","Unitary Authority",388563
+"E09000009","Ealing","Unitary Authority",340341
+"E09000010","Enfield","Unitary Authority",333587
+"E09000011","Greenwich","Unitary Authority",289034
+"E09000015","Harrow","Unitary Authority",252338
+"E09000016","Havering","Unitary Authority",260651
+"E09000017","Hillingdon","Unitary Authority",309014
+"E09000018","Hounslow","Unitary Authority",271767
+"E09000021","Kingston upon Thames","Unitary Authority",179142
+"E09000024","Merton","Unitary Authority",206453
+"E09000026","Redbridge","Unitary Authority",305658
+"E09000027","Richmond upon Thames","Unitary Authority",198141
+"E09000029","Sutton","Unitary Authority",207707
+"E09000031","Waltham Forest","Unitary Authority",276940
+"E06000036","Bracknell Forest","Unitary Authority",124165
+"E06000043","Brighton and Hove","Unitary Authority",291738
+"E06000046","Isle of Wight","Unitary Authority",142296
+"E06000035","Medway","Unitary Authority",279142
+"E06000042","Milton Keynes","Unitary Authority",270203
+"E06000044","Portsmouth","Unitary Authority",214692
+"E06000038","Reading","Unitary Authority",160337
+"E06000039","Slough","Unitary Authority",149577
+"E06000045","Southampton","Unitary Authority",252872
+"E06000037","West Berkshire","Unitary Authority",158465
+"E06000040","Windsor and Maidenhead","Unitary Authority",151273
+"E06000041","Wokingham","Unitary Authority",173945
+"E06000060","Buckinghamshire","Unitary Authority",547060
+"E07000061","Eastbourne","Lower Tier Local Authority",103324
+"E07000062","Hastings","Lower Tier Local Authority",92554
+"E07000063","Lewes","Lower Tier Local Authority",103525
+"E07000064","Rother","Lower Tier Local Authority",96716
+"E07000065","Wealden","Lower Tier Local Authority",162733
+"E07000084","Basingstoke and Deane","Lower Tier Local Authority",177760
+"E07000085","East Hampshire","Lower Tier Local Authority",123838
+"E07000086","Eastleigh","Lower Tier Local Authority",135520
+"E07000087","Fareham","Lower Tier Local Authority",116338
+"E07000088","Gosport","Lower Tier Local Authority",84679
+"E07000089","Hart","Lower Tier Local Authority",97608
+"E07000090","Havant","Lower Tier Local Authority",126339
+"E07000091","New Forest","Lower Tier Local Authority",179649
+"E07000092","Rushmoor","Lower Tier Local Authority",94387
+"E07000093","Test Valley","Lower Tier Local Authority",127163
+"E07000094","Winchester","Lower Tier Local Authority",125925
+"E07000105","Ashford","Lower Tier Local Authority",131018
+"E07000106","Canterbury","Lower Tier Local Authority",166762
+"E07000107","Dartford","Lower Tier Local Authority",114051
+"E07000108","Dover","Lower Tier Local Authority",118514
+"E07000109","Gravesham","Lower Tier Local Authority",106890
+"E07000110","Maidstone","Lower Tier Local Authority",173132
+"E07000111","Sevenoaks","Lower Tier Local Authority",121387
+"E07000112","Folkestone and Hythe","Lower Tier Local Authority",113320
+"E07000113","Swale","Lower Tier Local Authority",151015
+"E07000114","Thanet","Lower Tier Local Authority",141458
+"E07000115","Tonbridge and Malling","Lower Tier Local Authority",132571
+"E07000116","Tunbridge Wells","Lower Tier Local Authority",118939
+"E07000177","Cherwell","Lower Tier Local Authority",151846
+"E07000178","Oxford","Lower Tier Local Authority",151584
+"E07000179","South Oxfordshire","Lower Tier Local Authority",143782
+"E07000180","Vale of White Horse","Lower Tier Local Authority",137910
+"E07000181","West Oxfordshire","Lower Tier Local Authority",111758
+"E07000207","Elmbridge","Lower Tier Local Authority",137215
+"E07000208","Epsom and Ewell","Lower Tier Local Authority",81003
+"E07000209","Guildford","Lower Tier Local Authority",150352
+"E07000210","Mole Valley","Lower Tier Local Authority",87547
+"E07000211","Reigate and Banstead","Lower Tier Local Authority",149243
+"E07000212","Runnymede","Lower Tier Local Authority",90327
+"E07000213","Spelthorne","Lower Tier Local Authority",99873
+"E07000214","Surrey Heath","Lower Tier Local Authority",89204
+"E07000215","Tandridge","Lower Tier Local Authority",88542
+"E07000216","Waverley","Lower Tier Local Authority",126556
+"E07000217","Woking","Lower Tier Local Authority",100008
+"E07000223","Adur","Lower Tier Local Authority",64187
+"E07000224","Arun","Lower Tier Local Authority",161123
+"E07000225","Chichester","Lower Tier Local Authority",121508
+"E07000226","Crawley","Lower Tier Local Authority",112474
+"E07000227","Horsham","Lower Tier Local Authority",145474
+"E07000228","Mid Sussex","Lower Tier Local Authority",152142
+"E07000229","Worthing","Lower Tier Local Authority",110727
+"E06000022","Bath and North East Somerset","Unitary Authority",196357
+"E06000023","Bristol, City of","Unitary Authority",465866
+"E06000052","Cornwall","Unitary Authority",573299
+"E06000053","Isles of Scilly","Unitary Authority",2226
+"E06000024","North Somerset","Unitary Authority",215574
+"E06000026","Plymouth","Unitary Authority",262839
+"E06000025","South Gloucestershire","Unitary Authority",287816
+"E06000030","Swindon","Unitary Authority",222881
+"E06000027","Torbay","Unitary Authority",136218
+"E06000054","Wiltshire","Unitary Authority",504070
+"E07000040","East Devon","Lower Tier Local Authority",148080
+"E07000041","Exeter","Lower Tier Local Authority",133333
+"E07000042","Mid Devon","Lower Tier Local Authority",83290
+"E07000043","North Devon","Lower Tier Local Authority",98170
+"E07000044","South Hams","Lower Tier Local Authority",87946
+"E07000045","Teignbridge","Lower Tier Local Authority",135039
+"E07000046","Torridge","Lower Tier Local Authority",68719
+"E07000047","West Devon","Lower Tier Local Authority",56139
+"E06000058","Bournemouth, Christchurch and Poole","Unitary Authority",396989
+"E06000059","Dorset","Unitary Authority",379791
+"E07000078","Cheltenham","Lower Tier Local Authority",116043
+"E07000079","Cotswold","Lower Tier Local Authority",90264
+"E07000080","Forest of Dean","Lower Tier Local Authority",87107
+"E07000081","Gloucester","Lower Tier Local Authority",129709
+"E07000082","Stroud","Lower Tier Local Authority",120903
+"E07000083","Tewkesbury","Lower Tier Local Authority",96624
+"E07000187","Mendip","Lower Tier Local Authority",116288
+"E07000188","Sedgemoor","Lower Tier Local Authority",123446
+"E07000189","South Somerset","Lower Tier Local Authority",168696
+"E07000246","Somerset West and Taunton","Lower Tier Local Authority",155421
+"W06000001","Isle of Anglesey","Unitary Authority",70440
+"W06000002","Gwynedd","Unitary Authority",125171
+"W06000003","Conwy","Unitary Authority",118184
+"W06000004","Denbighshire","Unitary Authority",96664
+"W06000005","Flintshire","Unitary Authority",156847
+"W06000006","Wrexham","Unitary Authority",136055
+"W06000023","Powys","Unitary Authority",133030
+"W06000008","Ceredigion","Unitary Authority",72895
+"W06000009","Pembrokeshire","Unitary Authority",126751
+"W06000010","Carmarthenshire","Unitary Authority",190073
+"W06000011","Swansea","Unitary Authority",246563
+"W06000012","Neath Port Talbot","Unitary Authority",144386
+"W06000013","Bridgend","Unitary Authority",147539
+"W06000014","Vale of Glamorgan","Unitary Authority",135295
+"W06000015","Cardiff","Unitary Authority",369202
+"W06000016","Rhondda Cynon Taff","Unitary Authority",241873
+"W06000024","Merthyr Tydfil","Unitary Authority",60424
+"W06000018","Caerphilly","Unitary Authority",181731
+"W06000019","Blaenau Gwent","Unitary Authority",70020
+"W06000020","Torfaen","Unitary Authority",94832
+"W06000021","Monmouthshire","Unitary Authority",95164
+"W06000022","Newport","Unitary Authority",156447
+"S12000033","Aberdeen City","Unitary Authority",229060
+"S12000034","Aberdeenshire","Unitary Authority",260780
+"S12000041","Angus","Unitary Authority",115820
+"S12000035","Argyll and Bute","Unitary Authority",85430
+"S12000005","Clackmannanshire","Unitary Authority",51290
+"S12000006","Dumfries and Galloway","Unitary Authority",148290
+"S12000042","Dundee City","Unitary Authority",148820
+"S12000008","East Ayrshire","Unitary Authority",121600
+"S12000045","East Dunbartonshire","Unitary Authority",108750
+"S12000010","East Lothian","Unitary Authority",107900
+"S12000011","East Renfrewshire","Unitary Authority",96060
+"S12000036","City of Edinburgh","Unitary Authority",527620
+"S12000013","Na h-Eileanan Siar","Unitary Authority",26500
+"S12000014","Falkirk","Unitary Authority",160560
+"S12000047","Fife","Unitary Authority",374130
+"S12000049","Glasgow City","Unitary Authority",635640
+"S12000017","Highland","Unitary Authority",235430
+"S12000018","Inverclyde","Unitary Authority",77060
+"S12000019","Midlothian","Unitary Authority",93150
+"S12000020","Moray","Unitary Authority",95710
+"S12000021","North Ayrshire","Unitary Authority",134250
+"S12000050","North Lanarkshire","Unitary Authority",341140
+"S12000023","Orkney Islands","Unitary Authority",22400
+"S12000048","Perth and Kinross","Unitary Authority",151910
+"S12000038","Renfrewshire","Unitary Authority",179390
+"S12000026","Scottish Borders","Unitary Authority",115240
+"S12000027","Shetland Islands","Unitary Authority",22870
+"S12000028","South Ayrshire","Unitary Authority",112140
+"S12000029","South Lanarkshire","Unitary Authority",320820
+"S12000030","Stirling","Unitary Authority",94080
+"S12000039","West Dunbartonshire","Unitary Authority",88340
+"S12000040","West Lothian","Unitary Authority",183820
+"N09000001","Antrim and Newtownabbey","Unitary Authority",143756
+"N09000002","Armagh City, Banbridge and Craigavon","Unitary Authority",217232
+"N09000003","Belfast","Unitary Authority",342560
+"N09000004","Causeway Coast and Glens","Unitary Authority",144943
+"N09000005","Derry City and Strabane","Unitary Authority",151109
+"N09000006","Fermanagh and Omagh","Unitary Authority",117337
+"N09000007","Lisburn and Castlereagh","Unitary Authority",146452
+"N09000008","Mid and East Antrim","Unitary Authority",139443
+"N09000009","Mid Ulster","Unitary Authority",148953
+"N09000010","Newry, Mourne and Down","Unitary Authority",181669
+"N09000011","Ards and North Down","Unitary Authority",162056
+"E10000006","Cumbria","Upper Tier Local Authority",499781
+"E10000017","Lancashire","Upper Tier Local Authority",1227076
+"E10000023","North Yorkshire","Upper Tier Local Authority",620610
+"E10000007","Derbyshire","Upper Tier Local Authority",807183
+"E10000018","Leicestershire","Upper Tier Local Authority",713085
+"E10000019","Lincolnshire","Upper Tier Local Authority",766333
+"E10000024","Nottinghamshire","Upper Tier Local Authority",833377
+"E10000028","Staffordshire","Upper Tier Local Authority",883172
+"E10000031","Warwickshire","Upper Tier Local Authority",583786
+"E10000034","Worcestershire","Upper Tier Local Authority",598070
+"E10000003","Cambridgeshire","Upper Tier Local Authority",657204
+"E10000012","Essex","Upper Tier Local Authority",1497759
+"E10000015","Hertfordshire","Upper Tier Local Authority",1195672
+"E10000020","Norfolk","Upper Tier Local Authority",914039
+"E10000029","Suffolk","Upper Tier Local Authority",761246
+"E10000011","East Sussex","Upper Tier Local Authority",558852
+"E10000014","Hampshire","Upper Tier Local Authority",1389206
+"E10000016","Kent","Upper Tier Local Authority",1589057
+"E10000025","Oxfordshire","Upper Tier Local Authority",696880
+"E10000030","Surrey","Upper Tier Local Authority",1199870
+"E10000032","West Sussex","Upper Tier Local Authority",867635
+"E10000008","Devon","Upper Tier Local Authority",810716
+"E10000013","Gloucestershire","Upper Tier Local Authority",640650
+"E10000027","Somerset","Upper Tier Local Authority",563851

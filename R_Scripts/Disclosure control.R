@@ -16,9 +16,18 @@ disclosure_control <- function(x){
   else  return(round(x/5)*5)
 }
 
+# This is probably simpler 
+# disclosure_control <- function(x){
+#   if(x > 0 && x <= 7)
+#     return('1-7*')
+#   else return(round(x/5)*5)
+# }
+
 disclosure_control(0)
 disclosure_control(14)
 disclosure_control(4)
+
+disclosure_control(x = c(0,2, 19, 10))
 
 library(tidyverse)
 

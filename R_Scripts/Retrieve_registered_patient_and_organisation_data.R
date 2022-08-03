@@ -1,12 +1,14 @@
 # Code to retrieve publicly available registered population and organisation data 
 
 # Load packages if not already loaded - see Initial_setup_to_query_SID.R for more detail
-packages <- c('easypackages', 'tidyverse','readxl', 'readr', 'readODS', 'httr', 'rvest', 'scales')
+packages <- c('easypackages', 'tidyverse','readxl', 'readr', 'readODS', 'httr', 'rvest', 'scales', 'sf', 'nomisr')
 install.packages(setdiff(packages, rownames(installed.packages())))
 easypackages::libraries(packages)
 
+base_directory <- '~/GitHub/secondary_care'
+
 # Define a directory for working documents/downloads etc
-local_store <- '~/GitHub/secondary_care/local'
+local_store <- paste0(base_directory, '/local')
 #local_store <- './secondary_care/local'
 
 # Use dir.exists to see if you have a folder already
@@ -18,13 +20,13 @@ if(dir.exists(local_store) == FALSE) {
   print(paste0('The local directory for raw files on your machine (', local_store, ') appears to be missing, it has now been created.'))
 }
 
-script_store <- '~/GitHub/secondary_care/R_Scripts'
+script_store <- paste0(base_directory, '/R_Scripts')
 
 if(dir.exists(script_store) == FALSE) {
   print(paste0('The directory for R scripts on your machine (', script_store, ') appears to be missing, check or ammend the filepath script_store'))
 }
 
-output_store <- '~/GitHub/secondary_care/Outputs'
+output_store <- paste0(base_directory, '/Outputs')
 
 if(dir.exists(output_store) == FALSE) {
   dir.create(output_store)
@@ -289,11 +291,54 @@ trust_site_df %>%
 # unzip(paste0(local_store, '/EPHPSITE.zip'),
 #       exdir = local_store)  
 
+# Residential geographies, population estimates and codes ####
+
+# Get population estimates for LSOAs from the Office for National Statistics NOMIS service. 
+# You can use the api call and read_csv() to return data and this works best when filtering a small dataset (e.g. wsx LSOAs), but the row limit returned is 25000
+# lsoa_mye <- read_csv('https://www.nomisweb.co.uk/api/v01/dataset/NM_2010_1.data.csv?geography=1249902593...1249937345&date=latest&gender=0&c_age=200&measures=20100')
+
+# It does require knowing the fields and values to search. 0 is persons, 1 is male, 2 is female
+# lsoa geography type is 298
+# c_age = 200 is all ages
+# England_lsoa_mye <- nomis_get_data(id = 'NM_2010_1',
+#                            time = 'latest',
+#                            sex = '0',
+#                            measures = '20100',
+#                            c_age = '200',
+#                            geography = "TYPE298") %>% 
+#   select(Year = DATE, LSOA11NM = GEOGRAPHY_NAME, LSOA11CD = GEOGRAPHY_CODE, Age_group = C_AGE_NAME, Sex = GENDER_NAME, Population = OBS_VALUE)
+
+England_UTLA_mye <- nomis_get_data(id = 'NM_2002_1',
+                           time = 'latest',
+                           sex = '0',
+                           measures = '20100',
+                           c_age = '200',
+                           geography = "TYPE431") %>%
+  select(Year = DATE, Area_Name = GEOGRAPHY_NAME, Area_Code = GEOGRAPHY_CODE, Age_group = C_AGE_NAME, Sex = GENDER_NAME, Population = OBS_VALUE, Type = GEOGRAPHY_TYPE)
+
+England_LTLA_mye <- nomis_get_data(id = 'NM_2002_1',
+                                   time = 'latest',
+                                   sex = '0',
+                                   measures = '20100',
+                                   c_age = '200',
+                                   geography = "TYPE432") %>%
+  select(Year = DATE, Area_Name = GEOGRAPHY_NAME, Area_Code = GEOGRAPHY_CODE, Age_group = C_AGE_NAME, Sex = GENDER_NAME, Population = OBS_VALUE, Type = GEOGRAPHY_TYPE)
 
 
+LTLA_UTLA_codes <- England_LTLA_mye %>% 
+  bind_rows(England_UTLA_mye) %>% 
+  group_by(Area_Name, Area_Code) %>% 
+  mutate(Count = n()) %>% 
+  mutate(Type = ifelse(Count == 2, 'Unitary Authority', ifelse(Type == 'local authorities: county / unitary (as of April 2021)', 'Upper Tier Local Authority', ifelse(Type == 'local authorities: district / unitary (as of April 2021)', 'Lower Tier Local Authority', ifelse(Type == 'regions', 'Region', ifelse(Type == 'countries', 'Country', Type)))))) %>% 
+  unique() 
 
+LTLA_UTLA_codes %>%
+  select(Area_Code, Area_Name, Type, Population) %>% 
+  write.csv(., paste0(output_store, '/Local_authority_codes.csv'), row.names = FALSE)
 
-
+# LAD_codes <- sf::st_read('https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/LAD21_CTY21_EN_LU/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson') %>%
+  # as.data.frame() %>% 
+  # select(Area_Code = LAD21CD, Area_Name = LAD21NM, UTLA_Code = CTY21CD, UTLA_Name = CTY21NM)
 
 
 
