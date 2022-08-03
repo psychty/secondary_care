@@ -43,6 +43,9 @@ alt_disclosure_control(4)
 nums <- c(0,14,4)
 alt_disclosure_control(nums)
 
+# TODO: alt_disclosure_control returns all values as chars, which might be unhelpful for the rounded values.
+# One solution might be to set -1 as a value representing '1-7*' but then any logic that sums up values would have to bear this in mind later.
+
 disclosure_control(x = c(0,2, 19, 10))
 
 library(tidyverse)
