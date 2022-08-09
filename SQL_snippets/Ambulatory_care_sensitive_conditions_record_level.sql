@@ -4,6 +4,8 @@
 with an emergency method of admission and with a primary diagnosis of a chronic 
 ambulatory care sensitive condition */
 
+-- https://research-information.bris.ac.uk/ws/files/80892920/variation_for_priorities_03_06_16.pdf
+
 SELECT ADMIMETH, ADMIAGE, QUINARY_ADMIAGE, FAE, FCE, FDE, ADMIDATE, DISDATE, DISDEST, GPPRAC, EPIORDER, EPISTAT, SEX, SPELDUR, CAUSE, DIAG_01, DIAG_02, DIAG_03, DIAG_04, DIAG_05, DIAG_06, DIAG_07, DIAG_08, DIAG_09, DIAG_10, DIAG_11, DIAG_12, DIAG_13, DIAG_14, DIAG_15,DIAG_16,DIAG_17,DIAG_18, DIAG_19, DIAG_20, RESLADST_ONS, CCG_RESIDENCE, CCG_RESPONSIBILITY, PROVSPNOPS, PROCODE
 FROM hes.hes_apc_2021
 /* Infections - hronic viral hepatitis B: Chronic viral hepatitis B with delta-agent (B180). Chronic viral hepatitis B without delta-agent (B181) (excludes people with a secondary diagnosis of D57 sickle-cell disorders) */
