@@ -59,5 +59,16 @@ OR DIAG_3_CONCAT RLIKE ('I6[3456]')
 OR DIAG_4_CONCAT RLIKE ('I69[012]')
 -- Oesophageal varices
 OR DIAG_3_CONCAT RLIKE ('I85')
+-- Pneumonia 
+OR DIAG_4_CONCAT RLIKE ('J1[01]0') 
+OR DIAG_3_CONCAT RLIKE ('J1[23458]')
+-- Unspecified liver disease
+OR DIAG_3_CONCAT RLIKE ('K7[34]')
+	
+-- Acute and chronic pancreatitis
+OR DIAG_3_CONCAT RLIKE ('K85') -- we do not need to exclude the k852 here as it is a condition code we'll be searching for anyway
+OR DIAG_4_CONCAT RLIKE ('K861')
 
+-- Unintentional injuries - road/pedestrian traffic accidents
+OR DIAG_3_CONCAT RLIKE ('')
 )
