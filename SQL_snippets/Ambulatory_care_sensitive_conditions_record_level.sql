@@ -29,13 +29,13 @@ OR (DIAG_3_01 IN ('I20', 'I25') AND OPERTN_3_CONCAT NOT RLIKE ('^A|^B|^C|^D|^E|^
 /* Cardiovascular diseases - Hypertension: Essential (primary) hypertension (I10X), Hypertensive heart disease without (congestive) heart failure (I119) - excluding certain operation codes */
 OR (DIAG_4_01 IN ('I10X', 'I119') AND OPERTN_3_CONCAT NOT RLIKE ('^K0|^K1|^K2|^K3|^K4|^K50|^K52|^K55|^K56|^K57|^K60|^K61|^K66|^K67|^K68|^K69|^K71|^K73|^K74'))
 /* Cardiovascular dieases - Atrial fibrillation and flutter */
-OR DIAG_3_01 IN ('I48'))
+OR DIAG_3_01 IN ('I48')
 /* Respiratory diseases - Chronic obstructive pulmonary disease: Acute bronchitis (J20), Simple and mucopurulent chronic bronchitis (J41), Unspecified chronic bronchitis (J42X), Emphysema (J43), Other chronic obstructive pulmonary disease (J44), Bronchiectasis (J47)*/
 OR (DIAG_3_01 = 'J20' AND DIAG_3_CONCAT RLIKE ('J41|J42|J43|J44|J47')) -- J20 only with certain conditions codes
 OR DIAG_3_01 IN ('J41', 'J43', 'J44') 
 OR DIAG_4_01 IN ('J42X', 'J47X')
 /* Respiratory diseases - Asthma (J45). Status asthmaticus (J46)*/
-OR (DIAG_3_01 = 'J45' OR DIAG_4_01 = 'J46X')
+OR (DIAG_3_01 = 'J45' OR DIAG_4_01 = 'J46X'))
 -- Age of the patient at the start of their episode of care. For this indicator all ages are considered.
 -- I'm not sure this works
 AND STARTAGE IS NOT NULL -- 120 OR (STARTAGE_CALC >= 7001 AND STARTAGE_CALC <= 7007))
