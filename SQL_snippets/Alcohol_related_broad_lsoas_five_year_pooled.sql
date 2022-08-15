@@ -63,12 +63,31 @@ OR DIAG_3_CONCAT RLIKE ('I85')
 OR DIAG_4_CONCAT RLIKE ('J1[01]0') 
 OR DIAG_3_CONCAT RLIKE ('J1[23458]')
 -- Unspecified liver disease
-OR DIAG_3_CONCAT RLIKE ('K7[34]')
-	
+OR DIAG_3_CONCAT RLIKE ('K7[34]'
 -- Acute and chronic pancreatitis
 OR DIAG_3_CONCAT RLIKE ('K85') -- we do not need to exclude the k852 here as it is a condition code we'll be searching for anyway
 OR DIAG_4_CONCAT RLIKE ('K861')
-
 -- Unintentional injuries - road/pedestrian traffic accidents
-OR DIAG_3_CONCAT RLIKE ('')
+OR DIAG_4_CONCAT RLIKE ('V0[234][1-9]|V09[23]|V1[2-4][3-9]|V19[4-6]|V2[0-9][3-9]|V3[0-9][4-9]|V4[0-9][4-9]|V5[0-9][4-9]|V6[0-9][4-9]|V7[0-9][4-9]|V80[3-5]|V8[12]1|V8[3456][0-3]|V87[0-8]|V892')
+-- Poisoning 
+OR DIAG_3_CONCAT RLIKE ('X4[012346789]')
+-- Fall injuries
+OR DIAG_3_CONCAT RLIKE ('W[01]%')
+-- Fire injuries
+OR DIAG_3_CONCAT RLIKE ('X0%')
+-- Drowning
+OR DIAG_3_CONCAT RLIKE ('X6[5-9]|X7[0-4]')
+-- Other unintentional injuries
+OR DIAG_3_CONCAT RLIKE ('V01|V88|V9%|W[2-4]%|W5[0-2]|W7[5-9]|W8%|W9%|X1%|X2%|X3[0-3]|X5%|Y4%|Y5%|Y6%|Y7%|Y8%')
+OR DIAG_4_CONCAT RLIKE ('V09[019]|V10[0-9]|V11[0-9]|V1[234][0-2]|V1[5-8][0-9]|V19[1-3]|V2[0-8][12]|V29[0-3]|V3[0-8][12]|V39[0-3]|V4[0-8][12]|V49[0-3]|V5[0-8][12]|V59[0-3]|V6[0-8][12]|V69[0-3]|V7[0-8][12]|V79[0-3]|V80[016789]|V81[023456789]|V82[023456789]|V8[3-6][4-9]|V879|V89[013456789]')
+-- Intentional injuries
+OR DIAG_3_CONCAT RLIKE ('X6%|X7%|X8[0-4]')
+OR (DIAG_4_CONCAT RLIKE ('Y870') AND DIAG_3_CONCAT NOT RLIKE ('X65'))
+-- Event of undetermined intent
+OR DIAG_3_CONCAT RLIKE ('Y1%|Y2%|Y3[0-4]')
+OR (DIAG_4_CONCAT RLIKE ('Y872') AND DIAG_3_CONCAT NOT RLIKE ('Y15'))
+-- Assault
+OR DIAG_3_CONCAT RLIKE ('X8[5-9]|X9%|Y0%')
+OR DIAG_4_CONCAT RLIKE ('Y871')
+
 )
