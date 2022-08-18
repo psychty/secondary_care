@@ -28,7 +28,7 @@ if(dir.exists(script_store) == FALSE) {
   print(paste0('The directory for R scripts on your machine (', script_store, ') appears to be missing, check or ammend the filepath script_store'))
 }
 
-output_store <- paste0(base_directory, '/Outputs')
+output_store <- paste0(base_directory, '/Data_store')
 
 if(dir.exists(output_store) == FALSE) {
   dir.create(output_store)
