@@ -5,6 +5,8 @@ packages <- c('easypackages', 'tidyr', 'ggplot2', 'dplyr', 'scales', 'readxl', '
 install.packages(setdiff(packages, rownames(installed.packages())))
 easypackages::libraries(packages)
 
+local_store <- 'C:/Users/ASUS/OneDrive/Documents/GitHub/secondary_care/local'
+
 
 # This will read in the boundaries (in a geojson format) from Open Geography Portal
 lad_boundaries_sf <- st_read('https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Local_Authority_Districts_December_2021_GB_BFC/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson') %>% 
@@ -38,6 +40,8 @@ lsoa_changes <- lsoa21_lookup %>%
   group_by(LTLA) %>% 
   summarise(Number_of_lsoas_in_2021 = n()) %>% 
   left_join(lsoa_11_summary, by = 'LTLA')
+
+lsoa_changes %>% write.csv(., paste0(local_store, '/lsoa21_changes.csv'), row.names = FALSE)
 
 lsoa_2021_spdf <- lsoa_2021 %>% 
   filter(LSOA21CD %in% lsoa21_lookup$lsoa21cd) %>% 
