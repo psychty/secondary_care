@@ -1,4 +1,4 @@
-# A&E data exploration ####
+ # A&E data exploration ####
 
 packages <- c('easypackages', 'tidyr', 'ggplot2', 'dplyr', 'scales', 'readxl', 'readr', 'purrr', 'stringr', 'rgdal', 'spdplyr', 'geojsonio', 'rmapshaper', 'jsonlite', 'rgeos', 'sp', 'sf', 'maptools', 'leaflet', 'leaflet.extras', 'lubridate')
 install.packages(setdiff(packages, rownames(installed.packages())))
@@ -7,7 +7,6 @@ easypackages::libraries(packages)
 local_store <- 'https://raw.githubusercontent.com/psychty/secondary_care/main/Data_store'
 
 # LSOA population
-
 IMD_2019 <- read_csv('https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/845345/File_7_-_All_IoD2019_Scores__Ranks__Deciles_and_Population_Denominators_3.csv') %>% 
   select(LSOA11CD = `LSOA code (2011)`,  LTLA = `Local Authority District name (2019)`, IMD_Score = `Index of Multiple Deprivation (IMD) Score`, IMD_Decile = "Index of Multiple Deprivation (IMD) Decile (where 1 is most deprived 10% of LSOAs)") %>% 
   filter(LTLA %in% c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing'))
@@ -41,7 +40,7 @@ Investigation_lookup <- data.frame(Code = c('01', '02', '03', '04', '05', '06', 
 
 Treatment_lookup <- data.frame(Code = c('01','02','03','04','05','06','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','99'), Treatment = c('Dressing','Bandage/support','Sutures','Wound closure (exc sutures)','Plaster of Paris','Splint','Removal foreign body','Physiotherapy','Manipulation','Incision and drainage','Intravenous cannula','Central line','Lavage/emesis/charcoal/eye irrigation','Intubation & Endotracheal tubes/laryngeal mask airways/rapid sequence induction','Chest drain','Urinary catheter/suprapubic','Defibrillation/pacing','Resuscitation/cardiopulmonary resuscitation','Minor surgery','Observation/electrocardiogram,pulse oximetry/head injury/trends','Guidance/advice only','Anaesthesia','Tetanus','Nebulise/spacer','Other (consider alternatives)','Parenteral thrombolysis','Other parenteral drugs','Recording vital signs','Burns review','Recall/x-ray review','Fracture review','Wound cleaning','Dressing/wound review','Sling/collar cuff/broad arm sling','Epistaxis control','Nasal airway','Oral airway','Supplemental oxygen','Continuous positive airways pressure/nasal intermittent positive pressure ventilation/bag valve mask','Arterial line','Infusion fluids','Blood product transfusion','Pericardiocentesis','Lumbar puncture','Joint aspiration','Minor plastic procedure/splint skin graft','Active rewarming of the hypothermic patient','Cooling - control body temperature','Medication administered','Occupational therapy','Loan of walking aid (crutches)','Social worker intervention','Eye','Dental treatment','Prescription/medicines prepared to take away','None (consider guidance/advice option)'))
 
-Treatment_lookup_three <- data.frame(Code = c(), Treatment = c(011 = Dressing minor wound/burn/eye\r\r\n012 = Dressing major wound/burn\r\r\n02 = Bandage/support\r\r\n031 = Primary sutures\r\r\n032 = Secondary/complex suture\r\r\n033 = Removal of sutures/clips\r\r\n041 = Wound closure - steristrips\r\r\n042 = Wound closure - wound glue\r\r\n043 = Wound closure - other (eg clips)\r\r\n051 = Plaster of Paris - application\r\r\n052 = Plaster of Paris - removal\r\r\n06 = Splint\r\r\n08 = Removal foreign body\r\r\n091 = Physiotherapy - strapping, ultra sound treatment, short wave diathermy,manipulation\r\r\n092 = Physiotherapy - gait re-education, falls prevention\r\r\n101 = Manipulation of upper limb fracture\r\r\n102 = Manipulation of lower limb fracture\r\r\n103 = Manipulation of dislocation\r\r\n11 = Incision and drainage\r\r\n12 = Intravenous cannula\r\r\n13 = Central line\r\r\n14 = Lavage/emesis/charcoal/eye irrigation\r\r\n15 = Intubation & Endotracheal tubes/laryngeal mask airways/rapid sequence induction\r\r\n16 = Chest drain\r\r\n17 = Urinary catheter/suprapubic\r\r\n181 = Defibrillation\r\r\n182 = External pacing\r\r\n19 = Resuscitation/cardiopulmonary resuscitation\r\r\n20 = Minor surgery\r\r\n21 = Observation/electrocardiogram,pulse oximetry/head injury/trends\r\r\n221 = Guidance/advice only - written\r\r\n222 = Guidance/advice only - verbal\r\r\n231 = Anaesthesia - general\r\r\n232 = Anaesthesia - local\r\r\n233 = Anaesthesia - regional block\r\r\n234 = Anaesthesia - etonox\r\r\n235 = Anaesthesia - sedation\r\r\n236 = Anaesthesia - other\r\r\n241 = Tetanus - immune\r\r\n242 = Tetanus - tetanus toxoid course\r\r\n243 = Tetanus - tetanus toxoid booster\r\r\n244 = Tetanus - human immunoglobin\r\r\n245 = Tetanus - combined tetanus/diphtheria course\r\r\n246 = Tetanus - combined tetanus/diphtheria booster\r\r\n25 = Nebulise/spacer\r\r\n27 = Other (consider alternatives)\r\r\n281 = Parenteral thrombolysis - streptokinase parenteral thrombolysis\r\r\n282 = Parenteral thrombolysis - recombinant - plasminogen activator\r\r\n291 = Other parenteral drugs - intravenous drug eg stat/bolus\r\r\n292 = Other parenteral drugs - intravenous infusion\r\r\n30 = Recording vital signs\r\r\n31 = Burns review\r\r\n32 = Recall/x-ray review\r\r\n33 = Fracture review\r\r\n34 = Wound cleaning\r\r\n35 = Dressing/wound review\r\r\n36 = Sling/collar cuff/broad arm sling\r\r\n37 = Epistaxis control\r\r\n38 = Nasal airway\r\r\n39 = Oral airway\r\r\n40 = Supplemental oxygen\r\r\n41 = Continuous positive airways pressure/nasal intermittent positive pressure ventilation/bag valve mask\r\r\n42 = Arterial line\r\r\n43 = Infusion fluids\r\r\n44 = Blood product transfusion\r\r\n45 = Pericardiocentesis\r\r\n46 = Lumbar puncture\r\r\n47 = Joint aspiration\r\r\n48 = Minor plastic procedure/splint skin graft\r\r\n49 = Active rewarming of the hypothermic patient\r\r\n50 = Cooling - control body temperature\r\r\n511 = Medication administered - oral\r\r\n512 = Medication administered - intra-muscular\r\r\n513 = Medication administered - subcutaneous\r\r\n514 = Medication administered - per rectum\r\r\n515 = Medication administered - sublingual\r\r\n516 = Medication administered - intra-nasal\r\r\n517 = Medication administered - eye drops\r\r\n518 = Medication administered - ear drops\r\r\n519 = Medication administered - topical skin cream\r\r\n521 = Occupational therapy functional assessments\r\r\n522 = Occupational therapy activities of daily living equipment provision\r\r\n53 = Loan of walking aid (crutches)\r\r\n54 = Social worker intervention\r\r\n551 = Eye - orthoptic exercises\r\r\n552 = Eye - laser of retina/iris or posterior capsule\r\r\n553 = Eye - retrobulbar injection\r\r\n554 = Eye - epilation of lashes\r\r\n555 = Eye - subconjunctival injection\r\r\n56 = Dental treatment\r\r\n57 = Prescription/medicines prepared to take away\r\r\n99 = None (consider guidance/advice option)\r\r\n))
+Treatment_lookup_three <- data.frame(Code = c('011', '012', '02', '31', '32', '33', '041', '042', '043', '051', '052', '06', '08', '091', '092', '101', '102', '103', '11', '12', '13', '14','15', '16', '17', '181','182', '19', '20', '21', '221', '222', '231', '232', '233', '234', '235', '236', '241', '242', '243', '244', '245', '246', '25', '27', '281', '282', '291', '292', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43','44', '45', '46', '47', '48', '49', '50', '511', '512', '513', '514', '515', '516', '517', '518', '519', '521', '522', '53', '54', '551', '552', '553', '554', '555', '56', '57', '99'), Treatment = c('Dressing minor wound/burn/eye', 'Dressing major wound/burn', 'Bandage/support', 'Primary sutures', 'Secondary/complex suture', 'Removal of sutures/clips', 'Wound closure - steristrips', 'Wound closure - wound glue', 'Wound closure - other (eg clips)', 'Plaster of Paris - application', 'Plaster of Paris - removal', 'Splint', 'Removal foreign body',  'Physiotherapy - strapping, ultra sound treatment, short wave diathermy,manipulation',  'Physiotherapy - gait re-education, falls prevention', 'Manipulation of upper limb fracture',  'Manipulation of lower limb fracture', 'Manipulation of dislocation', 'Incision and drainage', 'Intravenous cannula', 'Central line', 'Lavage/emesis/charcoal/eye irrigation', 'Intubation & Endotracheal tubes/laryngeal mask airways/rapid sequence induction', 'Chest drain', 'Urinary catheter/suprapubic', 'Defibrillation', 'External pacing', 'Resuscitation/cardiopulmonary resuscitation', 'Minor surgery', 'Observation/electrocardiogram,pulse oximetry/head injury/trends', 'Guidance/advice only - written', 'Guidance/advice only - verbal', 'Anaesthesia - general', 'Anaesthesia - local', 'Anaesthesia - regional block', 'Anaesthesia - etonox', 'Anaesthesia - sedation', 'Anaesthesia - other', 'Tetanus - immune', 'Tetanus - tetanus toxoid course', 'Tetanus - tetanus toxoid booster', 'Tetanus - human immunoglobin', 'Tetanus - combined tetanus/diphtheria course', 'Tetanus - combined tetanus/diphtheria booster', 'Nebulise/spacer', 'Other (consider alternatives)', 'Parenteral thrombolysis - streptokinase parenteral thrombolysis', 'Parenteral thrombolysis - recombinant - plasminogen activator', 'Other parenteral drugs - intravenous drug eg stat/bolus', 'Other parenteral drugs - intravenous infusion', 'Recording vital signs', 'Burns review', 'Recall/x-ray review', 'Fracture review', 'Wound cleaning', 'Dressing/wound review', 'Sling/collar cuff/broad arm sling', 'Epistaxis control', 'Nasal airway',  'Oral airway', 'Supplemental oxygen', 'Continuous positive airways pressure/nasal intermittent positive pressure ventilation/bag valve mask', 'Arterial line', 'Infusion fluids', 'Blood product transfusion', 'Pericardiocentesis', 'Lumbar puncture', 'Joint aspiration', 'Minor plastic procedure/splint skin graft', 'Active rewarming of the hypothermic patient', 'Cooling - control body temperature', 'Medication administered - oral', 'Medication administered - intra-muscular', 'Medication administered - subcutaneous', 'Medication administered - per rectum', 'Medication administered - sublingual', 'Medication administered - intra-nasal', 'Medication administered - eye drops', 'Medication administered - ear drops', 'Medication administered - topical skin cream', 'Occupational therapy functional assessments', 'Occupational therapy activities of daily living equipment provision', 'Loan of walking aid (crutches)', 'Social worker intervention', 'Eye - orthoptic exercises', 'Eye - laser of retina/iris or posterior capsule', 'Eye - retrobulbar injection', 'Eye - epilation of lashes', 'Eye - subconjunctival injection', 'Dental treatment', 'Prescription/medicines prepared to take away', 'None (consider guidance/advice option)'))
 
 Diagnosis_anatomical_side_lookup <- data.frame(Code = c('L','R','B','8'))
 
@@ -97,11 +96,35 @@ df_raw <- list.files(HDIS_directory)[grepl("West_Sussex_residents_A&E_attendance
                          DIAGA_09 = col_character(),
                          DIAGA_10 = col_character(),
                          DIAGA_11 = col_character(),
-                         DIAGA_12 = col_character()),
-        na = "null")) %>% 
-  mutate(SEX = ifelse(SEX == 1, 'Male', ifelse(SEX == 2, 'Female', 'Unknown')))
+                         DIAGA_12 = col_character(),
+                         TREAT2_01 = col_character(),
+                         TREAT2_02 = col_character(),
+                         TREAT2_03 = col_character(),
+                         TREAT2_04 = col_character(),
+                         TREAT2_05 = col_character(),
+                         TREAT2_06 = col_character(),
+                         TREAT2_07 = col_character(),
+                         TREAT2_08 = col_character(),
+                         TREAT2_09 = col_character(),
+                         TREAT2_10 = col_character(),
+                         TREAT2_11 = col_character(),
+                         TREAT2_12 = col_character(),
+                         TREAT3_01 = col_character(),
+                         TREAT3_02 = col_character(),
+                         TREAT3_03 = col_character(),
+                         TREAT3_04 = col_character(),
+                         TREAT3_05 = col_character(),
+                         TREAT3_06 = col_character(),
+                         TREAT3_07 = col_character(),
+                         TREAT3_08 = col_character(),
+                         TREAT3_09 = col_character(),
+                         TREAT3_10 = col_character(),
+                         TREAT3_11 = col_character(),
+                         TREAT3_12 = col_character()),
+        na = "null"))
 
 df_processed <- df_raw %>% 
+  mutate(SEX = ifelse(SEX == 1, 'Male', ifelse(SEX == 2, 'Female', 'Unknown'))) %>% 
   mutate(Arrival_mode = ifelse(AEARRIVALMODE == 1, 'Ambulance (including air ambulance)', ifelse(AEARRIVALMODE == 2, 'Other', ifelse(AEARRIVALMODE == 9, 'Unknown', NA)))) %>% 
   mutate(Attendance_category = ifelse(AEATTENDCAT == 1, 'First A&E attendance', ifelse(AEATTENDCAT == 2, 'Planned follow-up A&E attendance', ifelse(AEATTENDCAT == 3, 'Unplanned follow-up A&E attendance', ifelse(AEATTENDCAT == 9, 'Unknown', NA))))) %>% 
   mutate(Attendance_disposal = ifelse(AEATTENDDISP == '01', 'Admitted or became a lodged patient', ifelse(AEATTENDDISP == '02', 'Discharged with follow up at GP', ifelse(AEATTENDDISP == '03', 'Discharged with no follow up required', ifelse(AEATTENDDISP == '04', 'Referred to A&E clinic', ifelse(AEATTENDDISP == '05', 'Referred to fracture clinic', ifelse(AEATTENDDISP == '06', 'Referred to other outpatient clinic', ifelse(AEATTENDDISP == '07', 'Transferred to other provider', ifelse(AEATTENDDISP == '10', 'Deceased', ifelse(AEATTENDDISP == '11', 'Referred to other healthcare professional', ifelse(AEATTENDDISP == '12', 'Left department prior to treatment', ifelse(AEATTENDDISP == '14', 'Other', ifelse(AEATTENDDISP == '99', 'Unknown', NA))))))))))))) %>% 
@@ -130,31 +153,11 @@ df_processed <- df_raw %>%
   mutate(Minutes_to_initial_assessment = INITDUR) %>% 
   mutate(Initial_assessment_time = ifelse(INITTIME == 3000, 'Invalid', ifelse(INITTIME == 4000, 'Unknown', INITTIME))) %>% 
   mutate(Initial_assessment_hour = hour(as.period(hms(sub("(.{2})", "\\1:", sprintf("%04d:00", as.numeric(Initial_assessment_time)))), unit = "hour")),
-         Initial_assessment_minute = minute(as.period(hms(sub("(.{2})", "\\1:", sprintf("%04d:00", as.numeric(Initial_assessment_time)))), unit = "minute")))
-  
-df_processed %>% 
-  group_by(InvE) %>% 
-  summarise(n()) %>% 
-  View()
-
-field_x <- HES_data_dictionary %>% 
-  filter(str_detect(Field, regex('treat3', ignore_case = TRUE)))
-
-field_x$Name
-field_x$Description
-unique(field_x$Values)
-
-df_processed %>% 
-  group_by(as.numeric(ARRIVALTIME)) %>% 
-  summarise(n()) %>% 
-  View()
-
-df_processed %>% 
-  group_by(Arrival_month, Arrival_month_year, Arrival_quarter_calendar, Arrival_quarter_financial) %>% 
-  summarise(Attendances = n()) %>% 
-  View()
-
-max(df_processed$ARRIVALDATE)
+         Initial_assessment_minute = minute(as.period(hms(sub("(.{2})", "\\1:", sprintf("%04d:00", as.numeric(Initial_assessment_time)))), unit = "minute"))) %>% 
+  mutate(Treatment_time = ifelse(TRETTIME == 3000, 'Invalid', ifelse(TRETTIME == 4000, 'Unknown', TRETTIME))) %>% 
+  mutate(Treatment_hour = hour(as.period(hms(sub("(.{2})", "\\1:", sprintf("%04d:00", as.numeric(Treatment_time)))), unit = "hour")),
+         Treatment_minute = minute(as.period(hms(sub("(.{2})", "\\1:", sprintf("%04d:00", as.numeric(Treatment_time)))), unit = "minute"))) %>% 
+  select(Financial_year = FYEAR, PSEUDO_HESID, AEKEY, EPIKEY, Ethnicity, Sex = SEX, Arrival_age_band_five, Arrival_age_band_five_neonatal,  GP_practice = GPPRAC, CCG_of_responsibility = CCG_RESPONSIBILITY, Provider_code_three = PROCODE3, Provider_code_five = PROCODE5, PROCODET, LSOA11CD = LSOA11, MSOA11CD = MSOA11, LTLA_Code = RESLADST_ONS, SUSHRG, Arrival_date = ARRIVALDATE, Arrival_month_year, Arrival_month, Arrival_year, Arrival_quarter_calendar, Arrival_quarter_financial, Arrival_hour, Arrival_minute, Arrival_mode, Attendance_category, Attendance_disposal, Type_of_department, Incident_location, INVEST2_01, INVEST2_02, INVEST2_03, INVEST2_04, INVEST2_05, INVEST2_06, INVEST2_07, INVEST2_08, INVEST2_09, INVEST2_10, INVEST2_11, INVEST2_12,DIAG2_01, DIAG2_02, DIAG2_03, DIAG2_04, DIAG2_05, DIAG2_06, DIAG2_07, DIAG2_08, DIAG2_09, DIAG2_10, DIAG2_11, DIAG2_12, DIAG3_01, DIAG3_02, DIAG3_03, DIAG3_04, DIAG3_05, DIAG3_06, DIAG3_07, DIAG3_08, DIAG3_09, DIAG3_10, DIAG3_11, DIAG3_12, Anatomical_area_01 = DIAGA_01, Anatomical_area_02 = DIAGA_02, Anatomical_area_03 = DIAGA_03, Anatomical_area_04 = DIAGA_04, Anatomical_area_05 = DIAGA_05, Anatomical_area_06 = DIAGA_06, Anatomical_area_07 = DIAGA_07, Anatomical_area_08 = DIAGA_08, Anatomical_area_09 = DIAGA_09, Anatomical_area_10 = DIAGA_10, Anatomical_area_21 = DIAGA_11, Anatomical_area_12 = DIAGA_12, Anatomical_side_01 = DIAGS_01, Anatomical_side_02 = DIAGS_02, Anatomical_side_03 = DIAGS_03, Anatomical_side_04 = DIAGS_04, Anatomical_side_05 = DIAGS_05, Anatomical_side_06 = DIAGS_06, Anatomical_side_07 = DIAGS_07, Anatomical_side_08 = DIAGS_08, Anatomical_side_09 = DIAGS_09, Anatomical_side_10 = DIAGS_10, Anatomical_side_11 = DIAGS_11, Anatomical_side_12 = DIAGS_12, Patient_group, AE_referral_source,  Minutes_to_conclusion, Completion_time, Completion_hour, Completion_minute, Minutes_to_departure, Departure_time, Departure_hour, Departure_minute, Minutes_to_initial_assessment, Initial_assessment_time, Initial_assessment_hour, Initial_assessment_minute, Treatment_time, Treatment_hour, Treatment_minute,  CCG_of_treatment = CCG_TREATMENT, TREAT2_01, TREAT2_02, TREAT2_03, TREAT2_04, TREAT2_05, TREAT2_06, TREAT2_07, TREAT2_08, TREAT2_09, TREAT2_10, TREAT2_11, TREAT2_12, TREAT3_01, TREAT3_02, TREAT3_03, TREAT3_04, TREAT3_05, TREAT3_06, TREAT3_07, TREAT3_08, TREAT3_09, TREAT3_10, TREAT3_11,  TREAT3_12, Distance_between_provider_lsoa_km = PROVDIST, PROVDIST_FLAG, NER_TREATMENT, SITETRET, SITEDIST, SITEDIST_FLAG)      
 
 # To summarise with levels of a factor that has a zero cell
 df_processed %>% 
@@ -162,7 +165,6 @@ df_processed %>%
   summarise(Attendances = n()) %>%
   complete(Arrival_age_band_five_neonatal, fill = list(Attendances = 0)) %>% 
   View()
-
 
 df_processed %>% 
   group_by(ARRIVALDATE) %>% 
