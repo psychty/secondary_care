@@ -1,6 +1,6 @@
  # A&E data exploration ####
 
-packages <- c('easypackages', 'tidyr', 'ggplot2', 'dplyr', 'scales', 'readxl', 'readr', 'purrr', 'stringr', 'rgdal', 'spdplyr', 'geojsonio', 'rmapshaper', 'jsonlite', 'rgeos', 'sp', 'sf', 'maptools', 'leaflet', 'leaflet.extras', 'lubridate')
+packages <- c('easypackages', 'tidyr', 'ggplot2', 'dplyr', 'scales', 'readxl', 'readr', 'purrr', 'stringr', 'rgdal', 'spdplyr', 'geojsonio', 'rmapshaper', 'jsonlite', 'rgeos', 'sp', 'sf', 'maptools', 'leaflet', 'leaflet.extras', 'lubridate', 'openxlsx')
 install.packages(setdiff(packages, rownames(installed.packages())))
 easypackages::libraries(packages)
 
@@ -16,6 +16,9 @@ lsoa_mye <- read_csv(paste0(local_store, '/lsoa_mye_16_20.csv'))
 wsx_mye <- lsoa_mye %>% 
   group_by(Sex, Age_group) %>% 
   summarise(`2016_20` = sum(`2016_20`, na.rm = TRUE))
+
+# Disclosure control function
+source('https://raw.githubusercontent.com/psychty/secondary_care/main/R_Scripts/Disclosure%20control.R')
 
 # Create a dataset for the European Standard Population
 esp_2013_21_cat <- data.frame(Age_group = c('0 years', '1-4 years', '5-9 years', '10-14 years', '15-19 years', '20-24 years', '25-29 years', '30-34 years', '35-39 years', '40-44 years', '45-49 years', '50-54 years', '55-59 years', '60-64 years', '65-69 years', '70-74 years', '75-79 years', '80-84 years', '85-89 years', '90-94 years', '95 and over'), Standard_population = c(1000, 4000, 5500, 5500, 5500, 6000, 6000, 6500, 7000, 7000, 7000, 7000, 6500, 6000, 5500, 5000, 4000, 2500, 1500, 800, 200), stringsAsFactors = TRUE)
@@ -41,6 +44,64 @@ Investigation_lookup <- data.frame(Code = c('01', '02', '03', '04', '05', '06', 
 Treatment_lookup <- data.frame(Code = c('01','02','03','04','05','06','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','99'), Treatment = c('Dressing','Bandage/support','Sutures','Wound closure (exc sutures)','Plaster of Paris','Splint','Removal foreign body','Physiotherapy','Manipulation','Incision and drainage','Intravenous cannula','Central line','Lavage/emesis/charcoal/eye irrigation','Intubation & Endotracheal tubes/laryngeal mask airways/rapid sequence induction','Chest drain','Urinary catheter/suprapubic','Defibrillation/pacing','Resuscitation/cardiopulmonary resuscitation','Minor surgery','Observation/electrocardiogram,pulse oximetry/head injury/trends','Guidance/advice only','Anaesthesia','Tetanus','Nebulise/spacer','Other (consider alternatives)','Parenteral thrombolysis','Other parenteral drugs','Recording vital signs','Burns review','Recall/x-ray review','Fracture review','Wound cleaning','Dressing/wound review','Sling/collar cuff/broad arm sling','Epistaxis control','Nasal airway','Oral airway','Supplemental oxygen','Continuous positive airways pressure/nasal intermittent positive pressure ventilation/bag valve mask','Arterial line','Infusion fluids','Blood product transfusion','Pericardiocentesis','Lumbar puncture','Joint aspiration','Minor plastic procedure/splint skin graft','Active rewarming of the hypothermic patient','Cooling - control body temperature','Medication administered','Occupational therapy','Loan of walking aid (crutches)','Social worker intervention','Eye','Dental treatment','Prescription/medicines prepared to take away','None (consider guidance/advice option)'))
 
 Treatment_lookup_three <- data.frame(Code = c('011', '012', '02', '31', '32', '33', '041', '042', '043', '051', '052', '06', '08', '091', '092', '101', '102', '103', '11', '12', '13', '14','15', '16', '17', '181','182', '19', '20', '21', '221', '222', '231', '232', '233', '234', '235', '236', '241', '242', '243', '244', '245', '246', '25', '27', '281', '282', '291', '292', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43','44', '45', '46', '47', '48', '49', '50', '511', '512', '513', '514', '515', '516', '517', '518', '519', '521', '522', '53', '54', '551', '552', '553', '554', '555', '56', '57', '99'), Treatment = c('Dressing minor wound/burn/eye', 'Dressing major wound/burn', 'Bandage/support', 'Primary sutures', 'Secondary/complex suture', 'Removal of sutures/clips', 'Wound closure - steristrips', 'Wound closure - wound glue', 'Wound closure - other (eg clips)', 'Plaster of Paris - application', 'Plaster of Paris - removal', 'Splint', 'Removal foreign body',  'Physiotherapy - strapping, ultra sound treatment, short wave diathermy,manipulation',  'Physiotherapy - gait re-education, falls prevention', 'Manipulation of upper limb fracture',  'Manipulation of lower limb fracture', 'Manipulation of dislocation', 'Incision and drainage', 'Intravenous cannula', 'Central line', 'Lavage/emesis/charcoal/eye irrigation', 'Intubation & Endotracheal tubes/laryngeal mask airways/rapid sequence induction', 'Chest drain', 'Urinary catheter/suprapubic', 'Defibrillation', 'External pacing', 'Resuscitation/cardiopulmonary resuscitation', 'Minor surgery', 'Observation/electrocardiogram,pulse oximetry/head injury/trends', 'Guidance/advice only - written', 'Guidance/advice only - verbal', 'Anaesthesia - general', 'Anaesthesia - local', 'Anaesthesia - regional block', 'Anaesthesia - etonox', 'Anaesthesia - sedation', 'Anaesthesia - other', 'Tetanus - immune', 'Tetanus - tetanus toxoid course', 'Tetanus - tetanus toxoid booster', 'Tetanus - human immunoglobin', 'Tetanus - combined tetanus/diphtheria course', 'Tetanus - combined tetanus/diphtheria booster', 'Nebulise/spacer', 'Other (consider alternatives)', 'Parenteral thrombolysis - streptokinase parenteral thrombolysis', 'Parenteral thrombolysis - recombinant - plasminogen activator', 'Other parenteral drugs - intravenous drug eg stat/bolus', 'Other parenteral drugs - intravenous infusion', 'Recording vital signs', 'Burns review', 'Recall/x-ray review', 'Fracture review', 'Wound cleaning', 'Dressing/wound review', 'Sling/collar cuff/broad arm sling', 'Epistaxis control', 'Nasal airway',  'Oral airway', 'Supplemental oxygen', 'Continuous positive airways pressure/nasal intermittent positive pressure ventilation/bag valve mask', 'Arterial line', 'Infusion fluids', 'Blood product transfusion', 'Pericardiocentesis', 'Lumbar puncture', 'Joint aspiration', 'Minor plastic procedure/splint skin graft', 'Active rewarming of the hypothermic patient', 'Cooling - control body temperature', 'Medication administered - oral', 'Medication administered - intra-muscular', 'Medication administered - subcutaneous', 'Medication administered - per rectum', 'Medication administered - sublingual', 'Medication administered - intra-nasal', 'Medication administered - eye drops', 'Medication administered - ear drops', 'Medication administered - topical skin cream', 'Occupational therapy functional assessments', 'Occupational therapy activities of daily living equipment provision', 'Loan of walking aid (crutches)', 'Social worker intervention', 'Eye - orthoptic exercises', 'Eye - laser of retina/iris or posterior capsule', 'Eye - retrobulbar injection', 'Eye - epilation of lashes', 'Eye - subconjunctival injection', 'Dental treatment', 'Prescription/medicines prepared to take away', 'None (consider guidance/advice option)'))
+
+# A&E metadata lookup
+
+# Exporting and updating the data ####
+# wb <- createWorkbook()
+#   
+# addWorksheet(wb, "Introduction")
+# addWorksheet(wb, "A&E diag codes")
+# 
+# writeData(wb,
+#           sheet = "A&E diag codes",
+#           Diagnosis_condition_lookup_three,
+#           startCol = 2,
+#           startRow = 4,
+#           colNames = TRUE)
+# 
+# writeData(wb,
+#           sheet = "A&E diag codes",
+#           Diagnosis_condition_lookup,
+#           startCol = 5,
+#           startRow = 4,
+#           colNames = TRUE)
+# 
+# writeData(wb,
+#           sheet = "A&E diag codes",
+#           Diagnosis_anatomical_area_lookup,
+#           startCol = 8,
+#           startRow = 4,
+#           colNames = TRUE)
+# 
+# addWorksheet(wb, "A&E investigation codes")
+# 
+# writeData(wb,
+#           sheet = "A&E investigation codes",
+#           Investigation_lookup,
+#           startCol = 2,
+#           startRow = 4,
+#           colNames = TRUE)
+# 
+# addWorksheet(wb, "A&E treatment codes")
+# 
+# writeData(wb,
+#           sheet = "A&E treatment codes",
+#           Treatment_lookup_three,
+#           startCol = 2,
+#           startRow = 4,
+#           colNames = TRUE)
+# 
+# writeData(wb,
+#           sheet = "A&E treatment codes",
+#           Treatment_lookup,
+#           startCol = 5,
+#           startRow = 4,
+#           colNames = TRUE)
+# 
+# saveWorkbook(wb, 
+#              file = '//chi_nas_prod2.corporate.westsussex.gov.uk/groups2.bu/Public Health Directorate/PH Research Unit/R/Violence_injury/Accident_and_emergency_table_metadata.xlsx',
+#              overwrite = TRUE)
 
 Diagnosis_anatomical_side_lookup <- data.frame(Code = c('L','R','B','8'))
 
@@ -158,6 +219,13 @@ df_processed <- df_raw %>%
   mutate(Treatment_hour = hour(as.period(hms(sub("(.{2})", "\\1:", sprintf("%04d:00", as.numeric(Treatment_time)))), unit = "hour")),
          Treatment_minute = minute(as.period(hms(sub("(.{2})", "\\1:", sprintf("%04d:00", as.numeric(Treatment_time)))), unit = "minute"))) %>% 
   select(Financial_year = FYEAR, PSEUDO_HESID, AEKEY, EPIKEY, Ethnicity, Sex = SEX, Arrival_age_band_five, Arrival_age_band_five_neonatal,  GP_practice = GPPRAC, CCG_of_responsibility = CCG_RESPONSIBILITY, Provider_code_three = PROCODE3, Provider_code_five = PROCODE5, PROCODET, LSOA11CD = LSOA11, MSOA11CD = MSOA11, LTLA_Code = RESLADST_ONS, SUSHRG, Arrival_date = ARRIVALDATE, Arrival_month_year, Arrival_month, Arrival_year, Arrival_quarter_calendar, Arrival_quarter_financial, Arrival_hour, Arrival_minute, Arrival_mode, Attendance_category, Attendance_disposal, Type_of_department, Incident_location, INVEST2_01, INVEST2_02, INVEST2_03, INVEST2_04, INVEST2_05, INVEST2_06, INVEST2_07, INVEST2_08, INVEST2_09, INVEST2_10, INVEST2_11, INVEST2_12,DIAG2_01, DIAG2_02, DIAG2_03, DIAG2_04, DIAG2_05, DIAG2_06, DIAG2_07, DIAG2_08, DIAG2_09, DIAG2_10, DIAG2_11, DIAG2_12, DIAG3_01, DIAG3_02, DIAG3_03, DIAG3_04, DIAG3_05, DIAG3_06, DIAG3_07, DIAG3_08, DIAG3_09, DIAG3_10, DIAG3_11, DIAG3_12, Anatomical_area_01 = DIAGA_01, Anatomical_area_02 = DIAGA_02, Anatomical_area_03 = DIAGA_03, Anatomical_area_04 = DIAGA_04, Anatomical_area_05 = DIAGA_05, Anatomical_area_06 = DIAGA_06, Anatomical_area_07 = DIAGA_07, Anatomical_area_08 = DIAGA_08, Anatomical_area_09 = DIAGA_09, Anatomical_area_10 = DIAGA_10, Anatomical_area_21 = DIAGA_11, Anatomical_area_12 = DIAGA_12, Anatomical_side_01 = DIAGS_01, Anatomical_side_02 = DIAGS_02, Anatomical_side_03 = DIAGS_03, Anatomical_side_04 = DIAGS_04, Anatomical_side_05 = DIAGS_05, Anatomical_side_06 = DIAGS_06, Anatomical_side_07 = DIAGS_07, Anatomical_side_08 = DIAGS_08, Anatomical_side_09 = DIAGS_09, Anatomical_side_10 = DIAGS_10, Anatomical_side_11 = DIAGS_11, Anatomical_side_12 = DIAGS_12, Patient_group, AE_referral_source,  Minutes_to_conclusion, Completion_time, Completion_hour, Completion_minute, Minutes_to_departure, Departure_time, Departure_hour, Departure_minute, Minutes_to_initial_assessment, Initial_assessment_time, Initial_assessment_hour, Initial_assessment_minute, Treatment_time, Treatment_hour, Treatment_minute,  CCG_of_treatment = CCG_TREATMENT, TREAT2_01, TREAT2_02, TREAT2_03, TREAT2_04, TREAT2_05, TREAT2_06, TREAT2_07, TREAT2_08, TREAT2_09, TREAT2_10, TREAT2_11, TREAT2_12, TREAT3_01, TREAT3_02, TREAT3_03, TREAT3_04, TREAT3_05, TREAT3_06, TREAT3_07, TREAT3_08, TREAT3_09, TREAT3_10, TREAT3_11,  TREAT3_12, Distance_between_provider_lsoa_km = PROVDIST, PROVDIST_FLAG, NER_TREATMENT, SITETRET, SITEDIST, SITEDIST_FLAG)      
+
+
+df_processed %>% 
+  group_by(.$AE_referral_source) %>% 
+  summarise(Patients = n()) %>% 
+  ungroup() %>% 
+  mutate(Proportion = Patients / sum(Patients))
 
 # To summarise with levels of a factor that has a zero cell
 df_processed %>% 
