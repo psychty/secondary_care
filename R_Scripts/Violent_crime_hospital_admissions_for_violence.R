@@ -27,6 +27,11 @@ esp_2013_19_cat <- data.frame(Age_group = c('0-4 years', '5-9 years', '10-14 yea
 # Data dictionary
 HES_data_dictionary <- read_csv(paste0(local_store, "/HES_field_metadata.csv"))
 
+
+# OHID produce some useful HES outputs https://khub.net/group/south-east-public-health-information-group/group-library/-/document_library/Sz8Ah1O1ukgg/view/254524611?_com_liferay_document_library_web_portlet_DLPortlet_INSTANCE_Sz8Ah1O1ukgg_redirect=https%3A%2F%2Fkhub.net%3A443%2Fgroup%2Fsouth-east-public-health-information-group%2Fgroup-library%2F-%2Fdocument_library%2FSz8Ah1O1ukgg%2Fview%2F56035271%3F_com_liferay_document_library_web_portlet_DLPortlet_INSTANCE_Sz8Ah1O1ukgg_redirect%3Dhttps%253A%252F%252Fkhub.net%253A443%252Fgroup%252Fsouth-east-public-health-information-group%252Fgroup-library%253Fp_p_id%253Dcom_liferay_document_library_web_portlet_DLPortlet_INSTANCE_Sz8Ah1O1ukgg%2526p_p_lifecycle%253D0%2526p_p_state%253Dnormal%2526p_p_mode%253Dview 
+
+# This is not public data and so you'll need to log in to Knowledge Hub and download the file yourself.
+
 # Crime data at Community Safety Partnership area level -
 if(file.exists('./cspyemar22final.xlsx') != TRUE){
 download.file('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/crimeandjustice/datasets/recordedcrimedatabycommunitysafetypartnershiparea/yearendingmarch2022/cspyemar22final.xlsx', './cspyemar22final.xlsx', mode = 'wb')
