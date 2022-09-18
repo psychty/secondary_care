@@ -9,3 +9,7 @@
 
 falls_codes <- data.frame(ICD_code = c("W00","W01","W02","W03","W04","W05","W06","W07","W08","W09","W10","W11","W12","W13","W14","W15","W16","W17","W18","W19"), 
                           definition = c("Fall on same level involving ice and snow", "Fall on same level from slipping, tripping and stumbling", "Fall involving ice-skates, skis, roller-skates or skateboards", "Other fall on same level due to collision with, or pushing by, another person", "Fall while being carried or supported by other persons", "Fall involving wheelchair", "Fall involving bed", "Fall involving chair", "Fall involving other furniture", "Fall involving playground equipment", "Fall on and from stairs and steps", "Fall on and from ladder", "Fall on and from scaffolding", "Fall from, out of or through building or structure", "Fall from tree", "Fall from cliff", "Diving or jumping into water causing injury other than drowning or submersion", "Other fall from one level to another", "Other fall on same level", "Unspecified fall"))
+
+# Inpatient hospital admissions are a proportion of falls incidents, more may present to A&E and GPs, not all of which will lead to hospital admission.
+
+# This indicator only counts falls that have been coded in the cause field and Injuries in primary diagnosis field. It has been observed that there are situations where falls (ICD10 W00-W19) and Injuries (S00-T98) are coded in secondary diagnosis fields. This may result in underestimation of falls resulting in injuries.
