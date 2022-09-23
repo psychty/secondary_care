@@ -1,25 +1,18 @@
-# Alcohol-related hospital admissions
+# Alcohol-related hospital admissions ####
 
-# options(rlib_downstream_check = FALSE)
+# Alcohol-related hospital admissions have been estimated by applying alcohol-attributable fractions (AAFs) to Hospital Episode Statistics (HES) data. AAFs are the proportion of disease cases that can be attributable to alcohol. In 2020 new AAFs were calculated based on updated alcohol consumption rates and the latest evidence linking alcohol consumption to disease outcomes. 
+
+# Alcohol-attributable fractions for England: an update
+
+# Alcohol-related hospital admissions in this report use the new set of AAFs, and so differ from previously published data. Time series comparisons from the Fingertips service are based on the new AAFs but data is only available from 2016/17.
 
 packages <- c('easypackages', 'tidyr', 'ggplot2', 'dplyr', 'scales', 'readxl', 'readr', 'purrr', 'stringr', 'PHEindicatormethods', 'rgdal', 'spdplyr', 'geojsonio', 'rmapshaper', 'jsonlite', 'rgeos', 'sp', 'sf', 'maptools', 'ggpol', 'magick', 'officer', 'leaflet', 'leaflet.extras')
 install.packages(setdiff(packages, rownames(installed.packages())))
 easypackages::libraries(packages)
 
-# in case you need to use it
-# rstudioapi::writeRStudioPreference("data_viewer_max_columns", 1000L)
-
-# Alcohol-related hospital admissions have been estimated by applying alcohol-attributable fractions (AAFs) to Hospital Episode Statistics (HES) data. AAFs are the proportion of disease cases that can be attributable to alcohol. In 2020 new AAFs were calculated based on updated alcohol consumption rates and the latest evidence linking alcohol consumption to disease outcomes. 
- 
-# Alcohol-attributable fractions for England: an update
- 
-# Alcohol-related hospital admissions in this report use the new set of AAFs, and so differ from previously published data. Time series comparisons are based on the new AAFs but data is only available from 2016/17.
- 
-# The "broad" measure of alcohol-related hospital admissions is more dependent on the use of secondary diagnoses than the "narrow" measure. Consequently increases for the "broad" measure may be due to improvements in the recording of secondary diagnoses and the "narrow" measure is a better indicator of changes over time.
-
 local_store <- '\\\\chi_nas_prod2.corporate.westsussex.gov.uk/groups2.bu/Public Health Directorate/PH Research Unit/R/Alcohol'
 
-# LSOA population ####
+# LSOA population
 
 IMD_2019 <- read_csv('https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/845345/File_7_-_All_IoD2019_Scores__Ranks__Deciles_and_Population_Denominators_3.csv') %>% 
   select(LSOA11CD = `LSOA code (2011)`,  LTLA = `Local Authority District name (2019)`, IMD_Score = `Index of Multiple Deprivation (IMD) Score`, IMD_Decile = "Index of Multiple Deprivation (IMD) Decile (where 1 is most deprived 10% of LSOAs)") %>% 
@@ -31,11 +24,14 @@ wsx_mye <- lsoa_mye %>%
   group_by(Sex, Age_group) %>% 
   summarise(`2016_20` = sum(`2016_20`, na.rm = TRUE))
 
+# Lookup from LSOA to Ward
 LSOA11_WD21 <- read_excel(paste0(local_store, '/LSOA11_WD21_LAD21_EW_LU_V2.xlsx')) %>% 
   select(LSOA11CD, WD21CD, WD21NM, LTLA = LAD21NM)
 
+# Create a dataset for the European Standard Population
 esp_2013_19_cat <- data.frame(Age_group = c('0-4 years', '5-9 years', '10-14 years', '15-19 years', '20-24 years', '25-29 years', '30-34 years', '35-39 years', '40-44 years', '45-49 years', '50-54 years', '55-59 years', '60-64 years', '65-69 years', '70-74 years', '75-79 years', '80-84 years', '85+ years'), Standard_population = c(5000, 5500, 5500, 5500, 6000, 6000, 6500, 7000, 7000, 7000, 7000, 6500, 6000, 5500, 5000, 4000, 2500, 2500), stringsAsFactors = TRUE)
 
+# Data dictionary
 if(file.exists(paste0(local_store, '/HES_data_dictionary.xlsx')) != TRUE){
   download.file('https://digital.nhs.uk/binaries/content/assets/website-assets/data-and-information/data-tools-and-services/data-services/hospital-episode-statistics/hes-data-dictionary/hes-tos-v1.8---published-m12.xlsx', destfile = paste0(local_store, '/HES_data_dictionary.xlsx'), mode = 'wb')
 }
@@ -44,49 +40,29 @@ HES_inpatient_data_dictionary <- read_excel(paste0(local_store, "/HES_data_dicti
                                             sheet = "HES APC TOS",
                                             skip = 1)
 
+# AAF_hes <- read_excel("//chi_nas_prod2.corporate.westsussex.gov.uk/groups2.bu/Public Health Directorate/PH Research Unit/R/Alcohol/HES_data_dictionary.xlsx",
+                        # sheet = "Alcohol fractions ref data", 
+                        # skip = 1) %>% 
+  # mutate(Sex = ifelse(Sex == 1, 'Male', ifelse(Sex == 2, 'Female', NA)))
+# These still look like they are old codes
 
-# England tables Feb 22
+# England LAPE hospital admission tables Feb 22
 if(file.exists(paste0(local_store, '/LAPE_tables_England_22.xlsx')) != TRUE){
   download.file('https://fingertips.phe.org.uk/documents/LAPE_Statistical_Tables_for_England_2022.xlsx', paste0(local_store, '/LAPE_tables_England_22.xlsx'), mode = 'wb')
 }
 
-
 # Disclosure control function
 source('https://raw.githubusercontent.com/psychty/secondary_care/main/R_Scripts/Disclosure%20control.R')
 
-# This is definitely the 2014 version - seems reasonable to assume The HES alc is using this.
-# HES_alcohol_fractions_reference <- read_excel(paste0(local_store, "/HES_data_dictionary.xlsx"),
-                                              # sheet = "Alcohol fractions ref data",
-                                              # skip = 1) %>% 
-  # mutate(code_length = nchar(`Diagnosis code`))
-
-# Three_dig_codes <- HES_alcohol_fractions_reference %>% 
-  # filter(code_length == 3) %>% 
-  # select(`Diagnosis code`) %>% 
-  # unique()
-
-# Four_dig_codes <- HES_alcohol_fractions_reference %>% 
-  # filter(code_length == 4) %>% 
-  # select(`Diagnosis code`) %>% 
-  # unique()
+# Alcohol Attributable Fractions 
 
 # Tom Jemmett in the NHS R community gave me access to a machine readable file of AAF he's working on
 # aaf <- read_csv('https://gist.githubusercontent.com/tomjemmett/2ce79350de2308b631f87a5ee0937a9f/raw/9aa4ae4e3a02cc2c813668f6a2166d6ccd747943/aaf.csv')
 
+# I used this and the PDF updated AAFs to create a machine readable file to join
 local_aaf <- read_csv(paste0(local_store, '/Alcohol_attributable_fractions_2019.csv')) 
 
-# Eng_Alc_broad_title <- read_excel(paste0(local_store, 'LAPE_tables_England_22.xlsx'), 
-#                             sheet = '1.1',
-#                             range = 'A1',
-#                             col_names = FALSE) %>% 
-#   as.character()
-# 
-# Eng_alc_broad <- read_excel(paste0(local_store, 'LAPE_tables_England_22.xlsx'), 
-#                               sheet = '1.1',
-#                               skip = 1)
-
-# Under 16s are incuded only for wholly alcohol attributable conditions ####
-
+# Under 16s are incuded only for wholly alcohol attributable conditions
 condition_fractions <- local_aaf %>% 
   arrange(ICD10_Code) %>% 
   select(Group, Condition_name, Sex, Age_group, Fraction) %>% 
@@ -102,10 +78,7 @@ conditions <- condition_fractions %>%
   select(Condition_name) %>% 
   unique()
 
-# External causes are anything with an ICD code starting with S, T, V, X , or Y ####
-
 # Load data ####
-
 HDIS_directory <- '//chi_nas_prod2.corporate.westsussex.gov.uk/groups2.bu/Public Health Directorate/PH Research Unit/HDIS/Extracts_Rich_Tyler/'
 
 df_raw <- list.files(HDIS_directory)[grepl("West_Sussex_alcohol_related_conditions_broad_", list.files(HDIS_directory)) == TRUE] %>%  map_df(~read_csv(paste0(HDIS_directory,.),
@@ -114,10 +87,9 @@ df_raw <- list.files(HDIS_directory)[grepl("West_Sussex_alcohol_related_conditio
   mutate(SEX = ifelse(SEX == 1, 'Male', ifelse(SEX == 2, 'Female', NA))) %>% 
   filter(Age_group != 'Unknown')
 
-# There is one EPIKEY for each record which is good
-length(unique(df_raw$EPIKEY))
+# Broad definition alcohol-related hospital admissions ####
 
-unique(df_raw$Age_group)
+# The "broad" measure of alcohol-related hospital admissions is more dependent on the use of secondary diagnoses than the "narrow" measure. Consequently increases for the "broad" measure may be due to improvements in the recording of secondary diagnoses and the "narrow" measure is a better indicator of changes over time.
 
 # We need to create a field for each condition (conditions defined as groups of ICD10 codes with distinct AAF values).
 # The new field checks if the alc related codes appear in the concat field (for some conditions we can just search the three character concat field but others need the four character field), and if a code does appear then the field returns the index of the first appearance (we should be able to use this to determine which value to present first).
@@ -130,8 +102,6 @@ unique(df_raw$Age_group)
 #   mutate(`Mental and behavioural disorders due to use of alcohol` = ifelse(str_detect(DIAG_3_CONCAT, 'F10'), str_count(substr(DIAG_3_CONCAT, 1, str_locate(DIAG_3_CONCAT, 'F10') - 1), ',') +1, NA)) # All in one place
 
 # Conditions where low levels of alcohol consumption are protective (have a negative alcohol-attributable fraction) are not included in the calculation of the indicator. 
-
-# Broad definition ####
 
 # The broad definition for this indicator is - Admissions to hospital where the primary diagnosis or any of the secondary diagnoses are an alcohol-attributable code.
 
@@ -215,7 +185,7 @@ number_of_alc_conditions_broad_by_episode <- df_processed_broad_2_long %>%
   group_by(Number_of_alc_related_conditions) %>% 
   summarise(Episodes = n())
 
-# We could (and should stop) at highest fraction as thats all we need to calculate the small area alcohol related conditions)
+# We could (and should) stop at highest fraction as that is all we need to calculate the small area alcohol related conditions
 df_processed_broad_to_join <- df_processed_broad_2_long %>% 
   select(EPIKEY, Highest_fraction, Number_of_alc_related_conditions) %>% 
   unique()
@@ -224,6 +194,111 @@ broad_final_df <- df_raw %>%
   select(EPIKEY, Sex = SEX, Age = STARTAGE_CALC, FYEAR, ADMIDATE, LSOA11CD = LSOA11) %>% 
   mutate(Age_group = ifelse(Age <= 4, "0-4 years", ifelse(Age <= 9, "5-9 years", ifelse(Age <= 14, "10-14 years", ifelse(Age <= 19, "15-19 years", ifelse(Age <= 24, "20-24 years", ifelse(Age <= 29, "25-29 years",ifelse(Age <= 34, "30-34 years", ifelse(Age <= 39, "35-39 years",ifelse(Age <= 44, "40-44 years", ifelse(Age <= 49, "45-49 years",ifelse(Age <= 54, "50-54 years", ifelse(Age <= 59, "55-59 years",ifelse(Age <= 64, "60-64 years", ifelse(Age <= 69, "65-69 years",ifelse(Age <= 74, "70-74 years", ifelse(Age <= 79, "75-79 years",ifelse(Age <= 84, "80-84 years", "85+ years")))))))))))))))))) %>% 
   left_join(df_processed_broad_to_join, by = 'EPIKEY') 
+
+rm(df_processed_broad, df_processed_broad_2_long, df_processed_broad_to_join)
+
+# Narrow definition alcohol-related hospital admissions ####
+
+# Admissions to hospital where the primary diagnosis is an alcohol-attributable code or a secondary diagnosis is an alcohol-attributable external cause code. 
+
+# External causes are anything with an ICD code starting with S, T, V, X , or Y ####
+external_aaf <- local_aaf %>%
+  filter(str_detect(ICD10_Code, '[STVXY]'))
+
+# Search only DIAG_3_01 or DIAG_4_01 for internal cause codes
+df_processed_narrow <- df_raw %>% 
+  mutate(`Mental and behavioural disorders due to use of alcohol` = ifelse(str_detect(DIAG_3_01, 'F10'), 1, NA)) %>%
+  mutate(`Alcoholic liver disease` = ifelse(str_detect(DIAG_3_01, 'K70'), 1, NA)) %>% 
+  mutate(`Alcohol-induced pseudo-Cushing's syndrome` = ifelse(str_detect(DIAG_4_01, 'E244'), 1 , NA)) %>% 
+  mutate(`Degeneration of nervous system due to alcohol` = ifelse(str_detect(DIAG_4_01, 'G312'), 1 , NA)) %>% 
+  mutate(`Alcoholic polyneuropathy` = ifelse(str_detect(DIAG_4_01, 'G621'), 1 , NA)) %>% 
+  mutate(`Alcoholic myopathy` = ifelse(str_detect(DIAG_4_01, 'G721'),1 , NA)) %>% 
+  mutate(`Alcoholic cardiomyopathy` = ifelse(str_detect(DIAG_4_01, 'I426'), 1 , NA)) %>% 
+  mutate(`Alcoholic gastritis` = ifelse(str_detect(DIAG_4_01, 'K292'),1 , NA)) %>% 
+  mutate(`Alcohol-induced acute pancreatitis` = ifelse(str_detect(DIAG_4_01, 'K852'), 1 , NA)) %>%
+  mutate(`Alcohol-induced chronic pancreatitis` = ifelse(str_detect(DIAG_4_01, 'K860'),1 , NA)) %>% 
+  mutate(`Fetal alcohol syndrome (dysmorphic)` = ifelse(str_detect(DIAG_4_01, 'Q860'), 1 , NA)) %>% 
+  mutate(`Excess alcohol blood levels` = ifelse(str_detect(DIAG_4_01, 'R780'), 1 , NA)) %>% 
+  mutate(Tuberculosis = ifelse(str_detect(DIAG_3_01, 'A1[56789]'),1 , NA)) %>%   mutate(`Lip, oral cavity and pharynx` = ifelse(str_detect(DIAG_3_01, 'C0[0-9]|C1[0-4]'), 1 , NA)) %>% 
+  mutate(Oesophagus = ifelse(str_detect(DIAG_3_01, 'C15'), 1 , NA)) %>% 
+  mutate(Colon = ifelse(str_detect(DIAG_3_01, 'C18'), 1 , NA)) %>% 
+  mutate(Rectum = ifelse(str_detect(DIAG_3_01, 'C20'), 1 , NA)) %>% 
+  mutate(`Liver and intrahepatic bile ducts` = ifelse(str_detect(DIAG_3_01, 'C22'), 1 , NA)) %>% 
+  mutate(Larynx = ifelse(str_detect(DIAG_3_01, 'C32'), 1 , NA)) %>% 
+  mutate(Breast = ifelse(str_detect(DIAG_3_01, 'C50'), 1 , NA)) %>% 
+  # mutate(`Type 2 diabetes mellitus` = ifelse(str_detect(DIAG_3_01, 'E11'),1 , NA)) %>% 
+  mutate(`Epilepsy and Status epilepticus` = ifelse(str_detect(DIAG_3_01, 'G4[01]'), 1, NA)) %>% 
+  mutate(`Hypertensive diseases` = ifelse(str_detect(DIAG_3_01, 'I1[0-5]'), 1, NA)) %>% 
+  # mutate(`Ischaemic heart disease` = ifelse(str_detect(DIAG_3_01, 'I2[0-5]'), 1 , NA)) %>% 
+  mutate(`Cardiac arrhythmias` = ifelse(str_detect(DIAG_3_01, 'I4[78]'), 1, NA)) %>% 
+  mutate(`Heart failure` = ifelse(str_detect(DIAG_3_01, 'I5[01]'), 1, NA)) %>%   mutate(`Ischaemic stroke` = ifelse(str_detect(DIAG_4_01, 'I6[3-6]|I69[34]'), 1, NA)) %>% 
+  mutate(`Haemorrhagic stroke` = ifelse(str_detect(DIAG_4_01, 'I6[0-2]|I69[0-2]'), 1 , NA)) %>% 
+  mutate(`Oesophageal varices` = ifelse(str_detect(DIAG_3_01, 'I85'), 1, NA)) %>% 
+  mutate(Pneumonia = ifelse(str_detect(DIAG_4_01, 'J1[01]0|J1[2-5]|J18'), 1, NA)) %>% 
+  mutate(`Unspecified liver disease` = ifelse(str_detect(DIAG_3_01, 'K7[34]'), 1, NA)) %>% 
+  # mutate(`Cholelithiasis (gall stones)` = ifelse(str_detect(DIAG_3_01, 'K80'), 1, NA)) %>% # negative AAFs
+  mutate(`Acute and chronic pancreatitis` = ifelse(str_detect(DIAG_4_01, 'K85[01]|K85[3-9]|K861'), 1 , NA)) %>% 
+  mutate(`Spontaneous abortion` = ifelse(str_detect(DIAG_3_01, 'O03'), 1, NA)) %>% 
+  mutate(`Low birth weight` = ifelse(str_detect(DIAG_3_01, 'P0[5-7]'), 1, NA)) %>% 
+  # Search anywhere for STVXY codes 
+  mutate(`Ethanol poisoning` = ifelse(str_detect(DIAG_4_CONCAT, 'T510'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT,'T510')- 1), ',') +1 , NA)) %>% 
+  mutate(`Methanol poisoning` = ifelse(str_detect(DIAG_4_CONCAT, 'T511'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'T511')- 1), ',') +1 , NA)) %>% 
+  mutate(`Toxic effect of alcohol, unspecified` = ifelse(str_detect(DIAG_4_CONCAT, 'T519'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'T519')- 1), ',') +1 , NA)) %>% 
+  mutate(`Accidental poisoning by and exposure to alcohol` = ifelse(str_detect(DIAG_3_CONCAT, 'X45'), str_count(substr(DIAG_3_CONCAT, 1, str_locate(DIAG_3_CONCAT, 'X45')- 1), ',') +1 , NA)) %>% 
+  mutate(`Intentional self-poisoning by and exposure to alcohol` = ifelse(str_detect(DIAG_3_CONCAT, 'X65'), str_count(substr(DIAG_3_CONCAT, 1, str_locate(DIAG_3_CONCAT, 'X65')- 1), ',') +1 , NA)) %>% 
+  mutate(`Poisoning by and exposure to alcohol, undetermined intent` = ifelse(str_detect(DIAG_3_CONCAT, 'Y15'), str_count(substr(DIAG_3_CONCAT, 1, str_locate(DIAG_3_CONCAT, 'Y15')- 1), ',') +1 , NA)) %>% 
+  mutate(`Evidence of alcohol involvement determined by blood alcohol level` = ifelse(str_detect(DIAG_3_CONCAT, 'Y90'), str_count(substr(DIAG_3_CONCAT, 1, str_locate(DIAG_3_CONCAT, 'Y90')- 1), ',') +1 , NA)) %>% 
+  mutate(`Evidence of alcohol involvement determined by level of intoxication` = ifelse(str_detect(DIAG_3_CONCAT, 'Y91'), str_count(substr(DIAG_3_CONCAT, 1, str_locate(DIAG_3_CONCAT, 'Y91')- 1), ',') +1 , NA)) %>% 
+  mutate(`Road/pedestrian traffic accidents` = ifelse(str_detect(DIAG_4_CONCAT, 'V0[234][19]|V09[23]|V1[2-4][3-9]|V19[4-6]|V2[0-8][3-9]|V29[4-9]|V3[0-9][4-9]|V4[0-9][4-9]|V5[0-9][4-9]|V6[0-9][4-9]|V7[0-9][4-9]|V80[3-5]|V8[12]1|V8[3-6][0-3]|V87[0-8]|V892'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'V0[234][19]|V09[23]|V1[2-4][3-9]|V19[4-6]|V2[0-8][3-9]|V29[4-9]|V3[0-9][4-9]|V4[0-9][4-9]|V5[0-9][4-9]|V6[0-9][4-9]|V7[0-9][4-9]|V80[3-5]|V8[12]1|V8[3-6][0-3]|V87[0-8]|V892')- 1), ',') +1 , NA))  %>% 
+  mutate(Poisoning = ifelse(str_detect(DIAG_3_CONCAT, 'X4[0-4]|X4[6-9]'), str_count(substr(DIAG_3_CONCAT, 1, str_locate(DIAG_3_CONCAT, 'X4[0-4]|X4[6-9]') - 1), ',') +1,  NA)) %>% 
+  mutate(`Falls` = ifelse(str_detect(DIAG_3_CONCAT, 'W[01][0-9]'), str_count(substr(DIAG_3_CONCAT, 1, str_locate(DIAG_3_CONCAT, 'W[01][0-9]')- 1), ',') +1 , NA)) %>% 
+  mutate(Fires = ifelse(str_detect(DIAG_3_CONCAT, 'X0[0-9]'), str_count(substr(DIAG_3_CONCAT, 1, str_locate(DIAG_3_CONCAT, 'X0[0-9]')- 1), ',') +1 , NA)) %>%   
+  mutate(Drowning = ifelse(str_detect(DIAG_3_CONCAT, 'W6[5-9]|W7[0-4]'), str_count(substr(DIAG_3_CONCAT, 1, str_locate(DIAG_3_CONCAT, 'W6[5-9]|W7[0-4]')- 1), ',') +1 , NA)) %>%   
+  mutate(`Other unintentional injuries` = ifelse(str_detect(DIAG_4_CONCAT, 'V01|V09[019]|V10[0-9]|V11[0-9]|V1[234][0-2]|V1[5-8][0-9]|V19[1-3]|V2[0-8][12]|V29[0-3]|V3[0-8][12]|V39[0-3]|V4[0-8][12]|V49[0-3]|V5[0-8][12]|V59[0-3]|V6[0-8][12]|V69[0-3]|V7[0-8][12]|V79[0-3]|V80[016789]|V81[023456789]|V82[023456789]|V8[3-6][4-9]|V879|V88|V89[013456789]|V9[0-9]|W[234][0-9]|W5[0-2]|W7[5-9]|W[89][0-9]|X[12][0-9]|X3[0-3]|X5[0-9]|Y[4-7][0-9]|Y8[0-6]|Y8[89]'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'V01|V09[019]|V10[0-9]|V11[0-9]|V1[234][0-2]|V1[5-8][0-9]|V19[1-3]|V2[0-8][12]|V29[0-3]|V3[0-8][12]|V39[0-3]|V4[0-8][12]|V49[0-3]|V5[0-8][12]|V59[0-3]|V6[0-8][12]|V69[0-3]|V7[0-8][12]|V79[0-3]|V80[016789]|V81[023456789]|V82[023456789]|V8[3-6][4-9]|V879|V88|V89[013456789]|V9[0-9]|W[234][0-9]|W5[0-2]|W7[5-9]|W[89][0-9]|X[12][0-9]|X3[0-3]|X5[0-9]|Y[4-7][0-9]|Y8[0-6]|Y8[89]')- 1), ',') +1 , NA)) %>%   
+  mutate(`Intentional self-harm` = ifelse(str_detect(DIAG_4_CONCAT, 'X6[0-4]|X6[6-9]|X7|X8[0-4]|Y870'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'X6[0-4]|X6[6-9]|X7|X8[0-4]|Y870')- 1), ',') +1 , NA)) %>%   
+  mutate(`Event of undetermined intent` = ifelse(str_detect(DIAG_4_CONCAT, 'Y1[0-4]|Y1[6-9]|Y2|Y3[0-4]|Y872'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'Y1[0-4]|Y1[6-9]|Y2|Y3[0-4]|Y872')- 1), ',') +1 , NA)) %>%   
+  mutate(Assault = ifelse(str_detect(DIAG_4_CONCAT, 'X8[5-9]|X9|Y0|Y871'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'X8[5-9]|X9|Y0|Y871')- 1), ',') +1 , NA)) 
+
+
+
+
+
+
+
+# Alcohol-specific hospital admissions (wholly attributable conditions) ####
+
+alcohol_specific_aaf <- local_aaf %>%
+  filter(Fraction == 1) %>% 
+  select(Group, Condition_name, ICD10_Code, Fraction) %>% 
+  unique()
+
+alcohol_specific_aaf
+
+df_processed_specific <- df_raw %>% 
+  mutate(`Mental and behavioural disorders due to use of alcohol` = ifelse(str_detect(DIAG_3_CONCAT, 'F10'),  str_count(substr(DIAG_3_CONCAT, 1, str_locate(DIAG_3_CONCAT, 'F10') -1), ',') +1, NA)) %>%
+  mutate(`Alcoholic liver disease` = ifelse(str_detect(DIAG_3_CONCAT, 'K70'),str_count(substr(DIAG_3_CONCAT, 1, str_locate(DIAG_3_CONCAT, 'K70')- 1), ',') +1 , NA)) %>% 
+  mutate(`Ethanol poisoning` = ifelse(str_detect(DIAG_4_CONCAT, 'T510'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT,'T510')- 1), ',') +1 , NA)) %>% 
+  mutate(`Methanol poisoning` = ifelse(str_detect(DIAG_4_CONCAT, 'T511'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'T511')- 1), ',') +1 , NA)) %>% 
+  mutate(`Toxic effect of alcohol, unspecified` = ifelse(str_detect(DIAG_4_CONCAT, 'T519'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'T519')- 1), ',') +1 , NA)) %>% 
+  mutate(`Alcohol-induced pseudo-Cushing's syndrome` = ifelse(str_detect(DIAG_4_CONCAT, 'E244'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'E244')- 1), ',') +1 , NA)) %>% 
+  mutate(`Degeneration of nervous system due to alcohol` = ifelse(str_detect(DIAG_4_CONCAT, 'G312'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'G312')- 1), ',') +1 , NA)) %>% 
+  mutate(`Alcoholic polyneuropathy` = ifelse(str_detect(DIAG_4_CONCAT, 'G621'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'G621')- 1), ',') +1 , NA)) %>% 
+  mutate(`Alcoholic myopathy` = ifelse(str_detect(DIAG_4_CONCAT, 'G721'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'G721')- 1), ',') +1 , NA)) %>% 
+  mutate(`Alcoholic cardiomyopathy` = ifelse(str_detect(DIAG_4_CONCAT, 'I426'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'I426')- 1), ',') +1 , NA)) %>% 
+  mutate(`Alcoholic gastritis` = ifelse(str_detect(DIAG_4_CONCAT, 'K292'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'K292')- 1), ',') +1 , NA)) %>% 
+  mutate(`Alcohol-induced acute pancreatitis` = ifelse(str_detect(DIAG_4_CONCAT, 'K852'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'K852')- 1), ',') +1 , NA)) %>% 
+  mutate(`Alcohol-induced chronic pancreatitis` = ifelse(str_detect(DIAG_4_CONCAT, 'K860'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'K860')- 1), ',') +1 , NA)) %>% 
+  mutate(`Fetal alcohol syndrome (dysmorphic)` = ifelse(str_detect(DIAG_4_CONCAT, 'Q860'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'Q860')- 1), ',') +1 , NA)) %>% 
+  mutate(`Excess alcohol blood levels` = ifelse(str_detect(DIAG_4_CONCAT, 'R780'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'R780')- 1), ',') +1 , NA)) %>% 
+  mutate(`Accidental poisoning by and exposure to alcohol` = ifelse(str_detect(DIAG_3_CONCAT, 'X45'), str_count(substr(DIAG_3_CONCAT, 1, str_locate(DIAG_3_CONCAT, 'X45')- 1), ',') +1 , NA)) %>% 
+  mutate(`Intentional self-poisoning by and exposure to alcohol` = ifelse(str_detect(DIAG_3_CONCAT, 'X65'), str_count(substr(DIAG_3_CONCAT, 1, str_locate(DIAG_3_CONCAT, 'X65')- 1), ',') +1 , NA)) %>% 
+  mutate(`Poisoning by and exposure to alcohol, undetermined intent` = ifelse(str_detect(DIAG_3_CONCAT, 'Y15'), str_count(substr(DIAG_3_CONCAT, 1, str_locate(DIAG_3_CONCAT, 'Y15')- 1), ',') +1 , NA)) %>% 
+  mutate(`Evidence of alcohol involvement determined by blood alcohol level` = ifelse(str_detect(DIAG_3_CONCAT, 'Y90'), str_count(substr(DIAG_3_CONCAT, 1, str_locate(DIAG_3_CONCAT, 'Y90')- 1), ',') +1 , NA)) %>% 
+  mutate(`Evidence of alcohol involvement determined by level of intoxication` = ifelse(str_detect(DIAG_3_CONCAT, 'Y91'), str_count(substr(DIAG_3_CONCAT, 1, str_locate(DIAG_3_CONCAT, 'Y91')- 1), ',') +1 , NA))
+
+# We have our three record level datasets
+
+# Aggregated outputs
 
 Wsx_alc_broad_by_FYEAR <- read_excel(paste0(local_store, 'LAPE_tables_England_22.xlsx'), 
                                      sheet = '1.3',
@@ -255,7 +330,7 @@ WSx_admissions_alc_broad_by_age_sex <- broad_final_df %>%
   left_join(wsx_mye, by = c('Sex', 'Age_group')) %>% 
   left_join(esp_2013_19_cat, by = 'Age_group')
 
-# Small area ####
+# Small area outputs
 
 LSOA_admissions_alc_broad <- broad_final_df %>% 
   group_by(LSOA11CD) %>% 
@@ -309,12 +384,9 @@ LTLA_admissions_alc_broad_by_age_sex <- broad_final_df %>%
             `2016_20` = sum(`2016_20`, na.rm = TRUE)) %>% 
   left_join(esp_2013_19_cat, by = 'Age_group')
 
+# Standardising outputs
 
-# Standardising outputs ####
-
-# This doesn't have 0-4 and 5-9, and 10-14 year olds. 
 # MYE data from nomis is at 5 year age bands but aggregates 85+, and as such I have had to aggregate the ESP for 85-89, 90-94 and 95+. I could get SYOA tables from ONS
-# Also the AAFs only cover 16+, and the ESP is five year age bands but cut 10-14 year olds so there are 15 year olds in the mye denominator and standard population with no possibility of any 15 year olds in the numerator.
 
 dsrs_wsx = WSx_admissions_alc_broad_by_age_sex %>% 
   ungroup() %>% 
@@ -383,12 +455,14 @@ dsrs_wards <- Wards_admissions_alc_broad_by_age_sex %>%
   mutate(Significance = ifelse(lowercl > wsx_uci, 'Significantly higher', ifelse(uppercl < wsx_lci, 'Significantly lower', 'Similar'))) %>% 
   select(WD21CD, WD21NM, LTLA, Alcohol_related_episodes, Rate = value, Lower_CI = lowercl, Upper_CI = uppercl, Significance)
 
+dsrs_wards %>% 
+  arrange(Rate) %>% 
+  View()
+
 # dsrs_wards %>% 
 #   write.csv(., './old_dsrs_wsxwards.csv', row.names = FALSE)
 
-# visualising data ####
-
-# Mapping ####
+# visualising outputs
 map_theme = function(){
   theme( 
     legend.position = "bottom", 
@@ -424,16 +498,15 @@ lad_boundary_ggplot <- lad_boundaries_spdf %>%
   fortify(region = "LAD21NM") %>% 
   rename(LAD19NM = id) 
 
-# ggplot()+
-#   geom_polygon(data = lad_boundary_ggplot, 
-#                aes(x = long,  y = lat, group = group, fill = LAD19NM), 
-#                size = 0.25, 
-#                show.legend = TRUE, 
-#                colour = "lightgrey") +
-#   map_theme() +
-#   coord_fixed(1.5)
+ggplot()+
+  geom_polygon(data = lad_boundary_ggplot,
+               aes(x = long,  y = lat, group = group, fill = LAD19NM),
+               size = 0.25,
+               show.legend = TRUE,
+               colour = "lightgrey") +
+  map_theme() +
+  coord_fixed(1.5)
 
-# Read in the lsoa geojson boundaries for our lsoas (actually this downloads all 30,000+ and then we filter)
 lsoa_spdf <- geojson_read("https://opendata.arcgis.com/datasets/8bbadffa6ddc493a94078c195a1e293b_0.geojson",  what = "sp") %>%
   filter(LSOA11CD %in% IMD_2019$LSOA11CD)
 
@@ -512,7 +585,7 @@ png(paste0(local_store,'/West_Sussex_overall_alc_related_admissions_broad_wards_
 print(ward_broad_1)
 dev.off()
 
-# You can use the average lat/lng to create centroids for label positions ####
+# You can use the average lat/lng to create centroids for label positions
 ward_boundary_centroids <- ward_boundary_ggplot %>% 
   group_by(WD21CD, WD21NM, LTLA, Significance) %>% 
   summarise(Longitude = mean(long, na.rm = TRUE),
@@ -529,25 +602,22 @@ Crawley_wards_table <- dsrs_wards %>%
 Crawley_wards_table %>% 
   write.csv(., paste0(local_store, '/Crawley_wards_table_alc_broad_2016_20.csv'), row.names = FALSE)
 
+areas <- c('Adur', 'Arun', 'Crawley', '', 'Worthing')
+
 Crawley_ward_broad_1 <- ggplot()+
-  geom_polygon(data = subset(ward_boundary_ggplot, LTLA == 'Crawley'),
+  geom_polygon(data = subset(ward_boundary_ggplot, LTLA == areas[i]),
                aes(x = long, 
                    y = lat,
                    group = group, 
                    fill = Significance),
                show.legend = TRUE,
                colour = '#c9c9c9') +
-  labs(title = "Age-standardised rate of alcohol-related admissions (broad definition);\nCrawley Wards (2021 boundaries)",
+  labs(title = paste0("Age-standardised rate of alcohol-related admissions (broad definition);\n", areas[i], ' Wards (2021 boundaries)'),
        subtitle =  "(2016/17 to 2020/21 aggregated data)",
        fill = "Rate compared to\nWest Sussex\noverall:") +
   scale_fill_manual(values = c("Significantly higher" = "#EA4335", "Similar" = "#FFBB00", "Significantly lower" = "#7CBB00"), 
                     na.value = "grey", 
                     drop = FALSE) +
-  geom_text(data = subset(ward_boundary_centroids, LTLA == 'Crawley' & Significance == 'Significantly higher' & WD21NM %in% c('Northgate & West Green')),
-             aes(label = WD21NM_label,
-                 x = Longitude,
-                 y = Latitude),
-             size = 3) +
   coord_fixed(1.5) +
   map_theme()
 
@@ -558,6 +628,6 @@ png(paste0(local_store,'/Crawley_overall_alc_related_admissions_broad_wards_2016
 print(Crawley_ward_broad_1)
 dev.off()
 
-# Narrow definition ####
-
-# Admissions to hospital where the primary diagnosis is an alcohol-attributable code or a secondary diagnosis is an alcohol-attributable external cause code. 
+# TODO by age
+# TODO conditions table 
+# TODO by deprivation decile/quintile
