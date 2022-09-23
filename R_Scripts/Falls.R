@@ -1,4 +1,3 @@
-
 # Falls ####
 packages <- c('easypackages', 'tidyr', 'ggplot2', 'dplyr', 'scales', 'readxl', 'readr', 'purrr', 'stringr', 'rgdal', 'spdplyr', 'geojsonio', 'rmapshaper', 'jsonlite', 'rgeos', 'sp', 'sf', 'maptools', 'leaflet', 'leaflet.extras', 'lubridate', 'openxlsx', 'fingertipsR', 'zoo', 'lemon')
 install.packages(setdiff(packages, rownames(installed.packages())))
@@ -15,9 +14,17 @@ IMD_2019 <- read_csv('https://assets.publishing.service.gov.uk/government/upload
 
 lsoa_mye <- read_csv(paste0(local_store, '/lsoa_mye_1120.csv')) 
 
-wsx_mye <- lsoa_mye %>% 
-  group_by(Sex, Age_group) %>% 
-  summarise(`2016_20` = sum(`2016_20`, na.rm = TRUE))
+rolling_mye <- lsoa_mye %>% 
+  group_by(LSOA11CD, LSOA11NM, Sex, Age_group) %>% 
+  arrange(LSOA11CD, Sex, Age_group) %>% 
+  mutate(Rolling_year = ifelse(is.na(lag(Year, 2)), NA, paste0(lag(Year, 2), '-' , Year))) %>% 
+  mutate(Three_year_population = ifelse(is.na(Rolling_year),
+                                        NA,
+                                        rollapplyr(Population,
+                                                   width = 3,
+                                                   FUN = sum, 
+                                                   align = 'right', 
+                                                   partial = TRUE)))
 
 # Disclosure control function
 source('https://raw.githubusercontent.com/psychty/secondary_care/main/R_Scripts/Disclosure%20control.R')
