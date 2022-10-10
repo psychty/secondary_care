@@ -6,23 +6,34 @@
 
 # Alcohol-related hospital admissions in this report use the new set of AAFs, and so differ from previously published data. Time series comparisons from the Fingertips service are based on the new AAFs but data is only available from 2016/17.
 
-packages <- c('easypackages', 'tidyr', 'ggplot2', 'dplyr', 'scales', 'readxl', 'readr', 'purrr', 'stringr', 'PHEindicatormethods', 'rgdal', 'spdplyr', 'geojsonio', 'rmapshaper', 'jsonlite', 'rgeos', 'sp', 'sf', 'maptools', 'ggpol', 'magick', 'officer', 'leaflet', 'leaflet.extras')
+packages <- c('easypackages', 'tidyr', 'ggplot2', 'dplyr', 'scales', 'readxl', 'readr', 'purrr', 'stringr', 'PHEindicatormethods', 'rgdal', 'spdplyr', 'geojsonio', 'rmapshaper', 'jsonlite', 'rgeos', 'sp', 'sf', 'maptools', 'ggpol', 'magick', 'officer', 'leaflet', 'leaflet.extras', 'zoo')
 install.packages(setdiff(packages, rownames(installed.packages())))
 easypackages::libraries(packages)
+
+replacings_the_nas <- function(x)replace_na(x, 0)
+
+data_store <- 'https://raw.githubusercontent.com/psychty/secondary_care/main/Data_store'
 
 local_store <- '\\\\chi_nas_prod2.corporate.westsussex.gov.uk/groups2.bu/Public Health Directorate/PH Research Unit/R/Alcohol'
 
 # LSOA population
-
 IMD_2019 <- read_csv('https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/845345/File_7_-_All_IoD2019_Scores__Ranks__Deciles_and_Population_Denominators_3.csv') %>% 
   select(LSOA11CD = `LSOA code (2011)`,  LTLA = `Local Authority District name (2019)`, IMD_Score = `Index of Multiple Deprivation (IMD) Score`, IMD_Decile = "Index of Multiple Deprivation (IMD) Decile (where 1 is most deprived 10% of LSOAs)") %>% 
   filter(LTLA %in% c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing'))
 
-lsoa_mye <- read_csv(paste0(local_store, '/lsoa_mye_16_20.csv')) 
+lsoa_mye <- read_csv(url(paste0(data_store, '/lsoa_mye_1120.csv'))) 
 
-wsx_mye <- lsoa_mye %>% 
-  group_by(Sex, Age_group) %>% 
-  summarise(`2016_20` = sum(`2016_20`, na.rm = TRUE))
+rolling_mye <- lsoa_mye %>% 
+  group_by(LSOA11CD, LSOA11NM, Sex, Age_group) %>% 
+  arrange(LSOA11CD, Sex, Age_group) %>% 
+  mutate(Rolling_year = ifelse(is.na(lag(Year, 2)), NA, paste0(lag(Year, 2), '-' , Year))) %>% 
+  mutate(Three_year_population = ifelse(is.na(Rolling_year),
+                                        NA,
+                                        rollapplyr(Population,
+                                                   width = 3,
+                                                   FUN = sum, 
+                                                   align = 'right', 
+                                                   partial = TRUE)))
 
 # Lookup from LSOA to Ward
 LSOA11_WD21 <- read_excel(paste0(local_store, '/LSOA11_WD21_LAD21_EW_LU_V2.xlsx')) %>% 
@@ -51,6 +62,32 @@ if(file.exists(paste0(local_store, '/LAPE_tables_England_22.xlsx')) != TRUE){
   download.file('https://fingertips.phe.org.uk/documents/LAPE_Statistical_Tables_for_England_2022.xlsx', paste0(local_store, '/LAPE_tables_England_22.xlsx'), mode = 'wb')
 }
 
+LTLA_related_broad <- read_excel("//chi_nas_prod2.corporate.westsussex.gov.uk/groups2.bu/Public Health Directorate/PH Research Unit/R/Alcohol/LAPE_tables_England_22.xlsx", 
+                              sheet = "1.3",
+                              skip = 1) %>% 
+  filter(`Region and LA Name` %in% c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex')) %>% 
+  pivot_longer(cols = 3:ncol(.)) %>% 
+  mutate(Sex = ifelse(str_detect(name, '[Pp]ersons'), 'Persons', ifelse(str_detect(name, '[Ff]emale'), 'Female', ifelse(str_detect(name, '[Mm]ale'), 'Male', NA)))) %>% 
+  mutate(Measure = ifelse(str_detect(name, '100,000'), 'Rate', ifelse(str_detect(name, '[Aa]dmissions 2'), 'Count (rounded)', NA))) %>%
+  mutate(Year = substr(name, nchar(name)- 6, nchar(name))) %>% 
+  select(Code = 'ONS code', Area = 'Region and LA Name', Sex, Measure, Year, value) %>%
+  mutate(value = as.numeric(value)) %>% 
+  pivot_wider(names_from = 'Measure',
+              values_from = 'value')
+
+LTLA_related_narrow <- read_excel("//chi_nas_prod2.corporate.westsussex.gov.uk/groups2.bu/Public Health Directorate/PH Research Unit/R/Alcohol/LAPE_tables_England_22.xlsx", 
+                                 sheet = "1.6",
+                                 skip = 1) %>% 
+  filter(`Region and LA Name` %in% c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex')) %>% 
+  pivot_longer(cols = 3:ncol(.)) %>% 
+  mutate(Sex = ifelse(str_detect(name, '[Pp]ersons'), 'Persons', ifelse(str_detect(name, '[Ff]emale'), 'Female', ifelse(str_detect(name, '[Mm]ale'), 'Male', NA)))) %>% 
+  mutate(Measure = ifelse(str_detect(name, '100,000'), 'Rate', ifelse(str_detect(name, '[Aa]dmissions 2'), 'Count (rounded)', NA))) %>%
+  mutate(Year = substr(name, nchar(name)- 6, nchar(name))) %>% 
+  select(Code = 'ONS code', Area = 'Region and LA Name', Sex, Measure, Year, value) %>%
+  mutate(value = as.numeric(value)) %>% 
+  pivot_wider(names_from = 'Measure',
+              values_from = 'value')
+
 # Disclosure control function
 source('https://raw.githubusercontent.com/psychty/secondary_care/main/R_Scripts/Disclosure%20control.R')
 
@@ -66,12 +103,12 @@ local_aaf <- read_csv(paste0(local_store, '/Alcohol_attributable_fractions_2019.
 condition_fractions <- local_aaf %>% 
   arrange(ICD10_Code) %>% 
   select(Group, Condition_name, Sex, Age_group, Fraction) %>% 
-  filter(Fraction >= 0) %>% # Those conditions with a negative (protective) Alcohol Attributable fraction are excluded
+  filter(Fraction > 0) %>% # Those conditions with a negative (protective) Alcohol Attributable fraction are excluded
   unique() 
 
 condition_fractions_excluded <- local_aaf %>%  
   select(Group, Condition_name, Sex, Age_group, Fraction) %>% 
-  filter(Fraction < 0) %>% 
+  filter(Fraction <= 0) %>% 
   unique()
 
 conditions <- condition_fractions %>% 
@@ -81,17 +118,27 @@ conditions <- condition_fractions %>%
 # Load data ####
 HDIS_directory <- '//chi_nas_prod2.corporate.westsussex.gov.uk/groups2.bu/Public Health Directorate/PH Research Unit/HDIS/Extracts_Rich_Tyler/'
 
-df_raw <- list.files(HDIS_directory)[grepl("West_Sussex_alcohol_related_conditions_broad_", list.files(HDIS_directory)) == TRUE] %>%  map_df(~read_csv(paste0(HDIS_directory,.),
+# list.files(HDIS_directory)
+df_raw <- list.files(HDIS_directory)[grepl("West_Sussex_residents_alcohol_related_conditions_", list.files(HDIS_directory)) == TRUE] %>%  map_df(~read_csv(paste0(HDIS_directory,.),
                     col_types = cols(ADMIDATE = col_date(format = '%Y-%m-%d')),
                     na = "null")) %>% 
   mutate(SEX = ifelse(SEX == 1, 'Male', ifelse(SEX == 2, 'Female', NA))) %>% 
-  filter(Age_group != 'Unknown')
+  filter(Age_group != 'Unknown') %>%
+  mutate(FYEAR = factor(paste0('20',substr(FYEAR, 1,2), '/', substr(FYEAR, 3,4)), levels = c('2011/12', '2012/13', '2013/14', '2014/15', '2015/16', '2016/17', '2017/18', '2018/19', '2019/20', '2020/21', '2021/22')))
+  # mutate(EPI_fyear_a = format(EPIEND, '%Y')) %>% 
+  # mutate(EPI_fyear_b = format(EPIEND, '%B')) %>% 
+  # mutate(EPI_fyear = ifelse(EPI_fyear_b %in% c('January', 'February', 'March'), paste0(as.numeric(EPI_fyear_a) - 1, '/',  substr(EPI_fyear_a, 3, 4)), paste0(as.numeric(EPI_fyear_a), '/', substr(as.numeric(EPI_fyear_a) + 1, 3,4)))) 
+
+# we checked to see that FYEAR was the year in which the episode ended using EPI_fyear
 
 # Broad definition alcohol-related hospital admissions ####
 
-# The "broad" measure of alcohol-related hospital admissions is more dependent on the use of secondary diagnoses than the "narrow" measure. Consequently increases for the "broad" measure may be due to improvements in the recording of secondary diagnoses and the "narrow" measure is a better indicator of changes over time.
+# The "broad" measure of alcohol-related hospital admissions is more dependent on the use of secondary diagnoses than the "narrow" measure. Consequently increases for the "broad" measure may be due to improvements in the recording of secondary diagnoses and therefore "narrow" measure is a better indicator of changes over time which consistently focuses on the single primary diagnosis field.
 
-# We need to create a field for each condition (conditions defined as groups of ICD10 codes with distinct AAF values).
+# Since every hospital admission must have a primary diagnosis the narrow definition is less sensitive to coding practices but may also understate the part alcohol plays in the admission.
+
+# We need to create a field for each condition (conditions defined as groups of ICD10 codes with distinct Alcohol Attributable Fraction values).
+
 # The new field checks if the alc related codes appear in the concat field (for some conditions we can just search the three character concat field but others need the four character field), and if a code does appear then the field returns the index of the first appearance (we should be able to use this to determine which value to present first).
 
 # Test the function
@@ -109,13 +156,13 @@ df_raw <- list.files(HDIS_directory)[grepl("West_Sussex_alcohol_related_conditio
 
 # For each episode identified, an alcohol-attributable fraction is applied based on the diagnostic codes, age group, and sex of the patient.  Where there is more than one alcohol-related ICD10 code among the 20 possible diagnostic codes the codes with the largest alcohol attributable fraction is selected; in the event of there being two or more codes with the same alcohol-attributable fraction within the same episode, the one from the lowest diagnostic position is selected. For a detailed list of all alcohol attributable diseases, including ICD 10 codes and relative risks see  'Alcohol-attributable fractions for England: an update' 
 
-df_processed_broad <- df_raw %>% 
+df_broad <- df_raw %>% 
   mutate(`Mental and behavioural disorders due to use of alcohol` = ifelse(str_detect(DIAG_3_CONCAT, 'F10'),  str_count(substr(DIAG_3_CONCAT, 1, str_locate(DIAG_3_CONCAT, 'F10') -1), ',') +1, NA)) %>%
   mutate(`Alcoholic liver disease` = ifelse(str_detect(DIAG_3_CONCAT, 'K70'),str_count(substr(DIAG_3_CONCAT, 1, str_locate(DIAG_3_CONCAT, 'K70')- 1), ',') +1 , NA)) %>% 
   mutate(`Ethanol poisoning` = ifelse(str_detect(DIAG_4_CONCAT, 'T510'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT,'T510')- 1), ',') +1 , NA)) %>% 
   mutate(`Methanol poisoning` = ifelse(str_detect(DIAG_4_CONCAT, 'T511'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'T511')- 1), ',') +1 , NA)) %>% 
   mutate(`Toxic effect of alcohol, unspecified` = ifelse(str_detect(DIAG_4_CONCAT, 'T519'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'T519')- 1), ',') +1 , NA)) %>% 
-  mutate(`Alcohol-induced pseudo-Cushing's syndrome` = ifelse(str_detect(DIAG_4_CONCAT, 'E244'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'E244')- 1), ',') +1 , NA)) %>% 
+  mutate(`Alcohol-induced pseudo-Cushings syndrome` = ifelse(str_detect(DIAG_4_CONCAT, 'E244'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'E244')- 1), ',') +1 , NA)) %>% 
   mutate(`Degeneration of nervous system due to alcohol` = ifelse(str_detect(DIAG_4_CONCAT, 'G312'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'G312')- 1), ',') +1 , NA)) %>% 
   mutate(`Alcoholic polyneuropathy` = ifelse(str_detect(DIAG_4_CONCAT, 'G621'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'G621')- 1), ',') +1 , NA)) %>% 
   mutate(`Alcoholic myopathy` = ifelse(str_detect(DIAG_4_CONCAT, 'G721'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'G721')- 1), ',') +1 , NA)) %>% 
@@ -163,11 +210,18 @@ df_processed_broad <- df_raw %>%
   mutate(`Event of undetermined intent` = ifelse(str_detect(DIAG_4_CONCAT, 'Y1[0-4]|Y1[6-9]|Y2|Y3[0-4]|Y872'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'Y1[0-4]|Y1[6-9]|Y2|Y3[0-4]|Y872')- 1), ',') +1 , NA)) %>%   
   mutate(Assault = ifelse(str_detect(DIAG_4_CONCAT, 'X8[5-9]|X9|Y0|Y871'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'X8[5-9]|X9|Y0|Y871')- 1), ',') +1 , NA)) 
 
-df_processed_broad_2_long <- df_processed_broad %>% 
+# We have added booleen fields for each alcohol attributable condition
+
+# We can take the derived booleen fields, pivot the table to show one row per episode (epikey) and condition.
+# Position will be blank if it wasn't flagged and will have a number between 1 and 20 if it appeared which denotes the diagnoses field position.
+# We will then delete the blank position values
+# There are almost 90000 Alcohol related Condition codes which were protective (negative AAF), these are excluded from the condition list because they do not count towards summing the admissions. However the ICD-10 codes for these conditions are included in the query so once we left join the condition list to the table, we need to filter out where the Fraction is blank (which means we excluded it from the condition list)
+# From the number of records left for each episode, we can then compute the number of, and order by which the *ALCOHOL RELATED CONDIDITIONS* appear in the diagnosis fields - this excludes non alcohol related and alcohol related condition codes which were protective (negative AAF)
+df_processed_broad <- df_broad %>% 
   select(EPIKEY, Sex = SEX, Age_group, `Mental and behavioural disorders due to use of alcohol`:Assault) %>% 
   pivot_longer(cols = `Mental and behavioural disorders due to use of alcohol`:Assault,
                names_to = 'Condition_name',
-               values_to = 'Position') %>% 
+               values_to = 'Position') %>% # Position will be blank if it wasn't flagged and will have a number between 1 and 20 if it appeared which denotes the diagnoses field position.
   filter(!is.na(Position)) %>% 
   left_join(condition_fractions, by = c('Sex', 'Age_group', 'Condition_name')) %>% 
   filter(!is.na(Fraction)) %>% # There are almost 90000 Alcohol related Condition codes which were protective (negative AAF), these are excluded
@@ -178,38 +232,57 @@ df_processed_broad_2_long <- df_processed_broad %>%
   arrange(Alcohol_condition_order_number) %>% 
   mutate(Highest_fraction = max(Fraction)) # What is the highest fraction for each episode
 
-# Table of number of alcohol related diagnosis codes (positive AAF only)  
-number_of_alc_conditions_broad_by_episode <- df_processed_broad_2_long %>% 
+# Table of number of alcohol related diagnosis codes (positive AAF only)
+number_of_alc_conditions_broad_by_episode <- df_processed_broad %>% 
   select(EPIKEY, Number_of_alc_related_conditions) %>% 
   unique() %>% 
   group_by(Number_of_alc_related_conditions) %>% 
   summarise(Episodes = n())
 
-# We could (and should) stop at highest fraction as that is all we need to calculate the small area alcohol related conditions
-df_processed_broad_to_join <- df_processed_broad_2_long %>% 
+# We could (and should) stop at highest fraction as that is all we need to calculate the small area alcohol related admissions
+df_processed_broad_to_join <- df_processed_broad %>% 
   select(EPIKEY, Highest_fraction, Number_of_alc_related_conditions) %>% 
   unique()
 
 broad_final_df <- df_raw %>% 
-  select(EPIKEY, Sex = SEX, Age = STARTAGE_CALC, FYEAR, ADMIDATE, LSOA11CD = LSOA11) %>% 
+  select(EPIKEY, PSEUDO_HESID, Sex = SEX, Age = STARTAGE_CALC, FYEAR, ADMIDATE, EPIEND, EPIDUR, LSOA11CD = LSOA11, GP = GPPRAC) %>% 
   mutate(Age_group = ifelse(Age <= 4, "0-4 years", ifelse(Age <= 9, "5-9 years", ifelse(Age <= 14, "10-14 years", ifelse(Age <= 19, "15-19 years", ifelse(Age <= 24, "20-24 years", ifelse(Age <= 29, "25-29 years",ifelse(Age <= 34, "30-34 years", ifelse(Age <= 39, "35-39 years",ifelse(Age <= 44, "40-44 years", ifelse(Age <= 49, "45-49 years",ifelse(Age <= 54, "50-54 years", ifelse(Age <= 59, "55-59 years",ifelse(Age <= 64, "60-64 years", ifelse(Age <= 69, "65-69 years",ifelse(Age <= 74, "70-74 years", ifelse(Age <= 79, "75-79 years",ifelse(Age <= 84, "80-84 years", "85+ years")))))))))))))))))) %>% 
-  left_join(df_processed_broad_to_join, by = 'EPIKEY') 
+  left_join(df_processed_broad_to_join, by = 'EPIKEY') %>% 
+  filter(!is.na(Number_of_alc_related_conditions)) %>% 
+  group_by(PSEUDO_HESID, FYEAR) %>% 
+  mutate(Number_of_alc_related_episodes_in_year = n())
 
-rm(df_processed_broad, df_processed_broad_2_long, df_processed_broad_to_join)
+# df_raw %>% filter(EPIKEY == '701165064053') %>% View()
+
+# Some patients have hundreds of alcohol related admission episodes
+broad_text_1 <- paste0('From 2011/12 to 2021/22 (provisionally and subject to change) there were ', format(length(unique(broad_final_df$EPIKEY)), big.mark = ','), ' episodes with at least one alcohol attributable condition among ', format(length(unique(broad_final_df$PSEUDO_HESID)), big.mark = ','), ' uniquely identified patients. Some patients have hundreds of alcohol attributable admissions over this 10 year period although on average patients have ', round(nrow(broad_final_df) / length(unique(broad_final_df$PSEUDO_HESID)), 1), ' episodes.')
+
+by_person_broad_admission_episodes <- broad_final_df %>% 
+  group_by(PSEUDO_HESID, FYEAR) %>% 
+  summarise(Episodes = n()) %>% 
+  mutate(All_time = sum(Episodes, na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  arrange(FYEAR) %>% 
+  pivot_wider(names_from = FYEAR,
+              values_from = Episodes) %>% 
+  arrange(desc(All_time)) %>% 
+  mutate_at(vars(3:ncol(.)), ~replacings_the_nas(.))
+
+rm(df_processed_broad, df_processed_broad_to_join, df_broad)
 
 # Narrow definition alcohol-related hospital admissions ####
 
 # Admissions to hospital where the primary diagnosis is an alcohol-attributable code or a secondary diagnosis is an alcohol-attributable external cause code. 
 
-# External causes are anything with an ICD code starting with S, T, V, X , or Y ####
+# External causes are anything with an ICD code starting with S, T, V, X , or Y
 external_aaf <- local_aaf %>%
   filter(str_detect(ICD10_Code, '[STVXY]'))
 
 # Search only DIAG_3_01 or DIAG_4_01 for internal cause codes
-df_processed_narrow <- df_raw %>% 
+df_narrow <- df_raw %>% 
   mutate(`Mental and behavioural disorders due to use of alcohol` = ifelse(str_detect(DIAG_3_01, 'F10'), 1, NA)) %>%
   mutate(`Alcoholic liver disease` = ifelse(str_detect(DIAG_3_01, 'K70'), 1, NA)) %>% 
-  mutate(`Alcohol-induced pseudo-Cushing's syndrome` = ifelse(str_detect(DIAG_4_01, 'E244'), 1 , NA)) %>% 
+  mutate(`Alcohol-induced pseudo-Cushings syndrome` = ifelse(str_detect(DIAG_4_01, 'E244'), 1 , NA)) %>% 
   mutate(`Degeneration of nervous system due to alcohol` = ifelse(str_detect(DIAG_4_01, 'G312'), 1 , NA)) %>% 
   mutate(`Alcoholic polyneuropathy` = ifelse(str_detect(DIAG_4_01, 'G621'), 1 , NA)) %>% 
   mutate(`Alcoholic myopathy` = ifelse(str_detect(DIAG_4_01, 'G721'),1 , NA)) %>% 
@@ -259,28 +332,70 @@ df_processed_narrow <- df_raw %>%
   mutate(`Event of undetermined intent` = ifelse(str_detect(DIAG_4_CONCAT, 'Y1[0-4]|Y1[6-9]|Y2|Y3[0-4]|Y872'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'Y1[0-4]|Y1[6-9]|Y2|Y3[0-4]|Y872')- 1), ',') +1 , NA)) %>%   
   mutate(Assault = ifelse(str_detect(DIAG_4_CONCAT, 'X8[5-9]|X9|Y0|Y871'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'X8[5-9]|X9|Y0|Y871')- 1), ',') +1 , NA)) 
 
+df_processed_narrow <- df_narrow %>% 
+  select(EPIKEY, Sex = SEX, Age_group, `Mental and behavioural disorders due to use of alcohol`:Assault) %>% 
+  pivot_longer(cols = `Mental and behavioural disorders due to use of alcohol`:Assault,
+               names_to = 'Condition_name',
+               values_to = 'Position') %>% # Position will be blank if it wasn't flagged and will have a number between 1 and 20 if it appeared which denotes the diagnoses field position.
+  filter(!is.na(Position)) %>% 
+  left_join(condition_fractions, by = c('Sex', 'Age_group', 'Condition_name')) %>% 
+  filter(!is.na(Fraction)) %>% # There are almost 90000 Alcohol related Condition codes which were protective (negative AAF), these are excluded
+  group_by(EPIKEY) %>% 
+  arrange(Position) %>% 
+  mutate(Number_of_alc_related_conditions = n(),
+         Alcohol_condition_order_number = row_number()) %>% # compute the number of, and order by which the *ALCOHOL RELATED CONDIDITIONS* appear in the diagnosis fields - this excludes non alcohol related and alcohol related condition codes which were protective (negative AAF)
+  arrange(Alcohol_condition_order_number) %>% 
+  mutate(Highest_fraction = max(Fraction)) # What is the highest fraction for each episode
 
+# Table of number of alcohol related diagnosis codes (positive AAF only)
+number_of_alc_conditions_narrow_by_episode <- df_processed_narrow %>% 
+  select(EPIKEY, Number_of_alc_related_conditions) %>% 
+  unique() %>% 
+  group_by(Number_of_alc_related_conditions) %>% 
+  summarise(Episodes = n())
 
+# We could (and should) stop at highest fraction as that is all we need to calculate the small area alcohol related admissions
+df_processed_narrow_to_join <- df_processed_narrow %>% 
+  select(EPIKEY, Highest_fraction, Number_of_alc_related_conditions) %>% 
+  unique()
 
+narrow_final_df <- df_raw %>% 
+  select(EPIKEY, PSEUDO_HESID, Sex = SEX, Age = STARTAGE_CALC, FYEAR, ADMIDATE, EPIEND, EPIDUR, LSOA11CD = LSOA11, GP = GPPRAC) %>% 
+  mutate(Age_group = ifelse(Age <= 4, "0-4 years", ifelse(Age <= 9, "5-9 years", ifelse(Age <= 14, "10-14 years", ifelse(Age <= 19, "15-19 years", ifelse(Age <= 24, "20-24 years", ifelse(Age <= 29, "25-29 years",ifelse(Age <= 34, "30-34 years", ifelse(Age <= 39, "35-39 years",ifelse(Age <= 44, "40-44 years", ifelse(Age <= 49, "45-49 years",ifelse(Age <= 54, "50-54 years", ifelse(Age <= 59, "55-59 years",ifelse(Age <= 64, "60-64 years", ifelse(Age <= 69, "65-69 years",ifelse(Age <= 74, "70-74 years", ifelse(Age <= 79, "75-79 years",ifelse(Age <= 84, "80-84 years", "85+ years")))))))))))))))))) %>% 
+  left_join(df_processed_narrow_to_join, by = 'EPIKEY') %>% 
+  filter(!is.na(Number_of_alc_related_conditions)) %>% 
+  group_by(PSEUDO_HESID, FYEAR) %>% 
+  mutate(Number_of_alc_related_episodes_in_year = n())
 
+# Some patients have hundreds of alcohol related admission episodes
+narrow_text_1 <- paste0('From 2011/12 to 2021/22 (provisionally and subject to change) there were ', format(length(unique(narrow_final_df$EPIKEY)), big.mark = ','), ' episodes with at least one alcohol attributable condition among ', format(length(unique(narrow_final_df$PSEUDO_HESID)), big.mark = ','), ' uniquely identified patients. Some patients have hundreds of alcohol attributable admissions over this 10 year period although on average patients have ', round(nrow(narrow_final_df) / length(unique(narrow_final_df$PSEUDO_HESID)), 1), ' episodes.')
 
+by_person_narrow_admission_episodes <- narrow_final_df %>% 
+  group_by(PSEUDO_HESID, FYEAR) %>% 
+  summarise(Episodes = n()) %>% 
+  mutate(All_time = sum(Episodes, na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  arrange(FYEAR) %>% 
+  pivot_wider(names_from = FYEAR,
+              values_from = Episodes) %>% 
+  arrange(desc(All_time)) %>% 
+  mutate_at(vars(3:ncol(.)), ~replacings_the_nas(.))
+
+rm(df_narrow, df_processed_narrow, df_processed_narrow_to_join)
 
 # Alcohol-specific hospital admissions (wholly attributable conditions) ####
-
 alcohol_specific_aaf <- local_aaf %>%
   filter(Fraction == 1) %>% 
   select(Group, Condition_name, ICD10_Code, Fraction) %>% 
   unique()
 
-alcohol_specific_aaf
-
-df_processed_specific <- df_raw %>% 
+df_specific <- df_raw %>% 
   mutate(`Mental and behavioural disorders due to use of alcohol` = ifelse(str_detect(DIAG_3_CONCAT, 'F10'),  str_count(substr(DIAG_3_CONCAT, 1, str_locate(DIAG_3_CONCAT, 'F10') -1), ',') +1, NA)) %>%
   mutate(`Alcoholic liver disease` = ifelse(str_detect(DIAG_3_CONCAT, 'K70'),str_count(substr(DIAG_3_CONCAT, 1, str_locate(DIAG_3_CONCAT, 'K70')- 1), ',') +1 , NA)) %>% 
   mutate(`Ethanol poisoning` = ifelse(str_detect(DIAG_4_CONCAT, 'T510'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT,'T510')- 1), ',') +1 , NA)) %>% 
   mutate(`Methanol poisoning` = ifelse(str_detect(DIAG_4_CONCAT, 'T511'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'T511')- 1), ',') +1 , NA)) %>% 
   mutate(`Toxic effect of alcohol, unspecified` = ifelse(str_detect(DIAG_4_CONCAT, 'T519'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'T519')- 1), ',') +1 , NA)) %>% 
-  mutate(`Alcohol-induced pseudo-Cushing's syndrome` = ifelse(str_detect(DIAG_4_CONCAT, 'E244'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'E244')- 1), ',') +1 , NA)) %>% 
+  mutate(`Alcohol-induced pseudo-Cushings syndrome` = ifelse(str_detect(DIAG_4_CONCAT, 'E244'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'E244')- 1), ',') +1 , NA)) %>% 
   mutate(`Degeneration of nervous system due to alcohol` = ifelse(str_detect(DIAG_4_CONCAT, 'G312'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'G312')- 1), ',') +1 , NA)) %>% 
   mutate(`Alcoholic polyneuropathy` = ifelse(str_detect(DIAG_4_CONCAT, 'G621'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'G621')- 1), ',') +1 , NA)) %>% 
   mutate(`Alcoholic myopathy` = ifelse(str_detect(DIAG_4_CONCAT, 'G721'), str_count(substr(DIAG_4_CONCAT, 1, str_locate(DIAG_4_CONCAT, 'G721')- 1), ',') +1 , NA)) %>% 
@@ -296,7 +411,60 @@ df_processed_specific <- df_raw %>%
   mutate(`Evidence of alcohol involvement determined by blood alcohol level` = ifelse(str_detect(DIAG_3_CONCAT, 'Y90'), str_count(substr(DIAG_3_CONCAT, 1, str_locate(DIAG_3_CONCAT, 'Y90')- 1), ',') +1 , NA)) %>% 
   mutate(`Evidence of alcohol involvement determined by level of intoxication` = ifelse(str_detect(DIAG_3_CONCAT, 'Y91'), str_count(substr(DIAG_3_CONCAT, 1, str_locate(DIAG_3_CONCAT, 'Y91')- 1), ',') +1 , NA))
 
-# We have our three record level datasets
+df_processed_specific <- df_specific %>% 
+  select(EPIKEY, Sex = SEX, Age_group, `Mental and behavioural disorders due to use of alcohol`:`Evidence of alcohol involvement determined by level of intoxication`) %>% 
+  pivot_longer(cols = `Mental and behavioural disorders due to use of alcohol`:`Evidence of alcohol involvement determined by level of intoxication`,
+               names_to = 'Condition_name',
+               values_to = 'Position') %>% # Position will be blank if it wasn't flagged and will have a number between 1 and 20 if it appeared which denotes the diagnoses field position.
+  filter(!is.na(Position)) %>% 
+  left_join(condition_fractions, by = c('Sex', 'Age_group', 'Condition_name')) %>% 
+  filter(!is.na(Fraction)) %>% # There are almost 90000 Alcohol related Condition codes which were protective (negative AAF), these are excluded
+  group_by(EPIKEY) %>% 
+  arrange(Position) %>% 
+  mutate(Number_of_alc_specific_conditions = n(),
+         Alcohol_condition_order_number = row_number()) %>% # compute the number of, and order by which the *ALCOHOL RELATED CONDIDITIONS* appear in the diagnosis fields - this excludes non alcohol related and alcohol related condition codes which were protective (negative AAF)
+  arrange(Alcohol_condition_order_number) %>% 
+  mutate(Highest_fraction = max(Fraction)) # What is the highest fraction for each episode
+
+# Table of number of alcohol related diagnosis codes (positive AAF only)
+number_of_alc_specific_conditions_by_episode <- df_processed_specific %>% 
+  select(EPIKEY, Number_of_alc_specific_conditions) %>% 
+  unique() %>% 
+  group_by(Number_of_alc_specific_conditions) %>% 
+  summarise(Episodes = n())
+
+# We could (and should) stop at highest fraction as that is all we need to calculate the small area alcohol related admissions
+df_processed_specific_to_join <- df_processed_specific %>% 
+  select(EPIKEY, Number_of_alc_specific_conditions) %>% 
+  unique()
+
+specific_final_df <- df_raw %>% 
+  select(EPIKEY, PSEUDO_HESID, Sex = SEX, Age = STARTAGE_CALC, FYEAR, ADMIDATE, EPIEND, EPIDUR, LSOA11CD = LSOA11, GP = GPPRAC) %>% 
+  mutate(Age_group = ifelse(Age <= 4, "0-4 years", ifelse(Age <= 9, "5-9 years", ifelse(Age <= 14, "10-14 years", ifelse(Age <= 19, "15-19 years", ifelse(Age <= 24, "20-24 years", ifelse(Age <= 29, "25-29 years",ifelse(Age <= 34, "30-34 years", ifelse(Age <= 39, "35-39 years",ifelse(Age <= 44, "40-44 years", ifelse(Age <= 49, "45-49 years",ifelse(Age <= 54, "50-54 years", ifelse(Age <= 59, "55-59 years",ifelse(Age <= 64, "60-64 years", ifelse(Age <= 69, "65-69 years",ifelse(Age <= 74, "70-74 years", ifelse(Age <= 79, "75-79 years",ifelse(Age <= 84, "80-84 years", "85+ years")))))))))))))))))) %>% 
+  left_join(df_processed_specific_to_join, by = 'EPIKEY') %>% 
+  filter(!is.na(Number_of_alc_specific_conditions)) %>% 
+  group_by(PSEUDO_HESID, FYEAR) %>% 
+  mutate(Number_of_alc_specific_episodes_in_year = n())
+
+# Some patients have hundreds of alcohol related admission episodes
+specific_text_1 <- paste0('From 2011/12 to 2021/22 (provisionally and subject to change) there were ', format(length(unique(specific_final_df$EPIKEY)), big.mark = ','), ' episodes with at least one alcohol specific attributable condition among ', format(length(unique(specific_final_df$PSEUDO_HESID)), big.mark = ','), ' uniquely identified patients. Some patients have hundreds of alcohol attributable specific admissions over this 10 year period although on average patients have ', round(nrow(specific_final_df) / length(unique(specific_final_df$PSEUDO_HESID)), 1), ' episodes.')
+
+rm(df_specific, df_processed_specific, df_processed_specific_to_join)
+
+# We have our three record level datasets ####
+specific_final_df
+narrow_final_df
+broad_final_df
+
+specific_final_df %>% 
+  filter(FYEAR == '2020/21') %>% 
+  nrow()
+# This matches counts from Fingertips
+
+narrow_final_df %>% 
+  ungroup() %>% 
+  filter(FYEAR == '2020/21') %>% 
+  summarise(Admissions = sum(Highest_fraction))
 
 # Aggregated outputs
 
