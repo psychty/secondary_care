@@ -31,7 +31,7 @@ disclosure_control <- function(x){
   return(dplyr::case_when(
     x == 0 ~ '0',
     x <= 7 ~ '1-7*',
-    TRUE ~ as.character(5*round(x/5))
+    TRUE ~ format(as.character(5*round(x/5), big.mark = ','))
   ))
 }
 

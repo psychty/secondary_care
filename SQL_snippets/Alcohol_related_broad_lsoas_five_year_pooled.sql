@@ -15,7 +15,7 @@ AND SEX IN ('1','2')
 -- West Sussex LTLAs
 AND RESLADST_ONS IN ('E07000223','E07000224','E07000225','E07000226','E07000227','E07000228', 'E07000229')
 -- Episode end date in year
-AND EPIEND >= '2011-04-01' AND EPIEND <= '2021-03-31'
+AND EPIEND >= '2011-04-01' AND EPIEND <= '2022-03-31'
 -- Conditions
 -- Wholly attributable
 -- Mental and behavioural disorders due to the use of alcohol
@@ -104,7 +104,7 @@ AND SEX IN ('1','2')
 -- West Sussex LTLAs
 AND RESLADST_ONS IN ('E07000223','E07000224','E07000225','E07000226','E07000227','E07000228', 'E07000229')
 -- Episode end date in year
-AND EPIEND >= '2011-04-01' AND EPIEND <= '2021-03-31'
+AND EPIEND >= '2011-04-01' AND EPIEND <= '2022-03-31'
 -- Conditions
 -- Wholly attributable
 -- Mental and behavioural disorders due to the use of alcohol
@@ -193,7 +193,7 @@ AND SEX IN ('1','2')
 -- West Sussex LTLAs
 AND RESLADST_ONS IN ('E07000223','E07000224','E07000225','E07000226','E07000227','E07000228', 'E07000229')
 -- Episode end date in year
-AND EPIEND >= '2011-04-01' AND EPIEND <= '2021-03-31'
+AND EPIEND >= '2011-04-01' AND EPIEND <= '2022-03-31'
 -- Conditions
 -- Wholly attributable
 -- Mental and behavioural disorders due to the use of alcohol
@@ -282,7 +282,7 @@ AND SEX IN ('1','2')
 -- West Sussex LTLAs
 AND RESLADST_ONS IN ('E07000223','E07000224','E07000225','E07000226','E07000227','E07000228', 'E07000229')
 -- Episode end date in year
-AND EPIEND >= '2011-04-01' AND EPIEND <= '2021-03-31'
+AND EPIEND >= '2011-04-01' AND EPIEND <= '2022-03-31'
 -- Conditions
 -- Wholly attributable
 -- Mental and behavioural disorders due to the use of alcohol
@@ -371,7 +371,7 @@ AND SEX IN ('1','2')
 -- West Sussex LTLAs
 AND RESLADST_ONS IN ('E07000223','E07000224','E07000225','E07000226','E07000227','E07000228', 'E07000229')
 -- Episode end date in year
-AND EPIEND >= '2011-04-01' AND EPIEND <= '2021-03-31'
+AND EPIEND >= '2011-04-01' AND EPIEND <= '2022-03-31'
 -- Conditions
 -- Wholly attributable
 -- Mental and behavioural disorders due to the use of alcohol
@@ -460,7 +460,7 @@ AND SEX IN ('1','2')
 -- West Sussex LTLAs
 AND RESLADST_ONS IN ('E07000223','E07000224','E07000225','E07000226','E07000227','E07000228', 'E07000229')
 -- Episode end date in year
-AND EPIEND >= '2011-04-01' AND EPIEND <= '2021-03-31'
+AND EPIEND >= '2011-04-01' AND EPIEND <= '2022-03-31'
 -- Conditions
 -- Wholly attributable
 -- Mental and behavioural disorders due to the use of alcohol
@@ -549,7 +549,7 @@ AND SEX IN ('1','2')
 -- West Sussex LTLAs
 AND RESLADST_ONS IN ('E07000223','E07000224','E07000225','E07000226','E07000227','E07000228', 'E07000229')
 -- Episode end date in year
-AND EPIEND >= '2011-04-01' AND EPIEND <= '2021-03-31'
+AND EPIEND >= '2011-04-01' AND EPIEND <= '2022-03-31'
 -- Conditions
 -- Wholly attributable
 -- Mental and behavioural disorders due to the use of alcohol
@@ -638,7 +638,7 @@ AND SEX IN ('1','2')
 -- West Sussex LTLAs
 AND RESLADST_ONS IN ('E07000223','E07000224','E07000225','E07000226','E07000227','E07000228', 'E07000229')
 -- Episode end date in year
-AND EPIEND >= '2011-04-01' AND EPIEND <= '2021-03-31'
+AND EPIEND >= '2011-04-01' AND EPIEND <= '2022-03-31'
 -- Conditions
 -- Wholly attributable
 -- Mental and behavioural disorders due to the use of alcohol
@@ -727,7 +727,7 @@ AND SEX IN ('1','2')
 -- West Sussex LTLAs
 AND RESLADST_ONS IN ('E07000223','E07000224','E07000225','E07000226','E07000227','E07000228', 'E07000229')
 -- Episode end date in year
-AND EPIEND >= '2011-04-01' AND EPIEND <= '2021-03-31'
+AND EPIEND >= '2011-04-01' AND EPIEND <= '2022-03-31'
 -- Conditions
 -- Wholly attributable
 -- Mental and behavioural disorders due to the use of alcohol
@@ -816,7 +816,7 @@ AND SEX IN ('1','2')
 -- West Sussex LTLAs
 AND RESLADST_ONS IN ('E07000223','E07000224','E07000225','E07000226','E07000227','E07000228', 'E07000229')
 -- Episode end date in year
-AND EPIEND >= '2011-04-01' AND EPIEND <= '2021-03-31'
+AND EPIEND >= '2011-04-01' AND EPIEND <= '2022-03-31'
 -- Conditions
 -- Wholly attributable
 -- Mental and behavioural disorders due to the use of alcohol
@@ -905,7 +905,7 @@ AND SEX IN ('1','2')
 -- West Sussex LTLAs
 AND RESLADST_ONS IN ('E07000223','E07000224','E07000225','E07000226','E07000227','E07000228', 'E07000229')
 -- Episode end date in year
-AND EPIEND >= '2011-04-01' AND EPIEND <= '2021-03-31'
+AND EPIEND >= '2011-04-01' AND EPIEND <= '2022-03-31'
 -- Conditions
 -- Wholly attributable
 -- Mental and behavioural disorders due to the use of alcohol
