@@ -1,0 +1,86 @@
+Code,Cause_description,Condition_group
+D58,Other hereditary haemolytic anaemias,Anaemia
+D59,Acquired haemolytic anaemia,Anaemia
+D61,Other aplastic anaemias,Anaemia
+D62,Acute posthaemorrhagic anaemia,Anaemia
+D63,Anaemia in chronic diseases classified elsewhere,Anaemia
+D64,Other anaemias,Anaemia
+E02,Subclinical iodine-deficiency hypothyroidism,Thyroid conditions
+E03,Other hypothyroidism,Thyroid conditions
+E04,Other nontoxic goitre,Thyroid conditions
+E05,Thyrotoxicosis [hyperthyroidism],Thyroid conditions
+E06,Thyroiditis,Thyroid conditions
+E07,Other disorders of thyroid,Thyroid conditions
+E55,Vitamin D deficiency,Vitamin D deficiency
+F00,Dementia in Alzheimer's disease,Dementia
+F01,Vascular dementia,Dementia
+F02,Dementia in other diseases classified elsewhere,Dementia
+F03,Unspecified dementia,Dementia
+G30,Alzheimer's disease,Dementia
+F04,Organic amnesic syndrome not induced by alcohol/psychoactive substances,"Organic, mental, and behavioural disorders"
+F05,Delirium not induced by alcohol and other psychoactive,"Organic, mental, and behavioural disorders"
+F06,Other mental disorders due to brain damage/dysfunction/physical disease,"Organic, mental, and behavioural disorders"
+F07,"Personality & behav'l disord's due to brain disease, damage & dysfunc'n","Organic, mental, and behavioural disorders"
+F10,Mental and behavioural disorders due to use of alcohol,Alcohol
+T51,Toxic effect of alcohol,Alcohol
+X45,Accidental poisoning by and exposure to alcohol,Alcohol
+X65,Intentional self-poisoning by and exposure to alcohol ,Alcohol
+Y91,Evidence of alcohol involvement determined by level of intoxication,Alcohol
+F30,Manic episode,Mood disorders
+F31,Bipolar affective disorder,Mood disorders
+F32,Depressive episode,Mood disorders
+F33,Recurrent depressive disorder,Mood disorders
+F38,Other mood [affective] disorders,Mood disorders
+F39,Unspecified mood [affective] disorder,Mood disorders
+F50,Eating disorders,Behavioural syndromes
+F51,Nonorganic sleep disorders,Behavioural syndromes
+F55,Abuse of non-dependence-producing substances,Behavioural syndromes
+G20,Parkinson's disease,Movement disorders
+G21,Secondary parkinsonism,Movement disorders
+G23,Other degenerative diseases of basal ganglia,Movement disorders
+G24,Dystonia,Movement disorders
+G25,Other extrapyramidal and movement disorders,Movement disorders
+G31,Other degenerative diseases of nervous system NEC,Degenerative disease of nervous system
+G32,Other degenerative disorders of nervous system in diseases classified elsewhere,Degenerative disease of nervous system
+G40,Epilepsy,Epilepsy
+G41,Status epilepticus,Epilepsy
+H00,Hordeolum and chalazion,Disorders of the eye
+H01,Other inflammation of eyelid,Disorders of the eye
+H02,Other disorders of eyelid,Disorders of the eye
+H03,Disorders of eyelid in diseases classified elsewhere,Disorders of the eye
+H04,Disorders of lacrimal system,Disorders of the eye
+H05,Disorders of orbit,Disorders of the eye
+H10,Conjunctivitis,Disorders of the eye
+H11,Other disorders of conjunctiva,Disorders of the eye
+H13,Disorders of conjunctiva in diseases classified elsewhere,Disorders of the eye
+H15,Disorders of sclera,Disorders of the eye
+H16,Keratitis,Disorders of the eye
+H18,Other disorders of cornea,Disorders of the eye
+H20,Iridocyclitis,Disorders of the eye
+H21,Other disorders of iris and ciliary body,Disorders of the eye
+H25,Senile cataract,Disorders of the eye
+H26,Other cataract,Disorders of the eye
+H28,Cataract and other disorders of lens in diseases classified elsewhere,Disorders of the eye
+H31,Other disorders of choroid,Disorders of the eye
+H33,Retinal detachments and breaks,Disorders of the eye
+H34,Retinal vascular occlusions,Disorders of the eye
+H35,Other retinal disorders,Disorders of the eye
+H36,Retinal disorders in diseases classified elsewhere,Disorders of the eye
+H40,Glaucoma,Disorders of the eye
+H43,Disorders of vitreous body,Disorders of the eye
+H44,Disorders of globe,Disorders of the eye
+H45,Disorders of vitreous body and globe in diseases classified elsewhere,Disorders of the eye
+H46,Optic neuritis,Disorders of the eye
+H47,Other disorders of optic [2nd] nerve and visual pathway,Disorders of the eye
+H49,Paralytic strabismus,Disorders of the eye
+H50,Other strabismus,Disorders of the eye
+H51,Other disorders of binocular movement,Disorders of the eye
+H52,Disorders of refraction and accommodation,Disorders of the eye
+H53,Visual disturbances,Disorders of the eye
+H54,Blindness and low vision,Disorders of the eye
+H55,Nystagmus and other irregular eye movements,Disorders of the eye
+H57,Other disorders of eye and adnexa,Disorders of the eye
+H58,Other disorders of eye and adnexa in diseases EC,Disorders of the eye
+H90,Conductive and sensorineural hearing loss,Hearing loss
+H91,Other hearing loss,Hearing loss
+H81,Disorders of vestibular function,Disorders of vestibular function
