@@ -1,0 +1,19 @@
+SELECT COUNT(FAE)
+FROM hdis_10years.hes_apc_1213_hdis_10years
+-- Finished episodes only (3)
+WHERE EPISTAT = '3'
+-- Emergency admissions
+AND ADMIMETH LIKE ('2%')
+-- First episode of a spell
+AND EPIORDER = 1
+-- Sussex LTLAs
+AND RESLADST_ONS IN ('E07000223','E07000224','E07000225','E07000226','E07000227','E07000228', 'E07000229', 'E06000043', 'E07000061', 'E07000062', 'E07000063', 'E07000064', 'E07000065')
+AND (DIAG_3_CONCAT RLIKE ('F10')
+-- Alcoholic liver disease
+OR DIAG_3_CONCAT RLIKE ('K70')
+-- Toxic effect of alcohol (selected conditioncodes)
+OR DIAG_4_CONCAT RLIKE ('T51[019]') 
+-- Other wholly attributable conditions
+OR DIAG_4_CONCAT RLIKE ('E244|G312|G621|G721|I426|K292|K852|K860|Q860|R780')
+OR DIAG_3_CONCAT RLIKE ('X45|X65|Y15|Y90|Y91'))
+GROUP BY RESLADST_ONS
