@@ -5,10 +5,10 @@
 (SELECT    
     'National' AS areatype,
     'England' AS area,
-    '202223' AS timeperiod,
+    '202122' AS timeperiod,
     t1.fyear AS financial_year,
     SUM(t1.fae) AS admissions
-FROM hdis_10years.hes_apc_2223_hdis_10years t1
+FROM hdis_10years.hes_apc_2122_hdis_10years t1
     WHERE t1.EPIORDER = 1
     AND t1.ADMIMETH LIKE '2%'
     AND t1.STARTAGE_CALC <19
@@ -26,8 +26,6 @@ GROUP BY t1.fyear
 -- among persons aged 0-18 years
 -- with primary diagnosis of asthma J45 or J46
 
-
--- The number of first finished emergency admission episodes in patients (episode number equals 1, admission method starts with 2), with a recording of self harm by cause code (ICD10 X60 to X84) in financial year in which episode ended. Regular and day attenders have been excluded. Regions are the sum of the Local Authorities. England is the sum of all Local Authorities and admissions coded as U (England NOS).
 (SELECT    
     '202223' AS timeperiod,
     t1.fyear AS financial_year,
@@ -88,4 +86,4 @@ UNION(SELECT
     AND t1.RESLADST_ONS RLIKE ('E|U')
     AND t1.DIAG_3_01 IN ('J45', 'J46')
 GROUP BY t1.fyear, t1.LSOA11
-)
+);
