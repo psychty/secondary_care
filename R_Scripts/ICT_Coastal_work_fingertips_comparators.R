@@ -2,6 +2,14 @@ packages <- c('easypackages', 'tidyr', 'ggplot2', 'dplyr', 'scales', 'readxl', '
 install.packages(setdiff(packages, rownames(installed.packages())))
 easypackages::libraries(packages)
 
+# Enable repository from ropensci
+# options(repos = c(
+ # ropensci = 'https://ropensci.r-universe.dev',
+ # CRAN = 'https://cloud.r-project.org'))
+
+# Download and install fingertipsR in R
+# install.packages('fingertipsR')
+
 # We can get all the data in one go
 OHID_indicators <- c(90832, 90810, 90813, 21001, 92302, 93574, 93573, 22401)
 
