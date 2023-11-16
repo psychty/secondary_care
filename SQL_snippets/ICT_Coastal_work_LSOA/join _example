@@ -1,0 +1,113 @@
+-- example left joins for multiple years of data - in this case asthma admissions for under 19s by region 2018/19 to 2022/23
+
+-- 2223
+CREATE OR REPLACE TEMPORARY VIEW df1 AS (
+    SELECT 'Regional' AS areatype,
+        RESGOR_ONS AS area,
+        SUM(FAE) AS admissions_2223
+    FROM hdis_10years.hes_apc_2223_hdis_10years 
+        WHERE EPIORDER = 1
+        AND ADMIMETH LIKE '2%'
+        AND STARTAGE_CALC < 19
+        AND EPISTAT IN ('1', '3')
+        AND SEX IN ('1', '2')
+        AND CLASSPAT = '1'
+        AND EPITYPE = '1'
+        AND RESLADST_ONS RLIKE ('E|U')
+        AND DIAG_3_01 IN ('J45', 'J46')
+    GROUP BY FYEAR, RESGOR_ONS)
+    ;
+
+--2122
+CREATE OR REPLACE TEMPORARY VIEW df2 AS (
+    SELECT 'Regional' AS areatype,
+        RESGOR_ONS AS area,
+        SUM(FAE) AS admissions_2122
+    FROM hdis_10years.hes_apc_2122_hdis_10years 
+        WHERE EPIORDER = 1
+        AND ADMIMETH LIKE '2%'
+        AND STARTAGE_CALC < 19
+        AND EPISTAT IN ('1', '3')
+        AND SEX IN ('1', '2')
+        AND CLASSPAT = '1'
+        AND EPITYPE = '1'
+        AND RESLADST_ONS RLIKE ('E|U')
+        AND DIAG_3_01 IN ('J45', 'J46')
+    GROUP BY FYEAR, RESGOR_ONS)
+    ;
+
+--2021
+CREATE OR REPLACE TEMPORARY VIEW df3 AS (
+    SELECT 'Regional' AS areatype,
+        RESGOR_ONS AS area,
+        SUM(FAE) AS admissions_2021
+    FROM hdis_10years.hes_apc_2021_hdis_10years 
+        WHERE EPIORDER = 1
+        AND ADMIMETH LIKE '2%'
+        AND STARTAGE_CALC < 19
+        AND EPISTAT IN ('1', '3')
+        AND SEX IN ('1', '2')
+        AND CLASSPAT = '1'
+        AND EPITYPE = '1'
+        AND RESLADST_ONS RLIKE ('E|U')
+        AND DIAG_3_01 IN ('J45', 'J46')
+    GROUP BY FYEAR, RESGOR_ONS)
+    ;
+
+-- 1920
+CREATE OR REPLACE TEMPORARY VIEW df4 AS (
+    SELECT 'Regional' AS areatype,
+        RESGOR_ONS AS area,
+        SUM(FAE) AS admissions_1920
+    FROM hdis_10years.hes_apc_1920_hdis_10years 
+        WHERE EPIORDER = 1
+        AND ADMIMETH LIKE '2%'
+        AND STARTAGE_CALC < 19
+        AND EPISTAT IN ('1', '3')
+        AND SEX IN ('1', '2')
+        AND CLASSPAT = '1'
+        AND EPITYPE = '1'
+        AND RESLADST_ONS RLIKE ('E|U')
+        AND DIAG_3_01 IN ('J45', 'J46')
+    GROUP BY FYEAR, RESGOR_ONS)
+    ;
+
+--1819
+CREATE OR REPLACE TEMPORARY VIEW df5 AS (
+    SELECT 'Regional' AS areatype,
+        RESGOR_ONS AS area,
+        SUM(FAE) AS admissions_1819
+    FROM hdis_10years.hes_apc_1819_hdis_10years 
+        WHERE EPIORDER = 1
+        AND ADMIMETH LIKE '2%'
+        AND STARTAGE_CALC < 19
+        AND EPISTAT IN ('1', '3')
+        AND SEX IN ('1', '2')
+        AND CLASSPAT = '1'
+        AND EPITYPE = '1'
+        AND RESLADST_ONS RLIKE ('E|U')
+        AND DIAG_3_01 IN ('J45', 'J46')
+    GROUP BY FYEAR, RESGOR_ONS)
+    ;
+
+SELECT  df1.area, 
+        df1.areatype,
+        df1.admissions_2223,
+        df2.admissions_2122,
+        df3.admissions_2021,
+        df4.admissions_1920,
+        df5.admissions_1819
+    FROM df1
+    LEFT JOIN df2
+        ON (df1.area = df2.area)
+        AND (df1.areatype = df2.areatype)
+    LEFT JOIN df3
+        ON (df1.area = df3.area)
+        AND (df1.areatype = df3.areatype)
+    LEFT JOIN df4
+        ON (df1.area = df4.area)
+        AND (df1.areatype = df4.areatype)
+    LEFT JOIN df5
+        ON (df1.area = df5.area)
+        AND (df1.areatype = df5.areatype)
+;
