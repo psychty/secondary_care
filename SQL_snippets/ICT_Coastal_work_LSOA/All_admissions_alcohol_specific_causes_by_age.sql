@@ -9,8 +9,8 @@ WHERE EPISTAT = '3'
 AND FAE = 1
 -- Ordinary admission (1), day case (2) or maternity (5)
 AND CLASSPAT IN ('1','2','5')
--- Emergency admissions
-AND ADMIMETH LIKE ('2%')
+-- Admission end in year
+AND EPIEND 
 -- First episode of a spell
 AND EPIORDER = 1
 -- Sex male or female
@@ -25,8 +25,4 @@ OR DIAG_4_CONCAT RLIKE ('T51[019]')
 -- Other wholly attributable conditions
 OR DIAG_4_CONCAT RLIKE ('E244|G312|G621|G721|I426|K292|K852|K860|Q860|R780')
 OR DIAG_3_CONCAT RLIKE ('X45|X65|Y15|Y90|Y91'))
--- England and Unknown LAD only
---AND RESLADST_ONS RLIKE ('E|U')
--- RESGOR not searchable in the apc file
 AND RESGOR_ONS RLIKE ('E|U|Y')
-GROUP BY Financial_year
