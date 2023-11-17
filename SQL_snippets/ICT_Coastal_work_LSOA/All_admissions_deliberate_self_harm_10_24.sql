@@ -2,12 +2,11 @@
 
 -- To check England all ages 2021/22 figure (numerator)
 SELECT 
-    FYEAR AS financial_year,
-    'National' AS areatype,
+    FYEAR AS Financial_year,
      CASE WHEN SEX = 1 THEN 'Male' 
         WHEN SEX = 2 THEN 'Female' 
         ELSE 'Unknown' 
-    END AS sex,  
+    END AS Sex,  
     CASE WHEN STARTAGE_CALC BETWEEN 0 AND 4 THEN '0-4 years' 
         WHEN STARTAGE_CALC BETWEEN 5 AND 9 THEN '5-9 years' 
         WHEN STARTAGE_CALC BETWEEN 10 AND 14 THEN '10-14 years' 
@@ -28,26 +27,113 @@ SELECT
         WHEN STARTAGE_CALC BETWEEN 85 AND 89 THEN '85-89 years' 
         WHEN STARTAGE_CALC BETWEEN 90 AND 120 THEN '90+ years' 
         ELSE 'Unknown'
-    END AS age_group, 
-    'England' AS areacode,
-    SUM(FCE) AS finished_episodes
+    END AS Age_group, 
+    SUM(FCE) AS Admission_episodes
+FROM hdis_10years.hes_apc_2122_hdis_10years
+    WHERE EPIORDER = 1
+    AND STARTAGE_CALC BETWEEN 10 AND 24
+    AND CAUSE_3 LIKE 'X%'
+    AND SUBSTR(CAUSE_3, 2, length(CAUSE_3)) BETWEEN 60 AND 84
+    AND RESLADST_ONS RLIKE ('E|U');
+
+-- LSOA extract
+SELECT * FROM
+    (SELECT 
+    CASE WHEN FYEAR = 1819 THEN 'FY_201819' 
+    WHEN FYEAR = 1920 THEN 'FY_201920' 
+    WHEN FYEAR = 2021 THEN 'FY_202021' 
+    WHEN FYEAR = 2122 THEN 'FY_202122' 
+    WHEN FYEAR = 2223 THEN 'FY_202223' 
+    ELSE FYEAR 
+    END AS Financial_year,
+    CASE WHEN SEX = 1 THEN 'Male' 
+        WHEN SEX = 2 THEN 'Female' 
+        ELSE 'Unknown' 
+    END AS Sex,  
+    CASE WHEN STARTAGE_CALC BETWEEN 0 AND 4 THEN '0-4 years' 
+        WHEN STARTAGE_CALC BETWEEN 5 AND 9 THEN '5-9 years' 
+        WHEN STARTAGE_CALC BETWEEN 10 AND 14 THEN '10-14 years' 
+        WHEN STARTAGE_CALC BETWEEN 15 AND 19 THEN '15-19 years' 
+        WHEN STARTAGE_CALC BETWEEN 20 AND 24 THEN '20-24 years' 
+        WHEN STARTAGE_CALC BETWEEN 25 AND 29 THEN '25-29 years'
+        WHEN STARTAGE_CALC BETWEEN 30 AND 34 THEN '30-34 years'
+        WHEN STARTAGE_CALC BETWEEN 35 AND 39 THEN '35-39 years' 
+        WHEN STARTAGE_CALC BETWEEN 40 AND 44 THEN '40-44 years' 
+        WHEN STARTAGE_CALC BETWEEN 45 AND 49 THEN '45-49 years' 
+        WHEN STARTAGE_CALC BETWEEN 50 AND 54 THEN '50-54 years' 
+        WHEN STARTAGE_CALC BETWEEN 55 AND 59 THEN '55-59 years' 
+        WHEN STARTAGE_CALC BETWEEN 60 AND 64 THEN '60-64 years' 
+        WHEN STARTAGE_CALC BETWEEN 65 AND 69 THEN '65-69 years' 
+        WHEN STARTAGE_CALC BETWEEN 70 AND 74 THEN '70-74 years' 
+        WHEN STARTAGE_CALC BETWEEN 75 AND 79 THEN '75-79 years' 
+        WHEN STARTAGE_CALC BETWEEN 80 AND 84 THEN '80-84 years' 
+        WHEN STARTAGE_CALC BETWEEN 85 AND 89 THEN '85-89 years' 
+        WHEN STARTAGE_CALC BETWEEN 90 AND 120 THEN '90+ years' 
+        ELSE 'Unknown'
+    END AS Age_group, 
+    LSOA11 AS LSOA11CD,
+    FCE
+FROM hdis_10years.hes_apc_2223_hdis_10years
+    WHERE EPIORDER = 1
+    AND STARTAGE_CALC BETWEEN 10 AND 24
+    AND CAUSE_3 LIKE 'X%'
+    AND SUBSTR(CAUSE_3, 2, length(CAUSE_3)) BETWEEN 60 AND 84
+    AND RESLADST_ONS RLIKE ('E|U')
+UNION ALL
+SELECT  
+CASE WHEN FYEAR = 1819 THEN 'FY_201819' 
+    WHEN FYEAR = 1920 THEN 'FY_201920' 
+    WHEN FYEAR = 2021 THEN 'FY_202021' 
+    WHEN FYEAR = 2122 THEN 'FY_202122' 
+    WHEN FYEAR = 2223 THEN 'FY_202223' 
+    ELSE FYEAR 
+    END AS Financial_year,
+     CASE WHEN SEX = 1 THEN 'Male' 
+        WHEN SEX = 2 THEN 'Female' 
+        ELSE 'Unknown' 
+    END AS Sex,  
+    CASE WHEN STARTAGE_CALC BETWEEN 0 AND 4 THEN '0-4 years' 
+        WHEN STARTAGE_CALC BETWEEN 5 AND 9 THEN '5-9 years' 
+        WHEN STARTAGE_CALC BETWEEN 10 AND 14 THEN '10-14 years' 
+        WHEN STARTAGE_CALC BETWEEN 15 AND 19 THEN '15-19 years' 
+        WHEN STARTAGE_CALC BETWEEN 20 AND 24 THEN '20-24 years' 
+        WHEN STARTAGE_CALC BETWEEN 25 AND 29 THEN '25-29 years'
+        WHEN STARTAGE_CALC BETWEEN 30 AND 34 THEN '30-34 years'
+        WHEN STARTAGE_CALC BETWEEN 35 AND 39 THEN '35-39 years' 
+        WHEN STARTAGE_CALC BETWEEN 40 AND 44 THEN '40-44 years' 
+        WHEN STARTAGE_CALC BETWEEN 45 AND 49 THEN '45-49 years' 
+        WHEN STARTAGE_CALC BETWEEN 50 AND 54 THEN '50-54 years' 
+        WHEN STARTAGE_CALC BETWEEN 55 AND 59 THEN '55-59 years' 
+        WHEN STARTAGE_CALC BETWEEN 60 AND 64 THEN '60-64 years' 
+        WHEN STARTAGE_CALC BETWEEN 65 AND 69 THEN '65-69 years' 
+        WHEN STARTAGE_CALC BETWEEN 70 AND 74 THEN '70-74 years' 
+        WHEN STARTAGE_CALC BETWEEN 75 AND 79 THEN '75-79 years' 
+        WHEN STARTAGE_CALC BETWEEN 80 AND 84 THEN '80-84 years' 
+        WHEN STARTAGE_CALC BETWEEN 85 AND 89 THEN '85-89 years' 
+        WHEN STARTAGE_CALC BETWEEN 90 AND 120 THEN '90+ years' 
+        ELSE 'Unknown'
+    END AS Age_group, 
+    LSOA11 AS LSOA11CD,
+    FCE
 FROM hdis_10years.hes_apc_2122_hdis_10years
     WHERE EPIORDER = 1
     AND STARTAGE_CALC BETWEEN 10 AND 24
     AND CAUSE_3 LIKE 'X%'
     AND SUBSTR(CAUSE_3, 2, length(CAUSE_3)) BETWEEN 60 AND 84
     AND RESLADST_ONS RLIKE ('E|U')
-GROUP BY financial_year, areacode, sex, age_group;
-
---- all geographies
--- england
-(SELECT 
-    FYEAR AS financial_year,
-    'National' AS areatype,
+UNION ALL 
+SELECT 
+CASE WHEN FYEAR = 1819 THEN 'FY_201819' 
+    WHEN FYEAR = 1920 THEN 'FY_201920' 
+    WHEN FYEAR = 2021 THEN 'FY_202021' 
+    WHEN FYEAR = 2122 THEN 'FY_202122' 
+    WHEN FYEAR = 2223 THEN 'FY_202223' 
+    ELSE FYEAR 
+    END AS Financial_year,
      CASE WHEN SEX = 1 THEN 'Male' 
         WHEN SEX = 2 THEN 'Female' 
         ELSE 'Unknown' 
-    END AS sex,  
+    END AS Sex,  
     CASE WHEN STARTAGE_CALC BETWEEN 0 AND 4 THEN '0-4 years' 
         WHEN STARTAGE_CALC BETWEEN 5 AND 9 THEN '5-9 years' 
         WHEN STARTAGE_CALC BETWEEN 10 AND 14 THEN '10-14 years' 
@@ -68,25 +154,28 @@ GROUP BY financial_year, areacode, sex, age_group;
         WHEN STARTAGE_CALC BETWEEN 85 AND 89 THEN '85-89 years' 
         WHEN STARTAGE_CALC BETWEEN 90 AND 120 THEN '90+ years' 
         ELSE 'Unknown'
-    END AS age_group, 
-    'England' AS areacode,
-    SUM(FCE) AS finished_episodes
-FROM hdis_10years.hes_apc_2223_hdis_10years
+    END AS Age_group, 
+    LSOA11 AS LSOA11CD,
+    FCE
+FROM hdis_10years.hes_apc_2021_hdis_10years
     WHERE EPIORDER = 1
     AND STARTAGE_CALC BETWEEN 10 AND 24
     AND CAUSE_3 LIKE 'X%'
     AND SUBSTR(CAUSE_3, 2, length(CAUSE_3)) BETWEEN 60 AND 84
     AND RESLADST_ONS RLIKE ('E|U')
-GROUP BY financial_year, areacode, sex, age_group)
-
--- county
-UNION (SELECT 
-    FYEAR AS financial_year,
-    'Resident CTY' AS areatype,
+UNION ALL
+SELECT 
+CASE WHEN FYEAR = 1819 THEN 'FY_201819' 
+    WHEN FYEAR = 1920 THEN 'FY_201920' 
+    WHEN FYEAR = 2021 THEN 'FY_202021' 
+    WHEN FYEAR = 2122 THEN 'FY_202122' 
+    WHEN FYEAR = 2223 THEN 'FY_202223' 
+    ELSE FYEAR 
+    END AS Financial_year,
      CASE WHEN SEX = 1 THEN 'Male' 
         WHEN SEX = 2 THEN 'Female' 
         ELSE 'Unknown' 
-    END AS sex,  
+    END AS Sex,  
     CASE WHEN STARTAGE_CALC BETWEEN 0 AND 4 THEN '0-4 years' 
         WHEN STARTAGE_CALC BETWEEN 5 AND 9 THEN '5-9 years' 
         WHEN STARTAGE_CALC BETWEEN 10 AND 14 THEN '10-14 years' 
@@ -107,25 +196,28 @@ UNION (SELECT
         WHEN STARTAGE_CALC BETWEEN 85 AND 89 THEN '85-89 years' 
         WHEN STARTAGE_CALC BETWEEN 90 AND 120 THEN '90+ years' 
         ELSE 'Unknown'
-    END AS age_group, 
-    RESCTY_ONS AS areacode,
-    SUM(FCE) AS finished_episodes
-FROM hdis_10years.hes_apc_2223_hdis_10years
+    END AS Age_group, 
+    LSOA11 AS LSOA11CD,
+    FCE
+FROM hdis_10years.hes_apc_1920_hdis_10years
     WHERE EPIORDER = 1
     AND STARTAGE_CALC BETWEEN 10 AND 24
     AND CAUSE_3 LIKE 'X%'
     AND SUBSTR(CAUSE_3, 2, length(CAUSE_3)) BETWEEN 60 AND 84
     AND RESLADST_ONS RLIKE ('E|U')
-GROUP BY financial_year, areacode, sex, age_group)
-
--- lsoa
-UNION (SELECT 
-    FYEAR AS financial_year,
-    'LSOA' AS areatype,
+UNION ALL
+SELECT 
+CASE WHEN FYEAR = 1819 THEN 'FY_201819' 
+    WHEN FYEAR = 1920 THEN 'FY_201920' 
+    WHEN FYEAR = 2021 THEN 'FY_202021' 
+    WHEN FYEAR = 2122 THEN 'FY_202122' 
+    WHEN FYEAR = 2223 THEN 'FY_202223' 
+    ELSE FYEAR 
+    END AS Financial_year,
      CASE WHEN SEX = 1 THEN 'Male' 
         WHEN SEX = 2 THEN 'Female' 
         ELSE 'Unknown' 
-    END AS sex,  
+    END AS Sex,  
     CASE WHEN STARTAGE_CALC BETWEEN 0 AND 4 THEN '0-4 years' 
         WHEN STARTAGE_CALC BETWEEN 5 AND 9 THEN '5-9 years' 
         WHEN STARTAGE_CALC BETWEEN 10 AND 14 THEN '10-14 years' 
@@ -146,13 +238,15 @@ UNION (SELECT
         WHEN STARTAGE_CALC BETWEEN 85 AND 89 THEN '85-89 years' 
         WHEN STARTAGE_CALC BETWEEN 90 AND 120 THEN '90+ years' 
         ELSE 'Unknown'
-    END AS age_group, 
-    LSOA11 AS areacode,
-    SUM(FCE) AS finished_episodes
-FROM hdis_10years.hes_apc_2223_hdis_10years
+    END AS Age_group, 
+    LSOA11 AS LSOA11CD,
+    FCE
+FROM hdis_10years.hes_apc_1819_hdis_10years
     WHERE EPIORDER = 1
     AND STARTAGE_CALC BETWEEN 10 AND 24
     AND CAUSE_3 LIKE 'X%'
     AND SUBSTR(CAUSE_3, 2, length(CAUSE_3)) BETWEEN 60 AND 84
-    AND RESLADST_ONS RLIKE ('E|U')
-GROUP BY financial_year, areacode, sex, age_group);
+    AND RESLADST_ONS RLIKE ('E|U'))
+  PIVOT
+    (SUM(FCE)
+        FOR Financial_year IN (('FY_201819'), ('FY_201920'), ('FY_202021'), ('FY_202122'), ('FY_202223')))
