@@ -20,7 +20,7 @@ AND EPIORDER = 1
 -- causes and conditions 
 -- injuries and other adverse effects of external causes (ICD 10: S00 to T79 and or V01 to Y36)
 AND (DIAG_3_CONCAT RLIKE ('S|V|W|X') 
-AND DIAG_3_CONCAT RLIKE ('T[0-7]') 
+OR DIAG_3_CONCAT RLIKE ('T[0-7]') 
 OR DIAG_3_CONCAT RLIKE ('Y[0-2]|Y3[0-6]')) 
 -- England and Unknown LAD only
 AND RESLADST_ONS RLIKE ('E|U')
@@ -40,7 +40,7 @@ AND EPIORDER = 1
 -- causes and conditions 
 -- injuries and other adverse effects of external causes (ICD 10: S00 to T79 and or V01 to Y36)
 AND (DIAG_3_CONCAT RLIKE ('S|V|W|X') 
-AND DIAG_3_CONCAT RLIKE ('T[0-7]') 
+OR DIAG_3_CONCAT RLIKE ('T[0-7]') 
 OR DIAG_3_CONCAT RLIKE ('Y[0-2]|Y3[0-6]')) 
 -- England and Unknown LAD only
 AND RESLADST_ONS RLIKE ('E|U')
@@ -60,7 +60,7 @@ AND EPIORDER = 1
 -- causes and conditions 
 -- injuries and other adverse effects of external causes (ICD 10: S00 to T79 and or V01 to Y36)
 AND (DIAG_3_CONCAT RLIKE ('S|V|W|X') 
-AND DIAG_3_CONCAT RLIKE ('T[0-7]') 
+OR DIAG_3_CONCAT RLIKE ('T[0-7]') 
 OR DIAG_3_CONCAT RLIKE ('Y[0-2]|Y3[0-6]')) 
 -- England and Unknown LAD only
 AND RESLADST_ONS RLIKE ('E|U')
@@ -80,7 +80,7 @@ AND EPIORDER = 1
 -- causes and conditions 
 -- injuries and other adverse effects of external causes (ICD 10: S00 to T79 and or V01 to Y36)
 AND (DIAG_3_CONCAT RLIKE ('S|V|W|X') 
-AND DIAG_3_CONCAT RLIKE ('T[0-7]') 
+OR DIAG_3_CONCAT RLIKE ('T[0-7]') 
 OR DIAG_3_CONCAT RLIKE ('Y[0-2]|Y3[0-6]')) 
 -- England and Unknown LAD only
 AND RESLADST_ONS RLIKE ('E|U')
@@ -100,7 +100,7 @@ AND EPIORDER = 1
 -- causes and conditions 
 -- injuries and other adverse effects of external causes (ICD 10: S00 to T79 and or V01 to Y36)
 AND (DIAG_3_CONCAT RLIKE ('S|V|W|X') 
-AND DIAG_3_CONCAT RLIKE ('T[0-7]') 
+OR DIAG_3_CONCAT RLIKE ('T[0-7]') 
 OR DIAG_3_CONCAT RLIKE ('Y[0-2]|Y3[0-6]')) 
 -- England and Unknown LAD only
 AND RESLADST_ONS RLIKE ('E|U')
