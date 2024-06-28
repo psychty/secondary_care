@@ -5,7 +5,7 @@
     -- Finished episode status
     AND EPISTAT = 3
     -- Ordinary admissions or day cases
-    AND CLASSPAT RLIKE ('1','2','5')
+    AND CLASSPAT IN ('1','2','5')
     -- Among those aged 0-19 at the start of the admission
     AND (STARTAGE_CALC >= 0 AND STARTAGE_CALC <= 19)
     -- With a primary operation code of F09 or F10 (tooth extraction)
@@ -20,7 +20,7 @@ UNION
     -- Finished episode status
     AND EPISTAT = 3
     -- Ordinary admissions or day cases
-    AND CLASSPAT RLIKE ('1','2','5')
+    AND CLASSPAT IN ('1','2','5')
     -- Among those aged 0-19 at the start of the admission
     AND (STARTAGE_CALC >= 0 AND STARTAGE_CALC <= 19)
     -- With a primary operation code of F09 or F10 (tooth extraction)
@@ -35,7 +35,7 @@ UNION
     -- Finished episode status
     AND EPISTAT = 3
     -- Ordinary admissions or day cases
-    AND CLASSPAT RLIKE ('1','2','5')
+    AND CLASSPAT IN ('1','2','5')
     -- Among those aged 0-19 at the start of the admission
     AND (STARTAGE_CALC >= 0 AND STARTAGE_CALC <= 19)
     -- With a primary operation code of F09 or F10 (tooth extraction)
@@ -50,7 +50,7 @@ UNION
     -- Finished episode status
     AND EPISTAT = 3
     -- Ordinary admissions or day cases
-    AND CLASSPAT RLIKE ('1','2','5')
+    AND CLASSPAT IN ('1','2','5')
     -- Among those aged 0-19 at the start of the admission
     AND (STARTAGE_CALC >= 0 AND STARTAGE_CALC <= 19)
     -- With a primary operation code of F09 or F10 (tooth extraction)
@@ -65,7 +65,7 @@ UNION
     -- Finished episode status
     AND EPISTAT = 3
     -- Ordinary admissions or day cases
-    AND CLASSPAT RLIKE ('1','2','5')
+    AND CLASSPAT IN ('1','2','5')
     -- Among those aged 0-19 at the start of the admission
     AND (STARTAGE_CALC >= 0 AND STARTAGE_CALC <= 19)
     -- With a primary operation code of F09 or F10 (tooth extraction)
@@ -80,7 +80,7 @@ UNION
     -- Finished episode status
     AND EPISTAT = 3
     -- Ordinary admissions or day cases
-    AND CLASSPAT RLIKE ('1','2','5')
+    AND CLASSPAT IN ('1','2','5')
     -- Among those aged 0-19 at the start of the admission
     AND (STARTAGE_CALC >= 0 AND STARTAGE_CALC <= 19)
     -- With a primary operation code of F09 or F10 (tooth extraction)
@@ -95,7 +95,7 @@ UNION
     -- Finished episode status
     AND EPISTAT = 3
     -- Ordinary admissions or day cases
-    AND CLASSPAT RLIKE ('1','2','5')
+    AND CLASSPAT IN ('1','2','5')
     -- Among those aged 0-19 at the start of the admission
     AND (STARTAGE_CALC >= 0 AND STARTAGE_CALC <= 19)
     -- With a primary operation code of F09 or F10 (tooth extraction)
@@ -110,7 +110,7 @@ UNION
     -- Finished episode status
     AND EPISTAT = 3
     -- Ordinary admissions or day cases
-    AND CLASSPAT RLIKE ('1','2','5')
+    AND CLASSPAT IN ('1','2','5')
     -- Among those aged 0-19 at the start of the admission
     AND (STARTAGE_CALC >= 0 AND STARTAGE_CALC <= 19)
     -- With a primary operation code of F09 or F10 (tooth extraction)
@@ -125,7 +125,7 @@ UNION
     -- Finished episode status
     AND EPISTAT = 3
     -- Ordinary admissions or day cases
-    AND CLASSPAT RLIKE ('1','2','5')
+    AND CLASSPAT IN ('1','2','5')
     -- Among those aged 0-19 at the start of the admission
     AND (STARTAGE_CALC >= 0 AND STARTAGE_CALC <= 19)
     -- With a primary operation code of F09 or F10 (tooth extraction)
@@ -140,7 +140,7 @@ UNION
     -- Finished episode status
     AND EPISTAT = 3
     -- Ordinary admissions or day cases
-    AND CLASSPAT RLIKE ('1','2','5')
+    AND CLASSPAT IN ('1','2','5')
     -- Among those aged 0-19 at the start of the admission
     AND (STARTAGE_CALC >= 0 AND STARTAGE_CALC <= 19)
     -- With a primary operation code of F09 or F10 (tooth extraction)
@@ -155,7 +155,7 @@ UNION
     -- Finished episode status
     AND EPISTAT = 3
     -- Ordinary admissions or day cases
-    AND CLASSPAT RLIKE ('1','2','5')
+    AND CLASSPAT IN ('1','2','5')
     -- Among those aged 0-19 at the start of the admission
     AND (STARTAGE_CALC >= 0 AND STARTAGE_CALC <= 19)
     -- With a primary operation code of F09 or F10 (tooth extraction)
