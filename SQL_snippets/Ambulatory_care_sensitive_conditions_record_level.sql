@@ -22,20 +22,20 @@ OR DIAG_3_01 IN ('F00', 'F01', 'F02', 'F03')
 OR DIAG_3_01 IN ('G40', 'G41')
 /* Cardiovascular diseases - Congestive heart failure: Hypertensive heart disease with (congestive) heart failure (I110), Heart failure (I50), Pulmonary oedema (J81X), Hypertensive heart and renal 
 disease with (congestive) heart failure (I130) - excluding certain operation codes */
-OR((DIAG_3_01 = 'I50'OR DIAG_4_01 IN ('I110', 'J81X', 'I130')) AND OPERTN_3_CONCAT NOT IN ('K0', 'K1', 'K2', 'K3', 'K4', 'K50', 'K52', 'K55', 'K56', 'K57', 'K60', 'K61', 'K66', 'K67', 'K68', 'K69', 'K71', 'K73', 'K74'))
+OR((DIAG_3_01 = 'I50'OR DIAG_4_01 IN ('I110', 'J81[0-9]', 'I130')) AND OPERTN_3_CONCAT NOT IN ('K0', 'K1', 'K2', 'K3', 'K4', 'K50', 'K52', 'K55', 'K56', 'K57', 'K60', 'K61', 'K66', 'K67', 'K68', 'K69', 'K71', 'K73', 'K74'))
 /* Cardiovascular diseases - Angina: Angina pectoris (I20), Chronic ischaemic heart 
 disease (I25) - excluding certain operation codes */
 OR (DIAG_3_01 IN ('I20', 'I25') AND OPERTN_3_CONCAT NOT RLIKE ('^A|^B|^C|^D|^E|^F|^G|^H|^I|^J|^K|^L|^M|^N|^O|^P|^Q|^R|^S|^T|^V|^W|^X0|^X1|^X2|^X4|^X5'))
 /* Cardiovascular diseases - Hypertension: Essential (primary) hypertension (I10X), Hypertensive heart disease without (congestive) heart failure (I119) - excluding certain operation codes */
-OR (DIAG_4_01 IN ('I10X', 'I119') AND OPERTN_3_CONCAT NOT RLIKE ('^K0|^K1|^K2|^K3|^K4|^K50|^K52|^K55|^K56|^K57|^K60|^K61|^K66|^K67|^K68|^K69|^K71|^K73|^K74'))
+OR (DIAG_4_01 IN ('I10[0-9]', 'I119') AND OPERTN_3_CONCAT NOT RLIKE ('^K0|^K1|^K2|^K3|^K4|^K50|^K52|^K55|^K56|^K57|^K60|^K61|^K66|^K67|^K68|^K69|^K71|^K73|^K74'))
 /* Cardiovascular dieases - Atrial fibrillation and flutter */
 OR DIAG_3_01 IN ('I48')
 /* Respiratory diseases - Chronic obstructive pulmonary disease: Acute bronchitis (J20), Simple and mucopurulent chronic bronchitis (J41), Unspecified chronic bronchitis (J42X), Emphysema (J43), Other chronic obstructive pulmonary disease (J44), Bronchiectasis (J47)*/
 OR (DIAG_3_01 = 'J20' AND DIAG_3_CONCAT RLIKE ('J41|J42|J43|J44|J47')) -- J20 only with certain conditions codes
 OR DIAG_3_01 IN ('J41', 'J43', 'J44') 
-OR DIAG_4_01 IN ('J42X', 'J47X')
+OR DIAG_4_01 IN ('J42[0-9]', 'J47[0-9]')
 /* Respiratory diseases - Asthma (J45). Status asthmaticus (J46)*/
-OR (DIAG_3_01 = 'J45' OR DIAG_4_01 = 'J46X'))
+OR (DIAG_3_01 = 'J45' OR DIAG_4_01 = 'J46[0-9]'))
 -- Age of the patient at the start of their episode of care. For this indicator all ages are considered.
 -- I'm not sure this works
 AND STARTAGE IS NOT NULL -- 120 OR (STARTAGE_CALC >= 7001 AND STARTAGE_CALC <= 7007))
@@ -43,15 +43,12 @@ AND STARTAGE IS NOT NULL -- 120 OR (STARTAGE_CALC >= 7001 AND STARTAGE_CALC <= 7
 AND ADMIMETH LIKE '2%'
 -- Unfinished (1) and Finished (3) episodes
 AND EPISTAT = IN ('1', '3')
--- Admission date in year
--- The indicator also splits this by quarter
-AND ADMIDATE >= '2020-04-01' AND ADMIDATE <= '2021-03-31'
 -- Sex is male (1) or female (2) - exclude records where sex was unknown or unspecified.
 AND SEX IN ('1', '2')
 -- First episode in a spell
 AND EPIORDER = 1
--- Exclude admission source of transfers 
-AND ADMISORC NOT IN ('51', '52', '53')
+-- Exclude admission source of transfers - I think we should do this in 
+-- AND ADMISORC NOT IN ('51', '52', '53')
 -- Include just general health episode types (and exclude births/maternity/mental health episodes)
 AND EPITYPE = '1'
 -- Include ordinary admissions (and exclude day case, regular day/night attenders and mothers/babies using only delivery facilities)
